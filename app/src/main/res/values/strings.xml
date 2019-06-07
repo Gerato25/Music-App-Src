@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Freemium Music</string>
+    <string name="title_activity_scroll__download">Scroll_Download</string>
+    <string name="downloads_found">Songs Found..!\n
+        Click on the DOWNLOAD SONGS button to open download page</string>
+    <string name="downloads_not_founds">Sorry No Downloads found Here.\n
+        Select a Song, Album or a Playlist to fetch songs</string>
+    <string name="action_settings">Settings</string>
+    <string name="FailedJson">
+    {
+   "title":"FAILED",
+   "name":"FAILED",
+   "year":"FAILED",
+   "release_date":"FAILED",
+   "primary_artists":"FAILED",
+   "primary_artists_id":"",
+   "albumid":"",
+   "perma_url":"",
+   "image":"FAILED",
+   "songs":[
+      {
+         "id":"FAILED",
+         "type":"",
+         "song":"FAILED",
+         "album":"FAILED",
+         "year":"FAILED",
+         "music":"FAILED",
+         "primary_artists":"FAILED",
+         "featured_artists":"",
+         "featured_artists_id":"",
+         "singers":"FAILED",
+         "starring":"",
+         "image":"FAILED",
+         "duration":"000",
+
+      }]}
+    </string>
+
+
+
+    <string name="pref_main">nitish.build.com.saavntest1_main_sp</string>
+    <string name="pref_counter">nitish.build.com.saavntest1_counter</string>
+    <string name="pref_JsonFromID">nitish.build.com.saavntest1_JsonFromID</string>
+    <string name="pref_search_counter">nitish.build.com.saavntest1_search_counter</string>
+    <string name="pref_inqueue">nitish.build.com.saavntest1_inqueue</string>
+
+
+    <string name="downloads_page">This Page is still under development.\n
+                        Please wait till the next release to enjoy this Feature.\n
+                        Untill then check  FREEMIUM_DOWNLOADS  folder for downloaded songs.</string>
+    <string name="searchPage">Use the above Search bar to Search songs and the results appear here.\n
+                            Use Browse option [experimental] to browse songs directly from Saavn web UI.\n
+                            All downloaded songs will be saved to  FREEMIUM_DOWNLOADS  folder</string>
+
+    <string name="more_page">Note : This a beta release of the app. So its common to have Bugs and Lags in the app.
+        For further development of the app please report the bugs you find.</string>
+    <string name="more_page_ClickText"><u>Click here to Report a Bug or Suggest a feature.(use Gmail)</u></string>
+    <string name="more_page_Disclaimer">Downloading Copyrighted music might be illegal in Some countries.\n
+    © All Songs,images and Saavn™ belongs to JioSaavn.</string>
+    <string name="madeBy">by <b>Nitish</b></string>
+    <string name="ad_Search">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_Album">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_Down">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_more">ca-app-pub-3940256099942544/6300978111</string>
+
+</resources>
