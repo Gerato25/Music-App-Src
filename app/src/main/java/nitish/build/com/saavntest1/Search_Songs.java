@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -42,6 +45,7 @@ public class Search_Songs extends AppCompatActivity {
     JSONArray searchList;
     ListView resList ;
     ProgressDialog progressDialog;
+    TextView tv_ins,tv_resStatus;
     AdView mAdView;
     InterstitialAd mInterstitialAd;
     SharedPreferences pref_main;
@@ -75,6 +79,7 @@ public class Search_Songs extends AppCompatActivity {
             exitToast.cancel();
             finishAffinity();
             finish();
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             return;
         }
 
@@ -150,7 +155,7 @@ public class Search_Songs extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         progressDialog.dismiss();
-        TextView tv_ins = findViewById(R.id.tv_ins);
+        tv_ins = findViewById(R.id.tv_ins);
 
         exitToast = Toast.makeText(getApplicationContext(), "click BACK again to exit", Toast.LENGTH_SHORT);
 
@@ -171,11 +176,16 @@ public class Search_Songs extends AppCompatActivity {
         //---------------Done Permission--------------//
 
 
-        TextView tv_resStatus=findViewById(R.id.tv_urResStatus);
+        tv_resStatus=findViewById(R.id.tv_urResStatus);
         tv_resStatus.setText("Your search results appear here:");
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(1000);
+                v.startAnimation(animation1);
+                //-------------------------//
 
                 View view = getCurrentFocus();
                 if (view != null) {
@@ -196,33 +206,19 @@ public class Search_Songs extends AppCompatActivity {
 
                 query=et_SearchBox.getText().toString();
                 query=query.replace(" ", "");
-                tv_resStatus.setText("search for ..."+query+"...");
+                tv_resStatus.setText("searching for \""+query+"\"");
                 resList.setVisibility(View.INVISIBLE);
 
                 try {
                     if(query.length()==0){
                         tv_resStatus.setText("Type something and press Search button..");
                     }else{
-                    searchRes=DataHandlers.getSearchResult(query);
-                    if (searchRes.equals("[]")){
-                        tv_resStatus.setText("No matches found for :"+query);
 
-                    }else{
-
-                    searchList = new JSONArray(searchRes);
-
-                    listSize=searchList.length();
+                        new JsonSetup().execute(query);
+                    }
 
 
-                    tv_resStatus.setText("Found: "+listSize+" Matches");
-                    CustomAdapter customAdapter = new CustomAdapter();
-                    resList.setAdapter(customAdapter);
-                    resList.setVisibility(View.VISIBLE);
-                    tv_ins.setVisibility(View.GONE);
-                    }}
-
-
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -249,6 +245,11 @@ public class Search_Songs extends AppCompatActivity {
         resList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(1000);
+                view.startAnimation(animation1);
+                //-------------------------//
                 progressDialog.show();
                 try {
                     JSONObject songJson = new JSONObject(searchList.getString(position));
@@ -266,12 +267,67 @@ public class Search_Songs extends AppCompatActivity {
                     toSongList.putExtra("PREV_ACT","SEARCH_ACT");
                     progressDialog.dismiss();
                     startActivity(toSongList);
+                    overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+
+    }
+
+    public  class JsonSetup extends AsyncTask<String,Void,String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+
+            try {
+                searchRes=DataHandlers.getSearchResult(strings[0]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (searchRes.equals("[]")){
+                return "FAILED";
+
+            }else{
+
+                try {
+                    searchList = new JSONArray(searchRes);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                listSize=searchList.length();
+
+            }
+
+            return Integer.toString(listSize);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.equals("FAILED"))
+                tv_resStatus.setText("No matches found for :"+query);
+            tv_resStatus.setText("Found: "+listSize+" Matches");
+            CustomAdapter customAdapter = new CustomAdapter();
+            resList.setAdapter(customAdapter);
+            resList.setVisibility(View.VISIBLE);
+            tv_ins.setVisibility(View.GONE);
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            progressDialog.show();
+        }
+
 
     }
 
@@ -327,15 +383,38 @@ public class Search_Songs extends AppCompatActivity {
     }
 
     public void sBtmSrch(View v){
+        //------Animation-----------//
+        Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+        animation1.setDuration(1000);
+        v.startAnimation(animation1);
+        //-------------------------//
 //        startActivity(new Intent(getApplicationContext(),Search_Songs.class));
     }
     public void sBtmBrws(View v){
+        //------Animation-----------//
+        Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+        animation1.setDuration(1000);
+        v.startAnimation(animation1);
+        //-------------------------//
         startActivity(new Intent(getApplicationContext(),SaavnWebView.class));
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
     public void sBtmDown(View v){
+        //------Animation-----------//
+        Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+        animation1.setDuration(1000);
+        v.startAnimation(animation1);
+        //-------------------------//
         startActivity(new Intent(getApplicationContext(),Downloads_Page.class));
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
     public void sBtmMore(View v){
+        //------Animation-----------//
+        Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+        animation1.setDuration(1000);
+        v.startAnimation(animation1);
+        //-------------------------//
         startActivity(new Intent(getApplicationContext(),MorePage.class));
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

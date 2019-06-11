@@ -71,15 +71,17 @@
         android:id="@+id/textView5"
         android:layout_width="0dp"
         android:layout_height="25dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/white"
         android:fontFamily="@font/jockey_one"
         android:gravity="center"
         android:text="Music will be saved to   FREEMIUM_DOWNLOADS   folder"
         android:textAlignment="center"
         android:textColor="@color/darkAccent"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
     <TextView
         android:id="@+id/tv_downInfo"
@@ -94,10 +96,11 @@
         android:textAlignment="center"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/adView_Downloads"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.64" />
 
     <ListView
         android:id="@+id/list_inQueue"
@@ -123,6 +126,7 @@
         android:paddingLeft="16dp"
         android:text="Now Downloading :"
         android:textColor="@color/darkAccent"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -182,6 +186,7 @@
         android:paddingLeft="16dp"
         android:text="In Queue : "
         android:textColor="@color/darkAccent"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pb_DownPage" />
@@ -194,11 +199,63 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="2dp"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/ad_Down"
-        ads:layout_constraintBottom_toTopOf="@+id/textView5"
+        ads:layout_constraintBottom_toTopOf="@+id/textView4"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/secular_one"
+        android:text="Downloads"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_bak_dp"
+        android:layout_width="30dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
+    <ImageView
+        android:id="@+id/btn_set_dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_settings" />
+
+    <Button
+        android:id="@+id/btn_folder_dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/down_back"
+        android:text="Open Downloads Folder"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_downInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

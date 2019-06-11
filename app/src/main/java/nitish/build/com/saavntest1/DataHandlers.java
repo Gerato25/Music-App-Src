@@ -155,6 +155,8 @@ public class DataHandlers {
 
             resID=data;
             resID=resID.replace(" ","");
+            if (resID.equals(""))
+                return "FAILED";
             return resID;
         }catch(Exception e){
             return resID;
@@ -361,6 +363,13 @@ public class DataHandlers {
 //    }
 
     static void setTags2(String absPath,String tempJson) throws Exception {
+        String format = absPath.substring(absPath.lastIndexOf(".")+1);
+        if (format.equals("mp3")){
+            File prev = new File(absPath);
+            File temp_m4a = new File(absPath.substring(0,absPath.lastIndexOf("."))+".m4a");
+            prev.renameTo(temp_m4a);
+            absPath=temp_m4a.getAbsolutePath();
+        }
         JSONObject songJson = new JSONObject(tempJson);
         if(songJson.toString().contains("song")) {
             String ALBUM_N = songJson.getString("album");
@@ -397,8 +406,12 @@ public class DataHandlers {
 //            mp4tag.createArtworkField(imagedata);
 
             audioFile.commit();
+        }
 
-
+        if (format.equals("mp3")){
+            File prev_mp3 = new File(absPath);
+            File new_mp3 = new File(absPath.substring(0,absPath.lastIndexOf("."))+".mp3");
+            prev_mp3.renameTo(new_mp3);
         }
     }
 

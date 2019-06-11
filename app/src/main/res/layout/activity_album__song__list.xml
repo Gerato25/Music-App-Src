@@ -138,7 +138,7 @@
             android:id="@+id/radio_320"
             android:tag="320"
             style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-            android:checked="true"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -196,6 +196,7 @@
         android:text="In Download Queue: "
         android:textColor="@android:color/white"
         android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/tv_totDowns"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/img_album"
@@ -212,5 +213,15 @@
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
+    <ImageView
+        android:id="@+id/btn_settings"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_settings" />
 
 </android.support.constraint.ConstraintLayout>

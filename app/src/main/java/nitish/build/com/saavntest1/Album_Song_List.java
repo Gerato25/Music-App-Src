@@ -1,9 +1,11 @@
 package nitish.build.com.saavntest1;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +24,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -84,12 +88,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Album_Song_List extends AppCompatActivity {
     String albumID,jsonData,finUrl,downUrl,downpath,fName,folderName="RandomAlbum",albumArtUrl="",
-            chanelId="test1",dataType,dot=" • ",url_img="FAILED",prevAct="",tempSJson="",tempID;
+            chanelId="test1",dataType,dot=" • ",url_img="FAILED",prevAct="",tempSJson="",tempID,format="m4a";
     static String nowDownS="";
     JSONArray songArr ;
     JSONObject songObj;
@@ -108,19 +113,23 @@ public class Album_Song_List extends AppCompatActivity {
     InterstitialAd mInterstitialAd;
     Artwork artwork;
     Fetch fetch;
+    ImageView btn_settings;
 
 
     @Override
     public void onBackPressed() {
 
-        if (prevAct.equals("WEB_ACT"))
-            startActivity(new Intent(getApplicationContext(),SaavnWebView.class));
-        else if (prevAct.equals("SEARCH_ACT"))
-            startActivity(new Intent(getApplicationContext(),Search_Songs.class));
-        else
+//        if (prevAct.equals("WEB_ACT"))
+//            startActivity(new Intent(getApplicationContext(),SaavnWebView.class));
+//        else if (prevAct.equals("SEARCH_ACT"))
+//            startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+//        else
         super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,15 +192,23 @@ public class Album_Song_List extends AppCompatActivity {
         rad_320=findViewById(R.id.radio_320);
         tv_DownCount=findViewById(R.id.tv_totDowns);
         btn_toDownPage=findViewById(R.id.btn_down_alb);
+        btn_settings=findViewById(R.id.btn_settings);
 
 //        SharedPreferences pre_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
 //        int inQ=pre_main.getInt(getResources().getString(R.string.pref_inqueue),0);
 //        tv_DownCount.setText(inQ+"");
 
-        btn_toDownPage.setOnClickListener(new View.OnClickListener() {
+        btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(),Downloads_Page.class));
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(500);
+                v.startAnimation(animation1);
+                //-------------------------//
+
+                startActivity(new Intent(getApplicationContext(),Settings_Alb.class));
+                overridePendingTransition(R.anim.slide_in_down,  R.anim.slide_out_down);
             }
         });
 
@@ -254,6 +271,8 @@ public class Album_Song_List extends AppCompatActivity {
         tv_TypeTot.setText(dataType+dot+listSize+" Songs");
 
 
+
+
         PRDownloader.download(url_img, DataHandlers.makeDir(".cache"), tv_ALPLname.getText()+".jpg")
                 .build()
                 .setOnStartOrResumeListener(new OnStartOrResumeListener() {
@@ -280,6 +299,17 @@ public class Album_Song_List extends AppCompatActivity {
                     }
                 });
 
+        SharedPreferences set_pref=getApplicationContext().getSharedPreferences(getResources().getString(R.string.set_main),MODE_PRIVATE);
+        String d_kbps = set_pref.getString(getResources().getString(R.string.set_kbps),"320");
+        format = set_pref.getString(getResources().getString(R.string.set_format),"m4a");
+        if(d_kbps.equals("320"))
+            rad_320.setChecked(true);
+        else if(d_kbps.equals("160"))
+            rad_128.setChecked(true);
+        else if(d_kbps.equals("96"))
+            rad_96.setChecked(true);
+        else
+            rad_320.setChecked(true);
 
 
 
@@ -311,7 +341,7 @@ public class Album_Song_List extends AppCompatActivity {
 
         createNotificationChannel();
         mBuilder = new NotificationCompat.Builder(getApplicationContext(),chanelId)
-                .setSmallIcon(R.drawable.ic_main_app)
+                .setSmallIcon(R.drawable.ic_notif)
                 .setContentTitle("Download Name")
                 .setContentText("progress")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -324,6 +354,12 @@ public class Album_Song_List extends AppCompatActivity {
         song_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(1000);
+                view.startAnimation(animation1);
+                //-------------------------//
+
                 JSONObject songJsn=null;
                 tempID=null;
                 String kbps = findViewById(kbpsGroup.getCheckedRadioButtonId()).getTag().toString();
@@ -347,7 +383,7 @@ public class Album_Song_List extends AppCompatActivity {
                     editor.putInt(getResources().getString(R.string.pref_counter),tempCount).apply();
 
                     folderName = DataHandlers.getAlbumName(songJsn);
-                    fName = songJsn.getString("song") + "_" + kbps + ".m4a";
+                    fName = songJsn.getString("song") + "_" + kbps + "."+format;
 //                    notificationID=DataHandlers.generateNotificationID(songJsn.getString("id"));
                     downUrl = DataHandlers.getDownloadLink(songJsn, kbps);
                     albumArtUrl = songJsn.getString("image").replace("150x150","500x500");
@@ -394,17 +430,12 @@ public class Album_Song_List extends AppCompatActivity {
                                     if (!tempID.equals(null)) {
                                         Map<String, String> map = new HashMap<String, String>();
                                         map.put("ids",tempID);
-                                        Log.i("STAG_B",tempID);
                                         request.setExtras(new Extras(map));
                                     }
 
                                     fetch.enqueue(request, updatedRequest -> {
-//                                        SharedPreferences pre_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
-//                                        SharedPreferences.Editor edito=pre_main.edit();
-//                                        int inQ=pre_main.getInt(getResources().getString(R.string.pref_inqueue),0);
-//                                        inQ=inQ+1;
-//                                        tv_DownCount.setText(inQ);
-//                                        edito.putInt(getResources().getString(R.string.pref_inqueue),inQ).apply();
+
+
                                         //Request was successfully enqueued for download.
                                         Toast.makeText(getApplicationContext(), "Added to Download Queue", Toast.LENGTH_SHORT).show();
                                     }, error -> {
@@ -426,17 +457,10 @@ public class Album_Song_List extends AppCompatActivity {
                     if (!tempID.equals(null)) {
                         Map<String, String> map = new HashMap<String, String>();
                         map.put("ids",tempID);
-                        Log.i("STAG_B",tempID);
                         request.setExtras(new Extras(map));
                     }
 
                     fetch.enqueue(request, updatedRequest -> {
-//                        SharedPreferences pre_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
-//                        SharedPreferences.Editor edito=pre_main.edit();
-//                        int inQ=pre_main.getInt(getResources().getString(R.string.pref_inqueue),0);
-//                        inQ=inQ+1;
-//                        tv_DownCount.setText(inQ);
-//                        edito.putInt(getResources().getString(R.string.pref_inqueue),inQ).apply();
 
                         //Request was successfully enqueued for download.
 
@@ -472,14 +496,26 @@ public class Album_Song_List extends AppCompatActivity {
 
             @Override
             public void onStarted(@NotNull Download download, @NotNull List<? extends DownloadBlock> list, int i) {
+                Intent toNotif = new Intent(getApplicationContext(),NotificationRecive.class);
+                toNotif.putExtra("action","pause");
+                toNotif.putExtra("notifID",download.getId());
+                PendingIntent pIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toNotif, PendingIntent.FLAG_ONE_SHOT);
 
-                String filname = download.getFile();
-                filname=filname.substring(filname.lastIndexOf("/")+1);
-                filname.replace(".m4a","");
-                Log.i("FTCH","st: "+filname);
-                mBuilder.setContentTitle(filname).setOnlyAlertOnce(true);
+                Intent toCancel = new Intent(getApplicationContext(),NotificationRecive.class);
+                toCancel.putExtra("action","cancel");
+                toCancel.putExtra("notifID",download.getId());
+                PendingIntent cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_ONE_SHOT);
+
+                String fil_name = download.getFile();
+                fil_name=fil_name.substring(fil_name.lastIndexOf("/")+1);
+
+
+                mBuilder.setContentTitle(fil_name).setOnlyAlertOnce(true);
                 mBuilder.setContentText("Starting..");
                 mBuilder.setProgress(0,0,true);
+//                mBuilder.addAction(R.drawable.ic_pause_circle_filled_black_24dp,"Pause",pIntent);
+//                mBuilder.addAction(R.drawable.ic_cancel_black_24dp,"Cancel",cIntent);
+                mBuilder.setOngoing(true);
                 notificationManagerCompat.notify(download.getId(),mBuilder.build());
 
             }
@@ -496,6 +532,8 @@ public class Album_Song_List extends AppCompatActivity {
 
             @Override
             public void onCompleted(@NotNull Download download) {
+//                notificationManagerCompat.cancel(download.getId());
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                     Extras extras= download.getExtras();
                     Map<String,String> map=extras.getMap();
@@ -511,21 +549,22 @@ public class Album_Song_List extends AppCompatActivity {
                         }
                     }
                 }
-                mBuilder.setContentText("Done");
+
+                String filname = download.getFile();
+                filname=filname.substring(filname.lastIndexOf("/")+1);
+                mBuilder.setContentTitle(filname);
                 mBuilder.setProgress(0,0,false);
+                mBuilder.setOngoing(false);
+                mBuilder.setContentText("Done");
                 notificationManagerCompat.notify(download.getId(),mBuilder.build());
-//                        SharedPreferences pre_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
-//                        SharedPreferences.Editor edito=pre_main.edit();
-//                        int inQ=pre_main.getInt(getResources().getString(R.string.pref_inqueue),0);
-//                        inQ=inQ-1;
-//                        tv_DownCount.setText(inQ+"");
-//                        edito.putInt(getResources().getString(R.string.pref_inqueue),inQ).apply();
             }
 
 
             @Override
             public void onProgress(@NotNull Download download, long etaInMilliSeconds, long downloadedBytesPerSecond) {
-                Log.i("FTCH",download.getProgress()+"--"+etaInMilliSeconds);
+                String filname = download.getFile();
+                filname=filname.substring(filname.lastIndexOf("/")+1);
+                mBuilder.setContentTitle(filname);
 
                 totMB=((float)(download.getTotal()))/1048576;
                 curMB=((float)(download.getDownloaded()))/1048576;
@@ -549,6 +588,15 @@ public class Album_Song_List extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NotNull Download download) {
+                Log.i("resu1","200");
+                try {
+                    notificationManagerCompat.cancel(download.getId());
+                    File f = new File(download.getFile());
+                    if (f.exists())
+                        f.delete();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
 

@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent mainIntent = new Intent(MainActivity.this,Search_Songs.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
         }, 1000);
 

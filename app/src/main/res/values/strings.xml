@@ -37,12 +37,15 @@
     </string>
 
 
-
     <string name="pref_main">nitish.build.com.saavntest1_main_sp</string>
     <string name="pref_counter">nitish.build.com.saavntest1_counter</string>
     <string name="pref_JsonFromID">nitish.build.com.saavntest1_JsonFromID</string>
     <string name="pref_search_counter">nitish.build.com.saavntest1_search_counter</string>
     <string name="pref_inqueue">nitish.build.com.saavntest1_inqueue</string>
+
+    <string name="set_main">nitish.build.com.saavntest1_settings_preferences</string>
+    <string name="set_kbps">nitish.build.com.saavntest1_set_kbps</string>
+    <string name="set_format">nitish.build.com.saavntest1_set_format</string>
 
 
     <string name="downloads_page">This Page is still under development.\n
@@ -54,10 +57,16 @@
 
     <string name="more_page">Note : This a beta release of the app. So its common to have Bugs and Lags in the app.
         For further development of the app please report the bugs you find.</string>
+    <string name="get_intouch"><u>Want to get in touch with me ? (Click here)</u></string>
+    <string name="more_telegram"><u>Click here to join our Telegram Group</u></string>
+    <string name="star_github"><u>Give me a Star(⭐) on GitHub</u></string>
+    <string name="more_faqs"><u>Read FAQ\'s here...</u></string>
+    <string name="more_disclaimer"><u>Read Disclaimer</u></string>
     <string name="more_page_ClickText"><u>Click here to Report a Bug or Suggest a feature.(use Gmail)</u></string>
     <string name="more_page_Disclaimer">Downloading Copyrighted music might be illegal in Some countries.\n
     © All Songs,images and Saavn™ belongs to JioSaavn.</string>
     <string name="madeBy">by <b>Nitish</b></string>
+
     <string name="ad_Search">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_Album">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_Down">ca-app-pub-3940256099942544/6300978111</string>
