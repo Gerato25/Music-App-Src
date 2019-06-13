@@ -362,7 +362,7 @@ public class DataHandlers {
 //        }
 //    }
 
-    static void setTags2(String absPath,String tempJson) throws Exception {
+    static void setTags2(String absPath,String tempJson,String albumArt_fName) throws Exception {
         String format = absPath.substring(absPath.lastIndexOf(".")+1);
         if (format.equals("mp3")){
             File prev = new File(absPath);
@@ -395,7 +395,7 @@ public class DataHandlers {
             audioFile.commit();
 
 //            url_img=url_img.replace("150x150.jpg","500x500.jpg");
-            File img_art = new File(Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/" + ALBUM_N+"-"+YEAR + "/" + "albumArt.jpg");
+            File img_art = new File(Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/" + ALBUM_N+"-"+YEAR + "/" + albumArt_fName);
 
             Artwork artwork = ArtworkFactory.createArtworkFromFile(img_art);
             mp4tag.setField(artwork);

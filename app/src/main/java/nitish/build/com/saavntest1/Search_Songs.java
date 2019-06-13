@@ -35,6 +35,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.onesignal.OneSignal;
+
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,6 +111,13 @@ public class Search_Songs extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         //--------------------------------------------------------------------------------//
+
+        //----------------One Signal------------------------//
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+        //--------------------------------------------------//
 
          pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
 
@@ -362,8 +372,8 @@ public class Search_Songs extends AppCompatActivity {
                 String type="";
                 JSONObject curSong = new JSONObject(searchList.getString(position));
                 type=curSong.getString("type");
-                songName.setText(curSong.getString("title"));
-                songInfo.setText(curSong.getString("description"));
+                songName.setText(StringEscapeUtils.unescapeXml(curSong.getString("title")));
+                songInfo.setText(StringEscapeUtils.unescapeXml(curSong.getString("description")));
                 songType.setText(type);
                 if (type.equals("album")){
                     JSONObject moreInfo = new JSONObject(curSong.getString("more_info"));

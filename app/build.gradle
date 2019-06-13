@@ -1,3 +1,17 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/'}
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+
 apply plugin: 'com.android.application'
 
 android {
@@ -8,6 +22,11 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "nitish.build.com.saavntest1"
+        manifestPlaceholders = [
+                onesignal_app_id: '5e30a452-fd88-445f-9583-3578cc617172',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE'
+        ]
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -43,7 +62,9 @@ dependencies {
     implementation 'com.android.support:support-media-compat:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
 
-    implementation('com.paytm:pgplussdk:1.3.3') {
-        transitive = true;
-    }
+    implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
+
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+
+
 }

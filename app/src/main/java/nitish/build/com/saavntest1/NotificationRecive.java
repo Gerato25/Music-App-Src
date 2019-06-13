@@ -29,10 +29,11 @@ public class NotificationRecive extends BroadcastReceiver {
         String action=intent.getStringExtra("action");
         notifId = intent.getIntExtra("notifID",100);
 
-        Log.i("resu1",action);
+        Log.i("resuB1",action);
+        Log.i("resuB2",Integer.toString(notifId));
 
-        if(action.equals("pause")){
-            pause_d(notifId);
+        if(action.equals("onClick")){
+
         }
         else if(action.equals("cancel")){
             cancel_d(notifId);
@@ -47,11 +48,11 @@ public class NotificationRecive extends BroadcastReceiver {
     }
 
     public void pause_d(int downId){
-        fetch.pause(downId);
+//        fetch.pause(downId);
         Log.i("resu1","pa");
     }
     public void cancel_d(int downId){
-//        fetch.cancel(downId);
+        fetch.cancel(downId);
         Log.i("resu1","ca");
     }
     public void resume_d(int downId){

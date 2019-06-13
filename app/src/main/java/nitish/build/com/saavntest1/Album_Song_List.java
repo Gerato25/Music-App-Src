@@ -3,6 +3,7 @@ package nitish.build.com.saavntest1;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -60,6 +61,7 @@ import com.tonyodev.fetch2core.DownloadBlock;
 import com.tonyodev.fetch2core.Extras;
 
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -94,7 +96,8 @@ import java.util.regex.Pattern;
 
 public class Album_Song_List extends AppCompatActivity {
     String albumID,jsonData,finUrl,downUrl,downpath,fName,folderName="RandomAlbum",albumArtUrl="",
-            chanelId="test1",dataType,dot=" • ",url_img="FAILED",prevAct="",tempSJson="",tempID,format="m4a";
+            chanelId="test1",dataType,dot=" • ",url_img="FAILED",prevAct="",tempSJson="",tempID,format="m4a",
+            albumArt_fname="albumArt.jpg";
     static String nowDownS="";
     JSONArray songArr ;
     JSONObject songObj;
@@ -114,6 +117,8 @@ public class Album_Song_List extends AppCompatActivity {
     Artwork artwork;
     Fetch fetch;
     ImageView btn_settings;
+    Intent toCancel;
+    PendingIntent cIntent;
 
 
     @Override
@@ -206,8 +211,9 @@ public class Album_Song_List extends AppCompatActivity {
                 animation1.setDuration(500);
                 v.startAnimation(animation1);
                 //-------------------------//
-
-                startActivity(new Intent(getApplicationContext(),Settings_Alb.class));
+                Intent in_toSet = new Intent(getApplicationContext(),Settings_Alb.class);
+                        in_toSet.putExtra("fromAlb",true);
+                startActivity(in_toSet);
                 overridePendingTransition(R.anim.slide_in_down,  R.anim.slide_out_down);
             }
         });
@@ -248,12 +254,12 @@ public class Album_Song_List extends AppCompatActivity {
             JSONObject albumJson = new JSONObject(jsonData);
 
             if (dataType.equals("ALBUM")){
-                tv_artists.setText(albumJson.getString("primary_artists"));
-                tv_ALPLname.setText(albumJson.getString("title"));
+                tv_artists.setText(StringEscapeUtils.unescapeXml(albumJson.getString("primary_artists")));
+                tv_ALPLname.setText(StringEscapeUtils.unescapeXml(albumJson.getString("title")));
             }
             else{
                 tv_artists.setText(albumJson.getString("follower_count")+" followers");
-                tv_ALPLname.setText(albumJson.getString("listname"));
+                tv_ALPLname.setText(StringEscapeUtils.unescapeXml(albumJson.getString("listname")));
             }
             url_img=albumJson.getString("image");
             if(url_img.length()<=5)
@@ -270,7 +276,12 @@ public class Album_Song_List extends AppCompatActivity {
 
         tv_TypeTot.setText(dataType+dot+listSize+" Songs");
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            SharedPreferences temp_preferences = getApplicationContext().getSharedPreferences(getResources().getString(R.string.set_main),MODE_PRIVATE);
+            if (temp_preferences.getBoolean(getResources().getString(R.string.set_AlbumArt),false)){
+                albumArt_fname = ".albumArt.jpg";
+            }
+        }
 
 
         PRDownloader.download(url_img, DataHandlers.makeDir(".cache"), tv_ALPLname.getText()+".jpg")
@@ -339,13 +350,21 @@ public class Album_Song_List extends AppCompatActivity {
             else
                 Log.i("DIRDONE1","FAILED");
 
+//        toCancel = new Intent(getApplicationContext(),NotificationRecive.class);
+//        toCancel.putExtra("action","cancel");
+//        toCancel.putExtra("notifID",download.getId());
+//        cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_CANCEL_CURRENT);
+        Intent onClIntent = new Intent(getApplicationContext(),Downloads_Page.class);
+        PendingIntent pOnclick = PendingIntent.getActivity(getApplicationContext(),1,onClIntent,0);
         createNotificationChannel();
         mBuilder = new NotificationCompat.Builder(getApplicationContext(),chanelId)
                 .setSmallIcon(R.drawable.ic_notif)
                 .setContentTitle("Download Name")
                 .setContentText("progress")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setProgress(100,0,false);
+                .setProgress(100,0,false)
+                .setContentIntent(pOnclick);
+//        mBuilder.addAction(R.drawable.ic_cancel_black_24dp,"Cancel",cIntent);
         notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
 
 
@@ -382,8 +401,8 @@ public class Album_Song_List extends AppCompatActivity {
                     }
                     editor.putInt(getResources().getString(R.string.pref_counter),tempCount).apply();
 
-                    folderName = DataHandlers.getAlbumName(songJsn);
-                    fName = songJsn.getString("song") + "_" + kbps + "."+format;
+                    folderName = StringEscapeUtils.unescapeXml(DataHandlers.getAlbumName(songJsn));
+                    fName = StringEscapeUtils.unescapeXml(songJsn.getString("song")) + "_" + kbps + "."+format;
 //                    notificationID=DataHandlers.generateNotificationID(songJsn.getString("id"));
                     downUrl = DataHandlers.getDownloadLink(songJsn, kbps);
                     albumArtUrl = songJsn.getString("image").replace("150x150","500x500");
@@ -394,8 +413,8 @@ public class Album_Song_List extends AppCompatActivity {
                 }
                 downpath = DataHandlers.makeDir(folderName);
 
-                if (!(new File(downpath + "/albumArt.jpg")).exists()) {
-                    PRDownloader.download(albumArtUrl, downpath, "albumArt.jpg")
+                if (!(new File(downpath + "/"+albumArt_fname)).exists()) {
+                    PRDownloader.download(albumArtUrl, downpath, albumArt_fname)
                             .build()
                             .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                                 @Override
@@ -496,19 +515,21 @@ public class Album_Song_List extends AppCompatActivity {
 
             @Override
             public void onStarted(@NotNull Download download, @NotNull List<? extends DownloadBlock> list, int i) {
-                Intent toNotif = new Intent(getApplicationContext(),NotificationRecive.class);
-                toNotif.putExtra("action","pause");
-                toNotif.putExtra("notifID",download.getId());
-                PendingIntent pIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toNotif, PendingIntent.FLAG_ONE_SHOT);
+//                Intent toNotif = new Intent(getApplicationContext(),NotificationRecive.class);
+//                toNotif.putExtra("action","pause");
+//                toNotif.putExtra("notifID",download.getId());
+//                PendingIntent pIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toNotif, PendingIntent.FLAG_ONE_SHOT);
 
-                Intent toCancel = new Intent(getApplicationContext(),NotificationRecive.class);
-                toCancel.putExtra("action","cancel");
-                toCancel.putExtra("notifID",download.getId());
-                PendingIntent cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_ONE_SHOT);
+//                Intent toCancel = new Intent(getApplicationContext(),NotificationRecive.class);
+//                toCancel.putExtra("action","cancel");
+//                toCancel.putExtra("notifID",download.getId());
+//                PendingIntent cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_CANCEL_CURRENT);
 
                 String fil_name = download.getFile();
                 fil_name=fil_name.substring(fil_name.lastIndexOf("/")+1);
 
+//                toCancel.putExtra("notifID",download.getId());
+//                cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_ONE_SHOT);
 
                 mBuilder.setContentTitle(fil_name).setOnlyAlertOnce(true);
                 mBuilder.setContentText("Starting..");
@@ -543,7 +564,7 @@ public class Album_Song_List extends AppCompatActivity {
                     String sjson= pref_main.getString(getResources().getString(R.string.pref_JsonFromID)+id,null);
                     if (!sjson.equals(null)) {
                         try {
-                            DataHandlers.setTags2(download.getFile(),sjson);
+                            DataHandlers.setTags2(download.getFile(),sjson,albumArt_fname);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -646,9 +667,9 @@ public class Album_Song_List extends AppCompatActivity {
 
             try {
                 songObj =songArr.getJSONObject(position);
-                songName.setText(songObj.getString("song"));
-                artists.setText(songObj.getString("album")+dot+
-                        songObj.getString("primary_artists"));
+                songName.setText(StringEscapeUtils.unescapeXml(songObj.getString("song")));
+                artists.setText(StringEscapeUtils.unescapeXml(songObj.getString("album")+dot+
+                        songObj.getString("primary_artists")));
                 duration.setText(DataHandlers.getSongDuration(songObj));
             } catch (JSONException e) {
                 e.printStackTrace();

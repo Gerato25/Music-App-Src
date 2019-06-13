@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +15,13 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -36,6 +41,8 @@ public class Downloads_Page extends AppCompatActivity {
     static TextView tv_info,tv_DownSong,tv_prog;
     static ArrayList<String> songList;
     AdView mAdView;
+    ImageView btn_set_dp,btn_bak_dp;
+    Button btn_folder_dp;
 
 
     @Override
@@ -56,6 +63,61 @@ public class Downloads_Page extends AppCompatActivity {
         mAdView = findViewById(R.id.adView_Downloads);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        btn_set_dp = findViewById(R.id.btn_set_dp);
+        btn_set_dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(500);
+                v.startAnimation(animation1);
+                //-------------------------//
+
+                startActivity(new Intent(getApplicationContext(),Settings_Alb.class));
+                overridePendingTransition(R.anim.slide_in_down,  R.anim.slide_out_down);
+            }
+        });
+        btn_bak_dp = findViewById(R.id.btn_bak_dp);
+        btn_bak_dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(500);
+                v.startAnimation(animation1);
+                //-------------------------//
+
+                onBackPressed();
+            }
+        });
+
+        btn_folder_dp =findViewById(R.id.btn_folder_dp);
+        btn_folder_dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(500);
+                v.startAnimation(animation1);
+                //-------------------------//
+
+                Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(selectedUri, "resource/folder");
+
+                if (intent.resolveActivityInfo(getPackageManager(), 0) != null)
+                {
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Please Install a File Manager.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
 
         songList=new ArrayList<>();
 

@@ -46,26 +46,37 @@
     <string name="set_main">nitish.build.com.saavntest1_settings_preferences</string>
     <string name="set_kbps">nitish.build.com.saavntest1_set_kbps</string>
     <string name="set_format">nitish.build.com.saavntest1_set_format</string>
+    <string name="set_AlbumArt">nitish.build.com.saavntest1_set_AlbumArt</string>
 
-
-    <string name="downloads_page">This Page is still under development.\n
-                        Please wait till the next release to enjoy this Feature.\n
-                        Untill then check  FREEMIUM_DOWNLOADS  folder for downloaded songs.</string>
-    <string name="searchPage">Use the above Search bar to Search songs and the results appear here.\n
-                            Use Browse option [experimental] to browse songs directly from Saavn web UI.\n
-                            All downloaded songs will be saved to  FREEMIUM_DOWNLOADS  folder</string>
+    <string name="albumart_settings_page">(This feature is only for Android Oreo and Above) \n
+        When enabled it hides \"albumArt.jpg\" files. So that they wont annoy you by appearing in Galley. \n
+        [Please turn off , if your music player doesn\'t recognize AlbumArt]</string>
+    <string name="downloads_page">Note : If your Download got stuck up in Middle.\n
+                        Please Force Close the app and try downloading again.\n
+                        Also check weather you have given all Permissions or not.\n
+                        I will fix this issue in next release.</string>
+    <string name="searchPage"><b><u>Instructions:</u></b>\n
+        Use the above <b>Search bar</b> to Search songs and the results appear here.\n
+        Use <b>Browse tab</b> to browse songs directly from Saavn web UI.\n
+        All downloaded songs will be saved to  <b>FREEMIUM_DOWNLOADS</b> folder.\n
+        Check out   <b>Downloads</b>   and   <b>More page</b>   for further info.</string>
 
     <string name="more_page">Note : This a beta release of the app. So its common to have Bugs and Lags in the app.
         For further development of the app please report the bugs you find.</string>
-    <string name="get_intouch"><u>Want to get in touch with me ? (Click here)</u></string>
-    <string name="more_telegram"><u>Click here to join our Telegram Group</u></string>
-    <string name="star_github"><u>Give me a Star(⭐) on GitHub</u></string>
-    <string name="more_faqs"><u>Read FAQ\'s here...</u></string>
-    <string name="more_disclaimer"><u>Read Disclaimer</u></string>
-    <string name="more_page_ClickText"><u>Click here to Report a Bug or Suggest a feature.(use Gmail)</u></string>
+    <string name="get_intouch">Want to get in touch with me ? (Click here)</string>
+    <string name="more_telegram">Click here to join our Telegram Group</string>
+    <string name="star_github">Give me a Star(⭐) on GitHub</string>
+    <string name="more_faqs">Read FAQ\'s here...</string>
+    <string name="more_disclaimer">Read Disclaimer</string>
+    <string name="more_page_ClickText">Click here to Report a Bug or Suggest a feature.(use Gmail)</string>
     <string name="more_page_Disclaimer">Downloading Copyrighted music might be illegal in Some countries.\n
     © All Songs,images and Saavn™ belongs to JioSaavn.</string>
     <string name="madeBy">by <b>Nitish</b></string>
+    <string name="but_me_coffee">I am an undergraduate student who enjoys making these kinds of
+        projects in free time.\n
+        You can encourage me by buying me a coffee which motivates me to work consistently on this project and
+        provide you regular updates with awesome new features.</string>
+
 
     <string name="ad_Search">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_Album">ca-app-pub-3940256099942544/6300978111</string>
