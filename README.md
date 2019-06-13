@@ -1,15 +1,31 @@
-# Freemium Music App (v0.2beta)
-![Build:Beta](https://img.shields.io/badge/Build-Beta-blue.svg)
-![Version:0.2](https://img.shields.io/badge/Version-0.2-green.svg)
-![Minimum API](https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg)
-![Last Update](https://img.shields.io/badge/Last%20Update-05%20June%202019-red.svg)
-![Downloads](https://img.shields.io/badge/Downloads-2100%2B-orange.svg)
+<img src="https://github.com/NitishGadangi/Freemium-App/blob/master/icon_app.png?raw=true" align="right" height='250' />
+
+<h1> Freemium Music App (v0.2beta)</h1>
+<img src="https://img.shields.io/badge/Build-Beta-blue.svg" />
+<img src="https://img.shields.io/badge/Version-0.6-green.svg" />
+<img src="https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg" />
+<img src="https://img.shields.io/badge/Last%20Update-13%20June%202019-red.svg" />
+<img src="https://img.shields.io/badge/Downloads-3100%2B-orange.svg" />
+
 <br>
             So I recently found a vulnerability in Saavn Rest API which enables you to access premium content directly. 
 So I decided why not make an app so that everyone can enjoy it.... and this app is the result.
+<br>
 
-***I will make the source code public [here](https://github.com/NitishGadangi/Freemium-App) once the App becomes Stable***
 
+### Change Log (version 0.6_beta)
+* Made UI Smooth by adding new animations for seamless transitions between activities.
+* Added new settings tab to configure defaults.
+* Added Mp3 support.
+* Now you can hide AlbumArt files if needed (check settings page).
+* Improved UI for Browse Page.
+* Now Search Page and Browse page runs in seperate thread. So no lags anymore.
+* Open downloads folders right from the app.
+* New Icon designed by [Pruthvi Chandra](http://apkfolks.com).
+* Now you can buy me a coffee ☕
+* Fixed Several Bugs reported by many users.
+* Fixed random force close issues.
+* Fixed random appearance of XML code in file names.
 
 **Consider Giving a ⭐ [here](https://github.com/NitishGadangi/Freemium-App) if you like my work**
 
@@ -18,7 +34,7 @@ So I decided why not make an app so that everyone can enjoy it.... and this app 
 * Enabled ID3 tagging and Album art features.
 * So every song will be compiled with song info and Album Art.
 * Search Songs directly from Saavn Database with Search feature.
-* (Experimental)Browse songs using Saavn Web UI.
+* Browse songs using Saavn Web UI.
 
 ### Few ScreenShots:
 
@@ -26,7 +42,7 @@ So I decided why not make an app so that everyone can enjoy it.... and this app 
 
 ### Download from here:
 
-[![](https://github.com/NitishGadangi/Freemium-App/blob/master/click_here.png?raw=true)](https://www.mediafire.com/file/75434z2tfyl6kd3/Freemium_Music_v0.2Beta.apk/file)
+[![](https://github.com/NitishGadangi/Freemium-App/blob/master/click_here.png?raw=true)](https://www.mediafire.com/file/79nwirbj2vvunjg/Freemium_Music_v0.6Beta.apk/file)
 
 ### Things to consider:
 * The app is still in beta. So having bugs is common. If you found any bug, please report it here [Telegram Group](https://t.me/joinchat/HH4B2xFVtt6_2hbJl_qKQA).
@@ -37,8 +53,7 @@ So I decided why not make an app so that everyone can enjoy it.... and this app 
 ### What about next release?
 * Will include an online streaming feature within the app.
 * Revamp the downloads page.
-* Make the app Smoother
-* Add option to select between mp3 and m4a
-* Add a toggle to enable or disable Album art Feature.
+* Make the app more Smoother
+* And you say... (mail me: apps.nitish@gmail.com)!
 
 **Made with ❤️ by Nitish**
