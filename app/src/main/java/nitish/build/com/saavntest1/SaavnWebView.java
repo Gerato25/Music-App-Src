@@ -8,9 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -21,8 +20,6 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class SaavnWebView extends AppCompatActivity {
     WebView webView;
@@ -188,7 +185,7 @@ public class SaavnWebView extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog.show();
+
             tv_found.setText("Processing Please wait...");
         }
         @Override
@@ -209,10 +206,10 @@ public class SaavnWebView extends AppCompatActivity {
                 tv_found.setText(R.string.downloads_not_founds);
             }else {
                 btn_Download.setVisibility(View.VISIBLE);
-                tv_found.setText(R.string.downloads_found);
+                tv_found.setText("");
             }
 
-            progressDialog.dismiss();
+
 
         }
     }
