@@ -35,6 +35,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.downloader.Error;
 import com.downloader.OnDownloadListener;
 import com.downloader.OnStartOrResumeListener;
@@ -158,31 +159,7 @@ public class Album_Song_List extends AppCompatActivity {
 
             tv_TypeTot.setText(dataType+dot+listSize+" Songs");
 
-            PRDownloader.download(url_img, DataHandlers.makeDir(".cache"), tv_ALPLname.getText()+".jpg")
-                    .build()
-                    .setOnStartOrResumeListener(new OnStartOrResumeListener() {
-                        @Override
-                        public void onStartOrResume() {
-                            //Toast.makeText(Album_Song_List.this, "START_IMG", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .start(new OnDownloadListener() {
-                        @Override
-                        public void onDownloadComplete() {
-                            File imgFile = new  File(DataHandlers.makeDir(".cache")+"/"+tv_ALPLname.getText()+".jpg");
-
-                            if(imgFile.exists()){
-                                //Toast.makeText(Album_Song_List.this, "SET", Toast.LENGTH_SHORT).show();
-                                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                                img_album.setImageBitmap(myBitmap);
-                            }
-                        }
-
-                        @Override
-                        public void onError(Error error) {
-
-                        }
-                    });
+            Glide.with(Album_Song_List.this).load(url_img).into(img_album);
 
 
             CustomAdapter song_list_Adapter = new CustomAdapter();

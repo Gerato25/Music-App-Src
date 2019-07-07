@@ -7,21 +7,100 @@
     android:background="@color/darkAccent"
     tools:context=".Search_Songs">
 
+    <ListView
+        android:id="@+id/list_searchres"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/adView_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_searchBox" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_searchPage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_urResStatus"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabTextColor="@android:color/white" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_searchPage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/adView_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tl_searchPage">
+
+    </androidx.viewpager.widget.ViewPager>
 
     <Button
         android:id="@+id/btn_searchBox"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/curvature"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_err_search"
         android:fontFamily="@font/acme"
-        android:text="Search"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/et_searchBox"
+        app:layout_constraintEnd_toEndOf="@+id/et_searchBox"
+        app:layout_constraintTop_toTopOf="@+id/et_searchBox"
         tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/ms_info1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_searchBox"
+        app:layout_constraintVertical_bias="0.45"
+        app:srcCompat="@drawable/ic_err_search" />
+
+    <TextView
+        android:id="@+id/ms_info2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/capriola"
+        android:text="Search Something"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ms_info1" />
+
+    <TextView
+        android:id="@+id/ms_info3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Find your favorite song, album, and playlists."
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ms_info2" />
 
     <EditText
         android:id="@+id/et_searchBox"
@@ -33,26 +112,16 @@
         android:background="@drawable/curvature"
         android:ems="10"
         android:hint="Search for an Album,Playlist"
-        android:inputType="textPersonName"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         android:lineSpacingExtra="8sp"
         android:paddingLeft="14dp"
+        android:paddingRight="45dp"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintEnd_toStartOf="@+id/btn_searchBox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/list_searchres"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/adView_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_urResStatus" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_urResStatus"
@@ -66,6 +135,7 @@
         android:text="Your Search Results:"
         android:textColor="@color/darkAccent"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_searchBox" />
@@ -130,25 +200,6 @@
         app:layout_constraintBottom_toTopOf="@+id/btm_brws"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_ins"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/abel"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="@string/searchPage"
-        android:textAlignment="textStart"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_urResStatus"
-        app:layout_constraintVertical_bias="0.16000003" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView_search"

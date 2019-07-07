@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/cus_listImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -19,11 +19,11 @@
         tools:srcCompat="@drawable/ic_song" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/down_icon_shit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/cus_listImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/stat_sys_download" />
@@ -40,7 +40,7 @@
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/cus_duration"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/cus_listImg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -54,8 +54,8 @@
         android:text="TextView"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/down_icon_shit"
+        app:layout_constraintStart_toEndOf="@+id/cus_listImg"
         app:layout_constraintTop_toBottomOf="@+id/cus_songName" />
 
     <TextView
@@ -68,11 +68,11 @@
         android:text="00:00"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/down_icon_shit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/btm_img_shit"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
@@ -81,7 +81,7 @@
         android:background="#b2beb5"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/cus_listImg"
         app:layout_constraintTop_toBottomOf="@+id/cus_artist" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

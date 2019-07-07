@@ -13,6 +13,11 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +39,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.tabs.TabLayout;
 import com.onesignal.OneSignal;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -46,10 +53,14 @@ public class Search_Songs extends AppCompatActivity {
     JSONArray searchList;
     ListView resList ;
     ProgressDialog progressDialog;
-    TextView tv_ins,tv_resStatus;
+    Button btn_search1;
+
     AdView mAdView;
     InterstitialAd mInterstitialAd;
     SharedPreferences pref_main;
+
+    TextView info2,info3;
+    ImageView info1;
 
 
     //------------------------   Double tap to Exit   ----------------------------//
@@ -117,9 +128,21 @@ public class Search_Songs extends AppCompatActivity {
                 .init();
         //--------------------------------------------------//
 
-         pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
 
-        mInterstitialAd = new InterstitialAd(this);
+
+        if (!isNetworkAvailable()){
+            new AlertDialog.Builder(Search_Songs.this)
+                    .setTitle("Not Connected to internet?")
+                    .setMessage("This app requires active internet connetion otherwise there is a fair chance for app crash.")
+                    .setPositiveButton("Ok",null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setCancelable(false)
+                    .show();
+
+        }
+
+        pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),Context.MODE_PRIVATE);
+        mInterstitialAd = new InterstitialAd(getApplicationContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener(){
@@ -142,28 +165,17 @@ public class Search_Songs extends AppCompatActivity {
             }
         });
 
-        if (!isNetworkAvailable()){
-            new AlertDialog.Builder(Search_Songs.this)
-                    .setTitle("Not Connected to internet?")
-                    .setMessage("This app requires active internet connetion otherwise there is a fair chance for app crash.")
-                    .setPositiveButton("Ok",null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setCancelable(false)
-                    .show();
+        ViewPager viewPager = findViewById(R.id.vp_searchPage);
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(3);
 
-        }
+        TabLayout tabLayout = findViewById(R.id.tl_searchPage);
+        tabLayout.setupWithViewPager(viewPager);
 
-        EditText et_SearchBox=findViewById(R.id.et_searchBox);
-        Button btn_search=findViewById(R.id.btn_searchBox);
+        info1 = findViewById(R.id.ms_info1);
+        info2 = findViewById(R.id.ms_info2);
+        info3 = findViewById(R.id.ms_info3);
 
-        resList =findViewById(R.id.list_searchres);
-        resList.setVisibility(View.GONE);
-
-        progressDialog = new ProgressDialog(Search_Songs.this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
-        progressDialog.dismiss();
-        tv_ins = findViewById(R.id.tv_ins);
 
         exitToast = Toast.makeText(getApplicationContext(), "click BACK again to exit", Toast.LENGTH_SHORT);
 
@@ -183,10 +195,9 @@ public class Search_Songs extends AppCompatActivity {
         }
         //---------------Done Permission--------------//
 
-
-        tv_resStatus=findViewById(R.id.tv_urResStatus);
-        tv_resStatus.setText("Your search results appear here:");
-        btn_search.setOnClickListener(new View.OnClickListener() {
+        btn_search1=findViewById(R.id.btn_searchBox);
+        EditText et_SearchBox=findViewById(R.id.et_searchBox);
+        btn_search1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //------Animation-----------//
@@ -194,6 +205,9 @@ public class Search_Songs extends AppCompatActivity {
                 animation1.setDuration(1000);
                 v.startAnimation(animation1);
                 //-------------------------//
+                info1.setVisibility(View.GONE);
+                info2.setVisibility(View.GONE);
+                info3.setVisibility(View.GONE);
 
                 View view = getCurrentFocus();
                 if (view != null) {
@@ -214,23 +228,15 @@ public class Search_Songs extends AppCompatActivity {
 
                 query=et_SearchBox.getText().toString();
                 query=query.replace(" ", "");
-                tv_resStatus.setText("searching for \""+query+"\"");
-                resList.setVisibility(View.INVISIBLE);
 
-                try {
-                    if(query.length()==0){
-                        tv_resStatus.setText("Type something and press Search button..");
-                    }else{
-
-                        new JsonSetup().execute(query);
-                    }
+                if(query.length()>0)
+                    viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
             }
         });
+
 
         et_SearchBox.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -242,7 +248,7 @@ public class Search_Songs extends AppCompatActivity {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
-                    btn_search.callOnClick();
+                    btn_search1.callOnClick();
                     return true;
                 }
                 return false;
@@ -250,145 +256,55 @@ public class Search_Songs extends AppCompatActivity {
         });
 
 
-        resList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //------Animation-----------//
-                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-                animation1.setDuration(1000);
-                view.startAnimation(animation1);
-                //-------------------------//
-                progressDialog.show();
-                try {
-                    JSONObject songJson = new JSONObject(searchList.getString(position));
-                    String dataType = songJson.getString("type").toUpperCase();
-                    String dataID;
-                    if(dataType.equals("SONG")){
-                        dataID = songJson.getString("url");
-                        dataID= DataHandlers.getSongID(dataID);
-                    }
-                    else
-                        dataID = songJson.getString("id");
-                    Intent toSongList=new Intent(getApplicationContext(),Album_Song_List.class);
-                    toSongList.putExtra("TYPE",dataType);
-                    toSongList.putExtra("TYPE_ID",dataID);
-                    toSongList.putExtra("PREV_ACT","SEARCH_ACT");
-                    progressDialog.dismiss();
-                    startActivity(toSongList);
-                    overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-    }
-
-    public  class JsonSetup extends AsyncTask<String,Void,String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog.show();
-        }
-        @Override
-        protected String doInBackground(String... strings) {
-
-            try {
-                searchRes=DataHandlers.getSearchResult(strings[0]);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if (searchRes.equals("[]")){
-                return "FAILED";
-
-            }else{
-
-                try {
-                    searchList = new JSONArray(searchRes);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                listSize=searchList.length();
-
-            }
-
-            return Integer.toString(listSize);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if (s.equals("FAILED"))
-                tv_resStatus.setText("No matches found for :"+query);
-            tv_resStatus.setText("Found: "+listSize+" Matches");
-            CustomAdapter customAdapter = new CustomAdapter();
-            resList.setAdapter(customAdapter);
-            resList.setVisibility(View.VISIBLE);
-            tv_ins.setVisibility(View.GONE);
-            progressDialog.dismiss();
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-            progressDialog.show();
-        }
 
 
     }
 
-    class CustomAdapter extends BaseAdapter {
+    public class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position)
+            {
+                case 0:
+                    return new FragSearchTop(); //ChildFragment1 at position 0
+                case 1:
+                    return new FragSearchSongs(); //ChildFragment2 at position 1
+                case 2:
+                    return new FragSearchAlbums(); //ChildFragment3 at position 2
+                case 3:
+                    return new FragSearchPlaylists();
+            }
+            return null; //does not happen
+        }
 
         @Override
         public int getCount() {
-            //Toast.makeText(syllabus_select_course.this, COURSES.length, Toast.LENGTH_SHORT).show();
-            return (listSize);
+            return 4; //three fragments
         }
-
         @Override
-        public Object getItem(int position) {
+        public CharSequence getPageTitle(int position) {
+            switch (position)
+            {
+                case 0:
+                    return "Top";
+                case 1:
+                    return "Songs";
+                case 2:
+                    return "Albums";
+                case 3:
+                    return "Playlists";
+            }
             return null;
         }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.custom_search_list,null);
-
-            TextView songName= convertView.findViewById(R.id.csl_songName);
-            TextView songInfo = convertView.findViewById(R.id.csl_info);
-            TextView songType = convertView.findViewById(R.id.csl_type);
-            TextView songLangYear = convertView.findViewById(R.id.csl_yearLang);
-
-            try {
-                String type="";
-                JSONObject curSong = new JSONObject(searchList.getString(position));
-                type=curSong.getString("type");
-                songName.setText(StringEscapeUtils.unescapeXml(curSong.getString("title")));
-                songInfo.setText(StringEscapeUtils.unescapeXml(curSong.getString("description")));
-                songType.setText(type);
-                if (type.equals("album")){
-                    JSONObject moreInfo = new JSONObject(curSong.getString("more_info"));
-                    String tempYL=moreInfo.getString("language")+" • "+moreInfo.getString("year");
-                    songLangYear.setText(tempYL);
-                    songLangYear.setVisibility(View.VISIBLE);
-                }
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            return convertView;
-        }
     }
+
+
+
 
     public void sBtmSrch(View v){
         //------Animation-----------//

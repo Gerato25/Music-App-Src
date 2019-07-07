@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,7 +56,11 @@ public class DataHandlers {
     static String albumApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=content.getAlbumDetails&albumid=",
                     searchApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=autocomplete.get&query=",
                     playlistApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=playlist.getDetails&listid=",
-                    artistApiLink="";
+                    artistApiLink="",
+                    songs_searchLink="https://www.jiosaavn.com/search/",
+                    albums_searchLink="https://www.jiosaavn.com/search/album/",
+                    playlists_searchLink="https://www.jiosaavn.com/search/playlist/",
+                    dot=" • ";
 
     static String getContent(String finUrl){
         String finString="FAILED";
@@ -260,6 +265,165 @@ public class DataHandlers {
         return "[]";
     }
 
+    static ArrayList<String> getSongsSearchJson(String query,String extra) {
+        String web_content=getContent(songs_searchLink+query);
+
+        ArrayList<String> res_heads =  new ArrayList<>();
+        ArrayList<String> res_subH =  new ArrayList<>();
+        ArrayList<String> res_dur =  new ArrayList<>();
+        ArrayList<String> res_imgs =  new ArrayList<>();
+        ArrayList<String> res_srcs =  new ArrayList<>();
+
+        int count = 0;
+
+        Document doc = Jsoup.parse(web_content);
+        Elements song_Element = doc.select(".title");
+        Elements count_Element = doc.select(".left");
+        Elements meta_Element = doc.select(".meta");
+        //4*i+1
+        //song_Element.get(0).select("a").attr("abs:href")
+        Elements dur_Element = doc.select(".time");
+        Elements art_Element = doc.select(".art");
+        try{
+            count = Integer.parseInt(count_Element.text().replace(",","").replace(" result","").replace("s",""));
+            if (count>=10)
+                count=10;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if (count>0){
+            if (extra.equals("HEADS")){
+                for (int i=0;i<count;i++){
+                    res_heads.add(song_Element.get(i).text());
+                }
+                return res_heads;
+            }
+            else if (extra.equals("SUB_HEADS")){
+                for (int i=0;i<count;i++){
+                    res_subH.add(meta_Element.get(4*i+1).text()+", "+meta_Element.get(4*i+2).text());
+                }
+                return res_subH;
+            }
+            else if (extra.equals("SRCS")){
+                for (int i=0;i<count;i++){
+                    res_srcs.add(song_Element.get(i).select("a").attr("abs:href"));
+                }
+                return res_srcs;
+            }else if (extra.equals("DURATION")){
+                for (int i=0;i<count;i++)
+                    res_dur.add(dur_Element.get(i).text());
+                return res_dur;
+            }else if (extra.equals("IMGS")){
+                for (int i=0;i<count;i++)
+                    res_imgs.add(art_Element.get(i).select("img").attr("abs:src"));
+                return res_imgs;
+            }
+
+        }
+
+        return null;
+    }
+
+    static ArrayList<String> getAlbumsSearchJson(String query,String extra){
+        String web_content=getContent(albums_searchLink+query);
+
+        ArrayList<String> res_heads =  new ArrayList<>();
+        ArrayList<String> res_subH =  new ArrayList<>();
+        ArrayList<String> res_years =  new ArrayList<>();
+        ArrayList<String> res_imgs =  new ArrayList<>();
+        ArrayList<String> res_srcs =  new ArrayList<>();
+
+
+    //  artE.get(1).select("img").attr("abs:src")
+    //  artE.get(1).select("a").attr("abs:href")
+        int count = 0;
+        try {
+            Document doc = Jsoup.parse(web_content);
+            Elements countElement = doc.select(".left");
+            Elements headingE = doc.select(".title");
+            Elements singerE = doc.select(".meta");
+            Elements artE = doc.select(".art");
+            count = Integer.parseInt(countElement.text().replace(" result","").replace(",",""));
+
+            if (count>=20){
+                for (int i =0;i<20;i++){
+                    res_heads.add(headingE.get(i).text());
+                    res_subH.add(singerE.get(2*i+1).text());
+                    res_years.add(singerE.get(2*i+2).text());
+                    res_imgs.add(artE.get(i).select("img").attr("abs:src"));
+                    res_srcs.add(artE.get(i).select("a").attr("abs:href"));
+                }
+
+            }else if (count>=0&&count<=20){
+                for (int i =0;i<count;i++){
+                    res_heads.add(headingE.get(i).text());
+                    res_subH.add(singerE.get(2*i+1).text());
+                    res_years.add(singerE.get(2*i+2).text());
+                    res_imgs.add(artE.get(i).select("img").attr("abs:src"));
+                    res_srcs.add(artE.get(i).select("a").attr("abs:href"));
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        if (count<=0)
+            return null;
+        else if (extra.equals("HEADS"))
+            return res_heads;
+        else if (extra.equals("SUB_HEADS"))
+            return res_subH;
+        else if (extra.equals("YEARS"))
+            return res_years;
+        else if (extra.equals("SRCS"))
+            return res_srcs;
+        else if (extra.equals("IMGS"))
+            return res_imgs;
+
+        return null;
+    }
+
+    static ArrayList<String> getPlaylistsSearchJson(String query,String extra){
+        String web_content=getContent(playlists_searchLink+query);
+        int count=0;
+
+        ArrayList<String> res_heads =  new ArrayList<>();
+        ArrayList<String> res_imgs =  new ArrayList<>();
+        ArrayList<String> res_srcs =  new ArrayList<>();
+
+        try{
+            Document doc = Jsoup.parse(web_content);
+            Elements countElement = doc.select(".left");
+            Elements metaElement = doc.select(".playlist-meta");
+            Elements artE = doc.select(".art");
+            count=Integer.parseInt(countElement.text().replace(" results",""));
+            if (count>0){
+                for (int i=0;i<count;i++){
+                    res_heads.add(metaElement.get(i).text());
+                    res_imgs.add(artE.get(i).select("img").attr("abs:src"));
+                    res_srcs.add(metaElement.get(i).select("h3").select("a").attr("abs:href"));
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if (count<=0)
+            return null;
+        else if (extra.equals("HEADS"))
+            return res_heads;
+        else if (extra.equals("SRCS"))
+            return res_srcs;
+        else if (extra.equals("IMGS"))
+            return res_imgs;
+
+        return null;
+    }
+
+
+
 
     static String getSongDuration(JSONObject songJson) throws JSONException {
         String durStr =songJson.getString("duration");
@@ -317,51 +481,6 @@ public class DataHandlers {
         return resID;
     }
 
-//    static void setTags() throws TagException, CannotReadException, InvalidAudioFrameException, IOException, CannotWriteException {
-//        String ALBUM_N="NITISH";
-//        String YEAR="2019",
-//                ARTISTS="NITISH",
-//                ALBUM_ARTISTS="aA_NITISH",
-//                COMPOSER="comNITISH";
-//
-//        File albdirectory = new File(Environment.getExternalStorageDirectory()+ "/Saavn_Downloader/"+"test.m4a");
-//        File img_art = new File(Environment.getExternalStorageDirectory()+ "/Saavn_Downloader/"+"Luka Chuppi-2019"+"/"+"testart.jpg");
-//        String absPath=albdirectory.getAbsolutePath();
-//        if (albdirectory.exists()){
-//            AudioFile audioFile= AudioFileIO.read(albdirectory);
-//            final AudioHeader audioHeader = audioFile.getAudioHeader();
-//
-//
-//            Tag tag = audioFile.getTag().or(NullTag.INSTANCE);
-
-//            final String title = tag.getValue(FieldKey.TITLE).or("");
-//            if ("".equals(title)) {
-//                if (tag == NullTag.INSTANCE) {
-//                    // there was no tag. set a new default tag for the file type
-//                    tag = audioFile.setNewDefaultTag();
-//                }
-//            }
-//            tag.setField(FieldKey.ORIGINAL_ALBUM,ALBUM_N);
-//            tag.setField(FieldKey.YEAR,YEAR);
-//            tag.setField(FieldKey.ARTISTS,ARTISTS);
-//            tag.setField(FieldKey.ALBUM_ARTISTS,ALBUM_ARTISTS);
-//            tag.setField(FieldKey.COMPOSER,COMPOSER);
-//            final ImmutableSet<FieldKey> supportedFields = tag.getSupportedFields();
-//            if (supportedFields.contains(FieldKey.COVER_ART)) {
-
-//                if (img_art.exists()){
-
-//                    Artwork artwork= ArtworkFactory.createArtworkFromFile(img_art);
-//                    tag.deleteArtwork();
-//                    tag.setArtwork(artwork);
-//
-
-//                }
-//            }
-//            audioFile.save();
-//        }
-//    }
-
     static void setTags2(String absPath,String tempJson,String albumArt_fName) throws Exception {
         String format = absPath.substring(absPath.lastIndexOf(".")+1);
         if (format.equals("mp3")){
@@ -415,9 +534,5 @@ public class DataHandlers {
         }
     }
 
-
-    static void makeDownloads(){
-
-    }
 
 }
