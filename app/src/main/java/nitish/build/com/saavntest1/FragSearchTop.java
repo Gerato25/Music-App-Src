@@ -99,7 +99,7 @@ public class FragSearchTop extends Fragment {
 
 
         query=et_SearchBox.getText().toString();
-        query=query.replace(" ", "");
+        query=query.replace(" ", "%20");
         info2.setText("No results found for '"+query+"'");
         resList.setVisibility(View.INVISIBLE);
         if(query.length()>0){
@@ -219,7 +219,6 @@ public class FragSearchTop extends Fragment {
 
         @Override
         public int getCount() {
-            //Toast.makeText(syllabus_select_course.this, COURSES.length, Toast.LENGTH_SHORT).show();
             return (listSize);
         }
 

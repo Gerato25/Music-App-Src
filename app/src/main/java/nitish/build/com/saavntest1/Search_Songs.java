@@ -228,7 +228,6 @@ public class Search_Songs extends AppCompatActivity {
 
                 query=et_SearchBox.getText().toString();
                 query=query.replace(" ", "");
-
                 if(query.length()>0)
                     viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
 

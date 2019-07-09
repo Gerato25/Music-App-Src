@@ -1,18 +1,14 @@
 package nitish.build.com.saavntest1;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -23,15 +19,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -41,10 +37,13 @@ public class FragSearchSongs extends Fragment {
     ProgressDialog progressDialog;
     Button btn_search;
     EditText et_SearchBox;
-    ListView resList;
-    ArrayList<String> res_heads,res_subH,res_dur,res_imgs,res_srcs;
+    ArrayList<String> res_out;
     String query;
     int listSize=0;
+
+    RecyclerView rv_fragAlbum;
+    RecyclerView.LayoutManager layoutManager;
+
 
     @Nullable
     @Override
@@ -56,7 +55,7 @@ public class FragSearchSongs extends Fragment {
         info3 = rootView.findViewById(R.id.fs_info3);
 
         btn_search=getActivity().findViewById(R.id.btn_searchBox);
-        resList =rootView.findViewById(R.id.lv_fragSongSrch);
+
         et_SearchBox=getActivity().findViewById(R.id.et_searchBox);
 
         progressDialog = new ProgressDialog(getActivity());
@@ -64,70 +63,22 @@ public class FragSearchSongs extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.dismiss();
 
-        res_heads =  new ArrayList<>();
-        res_subH =  new ArrayList<>();
-        res_dur =  new ArrayList<>();
-        res_imgs =  new ArrayList<>();
-        res_srcs =  new ArrayList<>();
+        rv_fragAlbum = rootView.findViewById(R.id.rv_fragsongs);
+        layoutManager = new LinearLayoutManager(getContext());
+        rv_fragAlbum.setLayoutManager(layoutManager);
+
+        res_out =  new ArrayList<>();
 
         query=et_SearchBox.getText().toString();
         query=query.replace(" ", "");
         if(query.length()>0)
-            new JsonSetup().execute(query);
+            new RecViewSetup().execute(query);
 
-        resList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //------Animation-----------//
-                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-                animation1.setDuration(1000);
-                view.startAnimation(animation1);
-                //-------------------------//
 
-                new ShowDownloads().execute(position);
-            }
-        });
 
         return rootView;
     }
-
-    public class ShowDownloads extends AsyncTask<Integer,Void,String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            if(!s.equals("FAILED")){
-                Intent toSongList=new Intent(getActivity().getApplicationContext(),Album_Song_List.class);
-                toSongList.putExtra("TYPE","ALBUM");
-                toSongList.putExtra("TYPE_ID",s);
-                toSongList.putExtra("PREV_ACT","SEARCH_ACT");
-                progressDialog.dismiss();
-                startActivity(toSongList);
-                getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-            }
-            progressDialog.dismiss();
-
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-            progressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(Integer... integers) {
-            return DataHandlers.getSongAlbumID(res_srcs.get(integers[0]));
-        }
-    }
-
-    public  class JsonSetup extends AsyncTask<String,Void,String> {
+    class RecViewSetup extends AsyncTask<String,Void,String>{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -138,32 +89,12 @@ public class FragSearchSongs extends Fragment {
             info3.setText("We are searching for your happiness...");
             info3.setVisibility(View.VISIBLE);
         }
-        @Override
-        protected String doInBackground(String... strings) {
-
-            try {
-                res_heads=DataHandlers.getSongsSearchJson(strings[0],"HEADS");
-                res_subH=DataHandlers.getSongsSearchJson(strings[0],"SUB_HEADS");
-//                res_dur=DataHandlers.getSongsSearchJson(strings[0],"DURATION");
-                res_imgs=DataHandlers.getSongsSearchJson(strings[0],"IMGS");
-                res_srcs=DataHandlers.getSongsSearchJson(strings[0],"SRCS");
-                listSize=res_heads.size();
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-            if ((res_heads!=null)&&(res_srcs!=null)&&(res_subH!=null)&&(res_imgs!=null))
-                return "OK";
-            else
-                return "FAILED";
-        }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             if (s.equals("FAILED")){
+                listSize=0;
                 info1.setImageResource(R.drawable.ic_err_flag);
                 info1.setVisibility(View.VISIBLE);
                 info2.setText("No results found for '"+query+"'");
@@ -175,64 +106,111 @@ public class FragSearchSongs extends Fragment {
                 info2.setVisibility(View.GONE);
                 info3.setVisibility(View.GONE);
 
-                CustomAdapter customAdapter = new CustomAdapter();
-                resList.setAdapter(customAdapter);
-                resList.setVisibility(View.VISIBLE);
+                RecAdapter recAdapter = new RecAdapter();
+                rv_fragAlbum.setAdapter(recAdapter);
 
             }
-
-
         }
 
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
+        }
 
+        @Override
+        protected String doInBackground(String... strings) {
+            res_out = DataHandlers.songExtractor(strings[0]);
+            if (res_out.get(0).equals("FAILED"))
+                return "FAILED";
+            listSize=(res_out.size())/4;
+
+
+            return res_out.get(0);
+        }
+    }
+
+    class ShowAlbumPage extends AsyncTask<String,Void,String>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            return DataHandlers.getDirectID(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(!s.equals("FAILED")){
+                Intent toSongList=new Intent(getActivity().getApplicationContext(),Album_Song_List.class);
+                toSongList.putExtra("TYPE","ALBUM");
+                toSongList.putExtra("TYPE_ID",s);
+                toSongList.putExtra("PREV_ACT","SEARCH_ACT");
+                progressDialog.dismiss();
+                startActivity(toSongList);
+                getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            }
+            progressDialog.dismiss();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            progressDialog.show();
         }
 
 
     }
 
-    class CustomAdapter extends BaseAdapter {
-
+    class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
+        @NonNull
         @Override
-        public int getCount() {
-            //Toast.makeText(syllabus_select_course.this, COURSES.length, Toast.LENGTH_SHORT).show();
-            return (listSize);
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_search_view,parent,false);
+            ViewHolder holder = new ViewHolder(view);
+            return holder;
         }
 
         @Override
-        public Object getItem(int position) {
-            return null;
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+            Glide.with(getContext()).asBitmap().load(res_out.get(position*2+1)).into(holder.img_art);
+            holder.tv_head.setText(StringEscapeUtils.unescapeXml(res_out.get(position*2)));
+            holder.tv_subhead.setText(res_out.get(20+position*2));
+            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(1000);
+                    v.startAnimation(animation1);
+                    new ShowAlbumPage().execute(res_out.get(20+position*2+1));
+
+                }
+            });
         }
 
         @Override
-        public long getItemId(int position) {
-            return 0;
+        public int getItemCount() {
+            return listSize;
         }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.custom_download_list,null);
 
-            TextView cus_songName = convertView.findViewById(R.id.cus_songName);
-            TextView cus_artist = convertView.findViewById(R.id.cus_artist);
-            ImageView cus_listImg = convertView.findViewById(R.id.cus_listImg);
-            TextView cus_duration = convertView.findViewById(R.id.cus_duration);
-            ImageView down_icon_shit = convertView.findViewById(R.id.down_icon_shit);
-            TextView btm_img_shit = convertView.findViewById(R.id.btm_img_shit);
+        class ViewHolder extends RecyclerView.ViewHolder{
+            TextView tv_head,tv_subhead;
+            ImageView img_art;
+            ConstraintLayout parentLayout;
 
-
-            btm_img_shit.setVisibility(View.INVISIBLE);
-            down_icon_shit.setVisibility(View.GONE);
-
-            cus_songName.setText(res_heads.get(position));
-            cus_artist.setText(res_subH.get(position));
-            Glide.with(getActivity()).load(res_imgs.get(position)).into(cus_listImg);
-            cus_duration.setVisibility(View.GONE);
-
-            return convertView;
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                tv_head = itemView.findViewById(R.id.cus_songName_frag);
+                tv_subhead = itemView.findViewById(R.id.cus_artist_frag);
+                img_art = itemView.findViewById(R.id.cus_img_frag);
+                parentLayout = itemView.findViewById(R.id.cust_search_view);
+            }
         }
+
     }
 
 

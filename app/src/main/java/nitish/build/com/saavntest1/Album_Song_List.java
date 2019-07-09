@@ -8,13 +8,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +26,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -656,8 +652,8 @@ public class Album_Song_List extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = getLayoutInflater().inflate(R.layout.custom_download_list,null);
 
-            TextView songName= convertView.findViewById(R.id.cus_songName);
-            TextView artists = convertView.findViewById(R.id.cus_artist);
+            TextView songName= convertView.findViewById(R.id.cus_songName_frag);
+            TextView artists = convertView.findViewById(R.id.cus_artist_frag);
             TextView duration = convertView.findViewById(R.id.cus_duration);
 
 

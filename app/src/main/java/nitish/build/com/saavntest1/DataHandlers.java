@@ -19,6 +19,7 @@ import com.downloader.OnStartOrResumeListener;
 import com.downloader.PRDownloader;
 import com.downloader.Progress;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -57,6 +58,7 @@ public class DataHandlers {
                     searchApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=autocomplete.get&query=",
                     playlistApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=playlist.getDetails&listid=",
                     artistApiLink="",
+                    songApiLink="https://www.jiosaavn.com/api.php?app_version=5.18.3&api_version=4&readable_version=5.18.3&v=79&_format=json&__call=song.getDetails&pids=",
                     songs_searchLink="https://www.jiosaavn.com/search/",
                     albums_searchLink="https://www.jiosaavn.com/search/album/",
                     playlists_searchLink="https://www.jiosaavn.com/search/playlist/",
@@ -71,6 +73,7 @@ public class DataHandlers {
         org.apache.http.client.HttpClient httpclient = new DefaultHttpClient(); // Create HTTP Client
         HttpGet httpget = new HttpGet(finUrl);
         httpget.setHeader("User-Agent","Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0");// Set the action you want to do
+
         try {
             HttpResponse response = httpclient.execute(httpget); // Executeit
             HttpEntity entity = response.getEntity();
@@ -303,26 +306,162 @@ public class DataHandlers {
                 for (int i=0;i<count;i++){
                     res_subH.add(meta_Element.get(4*i+1).text()+", "+meta_Element.get(4*i+2).text());
                 }
+                Log.i("SRCH_T","j_sh"+res_subH.size());
                 return res_subH;
             }
             else if (extra.equals("SRCS")){
                 for (int i=0;i<count;i++){
                     res_srcs.add(song_Element.get(i).select("a").attr("abs:href"));
                 }
+                Log.i("SRCH_T","j_sr"+res_srcs.size());
                 return res_srcs;
             }else if (extra.equals("DURATION")){
                 for (int i=0;i<count;i++)
                     res_dur.add(dur_Element.get(i).text());
+                Log.i("SRCH_T","j_du"+res_dur.size());
                 return res_dur;
             }else if (extra.equals("IMGS")){
                 for (int i=0;i<count;i++)
                     res_imgs.add(art_Element.get(i).select("img").attr("abs:src"));
+                Log.i("SRCH_T","j_im"+res_imgs.size());
                 return res_imgs;
             }
 
         }
 
-        return null;
+        return new ArrayList<String>();
+    }
+
+    static ArrayList<String> songExtractor(String query){
+        String web_content=getContent(songs_searchLink+query);
+        Document doc = Jsoup.parse(web_content);
+        ArrayList<String> res_output = new ArrayList<>();
+        Elements artElement = doc.select(".art");
+        int count=0;
+        for (Element div : artElement){
+            count++;
+            String str_head = div.select("img").attr("alt").replace(" Song","");
+            String str_img = div.select("img").attr("src");
+            res_output.add(str_head);
+            res_output.add(str_img);
+        }
+        int count2=0;
+        Elements albumElement = doc.select(".meta-album");
+        for (Element div:albumElement){
+            count2++;
+            String str_subH = div.text();
+            String str_src = div.attr("href");
+            res_output.add(str_subH);
+            res_output.add(str_src);
+        }
+        if (count==count2)
+            return res_output;
+        res_output.clear();
+        res_output.add("FAILED");
+        return res_output;
+    }
+
+    static ArrayList<String> albumExtractor(String query){
+        String web_content=getContent(albums_searchLink+query);
+        Document doc = Jsoup.parse(web_content);
+        ArrayList<String> res_output = new ArrayList<>();
+        Elements countElement = doc.select(".art");
+        int count=0;
+        String str_id,str_head,str_img;
+        for (Element div : countElement){
+            count++;
+            str_img = div.select("a").select("img").attr("src").replace("150x150","50x50");
+            String str_on_clck=div.select("a").attr("onclick");
+            str_id =str_on_clck.substring(str_on_clck.indexOf("'albumid','"),str_on_clck.indexOf("'],")).replace("'albumid','","");
+            str_head = str_on_clck.substring(str_on_clck.indexOf("art:click:"),str_on_clck.indexOf("','albu")).replace("art:click:","");
+
+            res_output.add(str_head);
+            res_output.add(str_img);
+            res_output.add(str_id);
+        }
+        if (res_output.size()==count*3)
+            return res_output;
+        res_output.clear();
+        res_output.add("FAILED");
+        return res_output;
+    }
+
+    static ArrayList<String> songSearcher(String query){
+        String web_content=getContent(songs_searchLink+query);
+        Document doc = Jsoup.parse(web_content);
+        Elements countElement = doc.select(".song-wrap");
+
+        ArrayList<String> songIds = new ArrayList<>();
+        int count=0;
+        for (Element div : countElement) {
+            count++;
+            songIds.add(div.attr("data-songid"));
+        }
+        if ((count==songIds.size())&& count>0)
+            return songIds;
+        else{
+            ArrayList<String> tempS =  new ArrayList<>();
+            tempS.add("FAILED");
+            return tempS;
+        }
+
+
+    }
+
+    static String getSongDataFromPos(String songId,String extra) throws JSONException {
+        String tempData = getContent(songApiLink+songId);
+        tempData=tempData.substring(tempData.indexOf("{"));
+        JSONObject mainJson = new JSONObject(tempData);
+        JSONObject songInfo = mainJson.getJSONObject(songId);
+        JSONObject more_info = songInfo.getJSONObject("more_info");
+        String  res_heads= (songInfo.getString("title"));
+        String  res_imgs =(songInfo.getString("image").replace("150x150","50x50"));
+        String  res_srcs = (more_info.getString("album_id"));
+        String  res_subH = (more_info.getString("album")+dot+songInfo.getString("year")+dot+songInfo.getString("language"));
+
+        if (extra.equals("HEADS"))
+            return res_heads;
+        else if (extra.equals("SUB_HEADS"))
+            return res_subH;
+        else if (extra.equals("IMGS"))
+            return res_imgs;
+        else if (extra.equals("SRCS"))
+            return res_srcs;
+        return "FAILED";
+    }
+
+    static ArrayList<String> getSongArrData(ArrayList<String> songIds,String extra) throws JSONException {
+        ArrayList<String> res_heads =  new ArrayList<>();
+        ArrayList<String> res_subH =  new ArrayList<>();
+        ArrayList<String> res_imgs =  new ArrayList<>();
+        ArrayList<String> res_srcs =  new ArrayList<>();
+        for (int i=0;i<songIds.size();i++){
+            String tempData = getContent(songApiLink+songIds.get(i));
+            tempData=tempData.substring(tempData.indexOf("{"));
+            JSONObject mainJson = new JSONObject(tempData);
+            JSONObject songInfo = mainJson.getJSONObject(songIds.get(i));
+            JSONObject more_info = songInfo.getJSONObject("more_info");
+            res_heads.add(songInfo.getString("title"));
+            res_imgs.add(songInfo.getString("image").replace("150x150","50x50"));
+            res_srcs.add(more_info.getString("album_id"));
+            res_subH.add(more_info.getString("album")+dot+songInfo.getString("year")+dot+songInfo.getString("language"));
+        }
+        if (res_heads.size()==0){
+            ArrayList<String> tempS =  new ArrayList<>();
+            tempS.add("FAILED");
+            return tempS;
+        }
+        if (extra.equals("HEADS"))
+            return res_heads;
+        else if (extra.equals("SUB_HEADS"))
+            return res_subH;
+        else if (extra.equals("IMGS"))
+            return res_imgs;
+        else if (extra.equals("SRCS"))
+            return res_srcs;
+        ArrayList<String> tempS =  new ArrayList<>();
+        tempS.add("FAILED");
+        return tempS;
     }
 
     static ArrayList<String> getAlbumsSearchJson(String query,String extra){

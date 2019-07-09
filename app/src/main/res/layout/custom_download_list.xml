@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/cus_listImg"
+        android:id="@+id/cus_img_frag"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -23,13 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cus_listImg"
+        app:layout_constraintBottom_toBottomOf="@+id/cus_img_frag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/stat_sys_download" />
 
     <TextView
-        android:id="@+id/cus_songName"
+        android:id="@+id/cus_songName_frag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -40,11 +40,11 @@
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/cus_duration"
-        app:layout_constraintStart_toEndOf="@+id/cus_listImg"
+        app:layout_constraintStart_toEndOf="@+id/cus_img_frag"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cus_artist"
+        android:id="@+id/cus_artist_frag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -55,8 +55,8 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/down_icon_shit"
-        app:layout_constraintStart_toEndOf="@+id/cus_listImg"
-        app:layout_constraintTop_toBottomOf="@+id/cus_songName" />
+        app:layout_constraintStart_toEndOf="@+id/cus_img_frag"
+        app:layout_constraintTop_toBottomOf="@+id/cus_songName_frag" />
 
     <TextView
         android:id="@+id/cus_duration"
@@ -81,7 +81,7 @@
         android:background="#b2beb5"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cus_listImg"
-        app:layout_constraintTop_toBottomOf="@+id/cus_artist" />
+        app:layout_constraintStart_toEndOf="@+id/cus_img_frag"
+        app:layout_constraintTop_toBottomOf="@+id/cus_artist_frag" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
