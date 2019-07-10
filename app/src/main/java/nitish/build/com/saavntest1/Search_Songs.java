@@ -269,14 +269,15 @@ public class Search_Songs extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position)
             {
+                //ChildFragment1 at position 0
                 case 0:
-                    return new FragSearchTop(); //ChildFragment1 at position 0
-                case 1:
                     return new FragSearchSongs(); //ChildFragment2 at position 1
-                case 2:
+                case 1:
                     return new FragSearchAlbums(); //ChildFragment3 at position 2
-                case 3:
+                case 2:
                     return new FragSearchPlaylists();
+                case 3:
+                    return new FragSearchTop();
             }
             return null; //does not happen
         }
@@ -289,14 +290,15 @@ public class Search_Songs extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position)
             {
+
                 case 0:
-                    return "Top";
-                case 1:
                     return "Songs";
-                case 2:
+                case 1:
                     return "Albums";
-                case 3:
+                case 2:
                     return "Playlists";
+                case 3:
+                    return "Top";
             }
             return null;
         }

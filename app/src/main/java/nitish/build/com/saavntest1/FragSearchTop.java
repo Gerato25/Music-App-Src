@@ -100,7 +100,7 @@ public class FragSearchTop extends Fragment {
 
         query=et_SearchBox.getText().toString();
         query=query.replace(" ", "%20");
-        info2.setText("No results found for '"+query+"'");
+        info2.setText("No best match found for '"+query+"'");
         resList.setVisibility(View.INVISIBLE);
         if(query.length()>0){
             info1.setVisibility(View.GONE);
@@ -157,7 +157,7 @@ public class FragSearchTop extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog.show();
+//            progressDialog.show();
         }
         @Override
         protected String doInBackground(String... strings) {
@@ -203,13 +203,13 @@ public class FragSearchTop extends Fragment {
 
             }
 
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
         }
 
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
-            progressDialog.show();
+//            progressDialog.show();
         }
 
 

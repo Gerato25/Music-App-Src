@@ -8,8 +8,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         editor.clear();
 
         editor.commit();
-        Toast.makeText(getApplicationContext(), "Beta Release", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Beta Release", Toast.LENGTH_SHORT).show();
 //        //-----------Permission part------------------//
 //        String permission1 = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 //        String permission2 = android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -46,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
 //                    1);
 //        }
 //        //---------------Done Permission--------------//
+
+        ImageView splash = findViewById(R.id.ic_splash);
+        YoYo.with(Techniques.FadeIn)
+                .duration(1000)
+                .playOn(splash);
 
         new Handler().postDelayed(new Runnable(){
             @Override

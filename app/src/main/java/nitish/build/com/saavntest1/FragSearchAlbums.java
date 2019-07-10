@@ -69,7 +69,7 @@ public class FragSearchAlbums extends Fragment {
 
 
         query=et_SearchBox.getText().toString();
-        query=query.replace(" ", "");
+        query=query.replace(" ", "%20");
         if(query.length()>0)
             new SetupSearchData().execute(query);
 
@@ -89,14 +89,22 @@ public class FragSearchAlbums extends Fragment {
         }
         @Override
         protected String doInBackground(String... strings) {
-
-            songIds = DataHandlers.albumExtractor(strings[0]);
-            if (songIds.get(0).equals("FAILED"))
+            try {
+                songIds = DataHandlers.albumExtractor(strings[0]);
+            }catch (Exception e){
                 return "FAILED";
-            listSize=(songIds.size())/3;
+            }
+
+            if (songIds.size()>0) {
+                if (songIds.get(0).equals("FAILED"))
+                    return "FAILED";
+                listSize=(songIds.size())/3;
 
 
-            return songIds.get(0);
+                return songIds.get(0);
+            }else
+                return "FAILED";
+
         }
 
         @Override
@@ -106,7 +114,7 @@ public class FragSearchAlbums extends Fragment {
                 listSize=0;
                 info1.setImageResource(R.drawable.ic_err_flag);
                 info1.setVisibility(View.VISIBLE);
-                info2.setText("No results found for '"+query+"'");
+                info2.setText("No albums found for '"+query+"'");
                 info2.setVisibility(View.VISIBLE);
                 info3.setText("Please check you have the right spelling, or try different keywords.");
                 info3.setVisibility(View.VISIBLE);

@@ -70,7 +70,7 @@ public class FragSearchSongs extends Fragment {
         res_out =  new ArrayList<>();
 
         query=et_SearchBox.getText().toString();
-        query=query.replace(" ", "");
+        query=query.replace(" ", "%20");
         if(query.length()>0)
             new RecViewSetup().execute(query);
 
@@ -97,7 +97,7 @@ public class FragSearchSongs extends Fragment {
                 listSize=0;
                 info1.setImageResource(R.drawable.ic_err_flag);
                 info1.setVisibility(View.VISIBLE);
-                info2.setText("No results found for '"+query+"'");
+                info2.setText("No songs found for '"+query+"'");
                 info2.setVisibility(View.VISIBLE);
                 info3.setText("Please check you have the right spelling, or try different keywords.");
                 info3.setVisibility(View.VISIBLE);
@@ -119,13 +119,21 @@ public class FragSearchSongs extends Fragment {
 
         @Override
         protected String doInBackground(String... strings) {
-            res_out = DataHandlers.songExtractor(strings[0]);
-            if (res_out.get(0).equals("FAILED"))
+            try {
+                res_out = DataHandlers.songExtractor(strings[0]);
+            }catch (Exception e){
                 return "FAILED";
-            listSize=(res_out.size())/4;
+            }
+            if (res_out.size()>0) {
+                if (res_out.get(0).equals("FAILED"))
+                    return "FAILED";
+                listSize=(res_out.size())/4;
 
 
-            return res_out.get(0);
+                return res_out.get(0);
+            }else
+                return "FAILED";
+
         }
     }
 
@@ -175,17 +183,17 @@ public class FragSearchSongs extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+            int temp = listSize*2;
             Glide.with(getContext()).asBitmap().load(res_out.get(position*2+1)).into(holder.img_art);
             holder.tv_head.setText(StringEscapeUtils.unescapeXml(res_out.get(position*2)));
-            holder.tv_subhead.setText(res_out.get(20+position*2));
+            holder.tv_subhead.setText(res_out.get(temp+position*2));
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
                     animation1.setDuration(1000);
                     v.startAnimation(animation1);
-                    new ShowAlbumPage().execute(res_out.get(20+position*2+1));
+                    new ShowAlbumPage().execute(res_out.get(temp+position*2+1));
 
                 }
             });
