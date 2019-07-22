@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/cus_img_frag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -54,7 +55,7 @@
         android:text="TextView"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/down_icon_shit"
+        app:layout_constraintEnd_toStartOf="@+id/cus_duration"
         app:layout_constraintStart_toEndOf="@+id/cus_img_frag"
         app:layout_constraintTop_toBottomOf="@+id/cus_songName_frag" />
 

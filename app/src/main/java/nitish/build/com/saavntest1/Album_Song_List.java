@@ -1,10 +1,12 @@
 package nitish.build.com.saavntest1;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,11 +14,13 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -41,7 +45,11 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.tonyodev.fetch2okhttp.OkHttpDownloader;
+import com.tonyodev.fetch2.DefaultFetchNotificationManager;
 import com.tonyodev.fetch2.Download;
+import com.tonyodev.fetch2.DownloadNotification;
 import com.tonyodev.fetch2.Fetch;
 import com.tonyodev.fetch2.FetchConfiguration;
 import com.tonyodev.fetch2.FetchListener;
@@ -49,6 +57,7 @@ import com.tonyodev.fetch2.NetworkType;
 import com.tonyodev.fetch2.Priority;
 import com.tonyodev.fetch2.Request;
 import com.tonyodev.fetch2core.DownloadBlock;
+import com.tonyodev.fetch2core.Downloader;
 import com.tonyodev.fetch2core.Extras;
 
 
@@ -67,7 +76,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Album_Song_List extends AppCompatActivity {
-    String albumID,jsonData,finUrl,downUrl,downpath,fName,folderName="RandomAlbum",albumArtUrl="",
+    String albumID,jsonData,finUrl,downUrl="FAILED",downpath,fName,folderName="RandomAlbum",albumArtUrl="",
             chanelId="test1",dataType,dot=" • ",url_img="FAILED",prevAct="",tempSJson="",tempID,format="m4a",
             albumArt_fname="albumArt.jpg";
     static String nowDownS="";
@@ -85,14 +94,16 @@ public class Album_Song_List extends AppCompatActivity {
     NotificationManagerCompat notificationManagerCompat;
     Button btn_toDownPage;
     AdView mAdView;
-    InterstitialAd mInterstitialAd;
+    static  InterstitialAd mInterstitialAd;
     Artwork artwork;
-    Fetch fetch;
+    static Fetch fetch;
     ImageView btn_settings;
     Intent toCancel;
     PendingIntent cIntent;
     ProgressDialog progressDialog;
     ListView song_list;
+    static final String FETCH_NAMESPACE = "SongDownload";
+    static BottomSheetLO bottomSheetLO;
 
 
     @Override
@@ -329,6 +340,36 @@ public class Album_Song_List extends AppCompatActivity {
 
         FetchConfiguration fetchConfiguration = new FetchConfiguration.Builder(this)
                 .setDownloadConcurrentLimit(1)
+                .setHttpDownloader(new OkHttpDownloader(Downloader.FileDownloaderType.PARALLEL))
+                .setNamespace(FETCH_NAMESPACE)
+                .setNotificationManager(new DefaultFetchNotificationManager(this) {
+                    @NotNull
+                    @Override
+                    public Fetch getFetchInstanceForNamespace(@NotNull String namespace) {
+                        return fetch;
+                    }
+
+                    @Override
+                    public boolean shouldCancelNotification(@NotNull DownloadNotification downloadNotification) {
+//                        return super.shouldCancelNotification(downloadNotification);
+                        if (downloadNotification.isPaused())
+                            return false;
+                        else if (downloadNotification.isCancelled())
+                            return true;
+                        return false;
+                    }
+
+                    @NotNull
+                    @Override
+                    public NotificationCompat.Builder getNotificationBuilder(int notificationId, int groupId) {
+                        Intent onClIntent = new Intent(getApplicationContext(),Downloads_Page.class);
+                        PendingIntent pOnclick = PendingIntent.getActivity(getApplicationContext(),1,onClIntent,0);
+                        return super.getNotificationBuilder(notificationId, groupId)
+                                .setOnlyAlertOnce(true)
+                                .setSmallIcon(R.drawable.ic_notif)
+                                .setContentIntent(pOnclick);
+                    }
+                })
                 .build();
 
         fetch = Fetch.Impl.getInstance(fetchConfiguration);
@@ -346,18 +387,18 @@ public class Album_Song_List extends AppCompatActivity {
 //        toCancel.putExtra("action","cancel");
 //        toCancel.putExtra("notifID",download.getId());
 //        cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_CANCEL_CURRENT);
-        Intent onClIntent = new Intent(getApplicationContext(),Downloads_Page.class);
-        PendingIntent pOnclick = PendingIntent.getActivity(getApplicationContext(),1,onClIntent,0);
-        createNotificationChannel();
-        mBuilder = new NotificationCompat.Builder(getApplicationContext(),chanelId)
-                .setSmallIcon(R.drawable.ic_notif)
-                .setContentTitle("Download Name")
-                .setContentText("progress")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setProgress(100,0,false)
-                .setContentIntent(pOnclick);
+//        Intent onClIntent = new Intent(getApplicationContext(),Downloads_Page.class);
+//        PendingIntent pOnclick = PendingIntent.getActivity(getApplicationContext(),1,onClIntent,0);
+//        createNotificationChannel();
+//        mBuilder = new NotificationCompat.Builder(getApplicationContext(),chanelId)
+//                .setSmallIcon(R.drawable.ic_notif)
+//                .setContentTitle("Download Name")
+//                .setContentText("progress")
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setProgress(100,0,false)
+//                .setContentIntent(pOnclick);
 //        mBuilder.addAction(R.drawable.ic_cancel_black_24dp,"Cancel",cIntent);
-        notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+//        notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
 
 
 
@@ -370,34 +411,37 @@ public class Album_Song_List extends AppCompatActivity {
                 animation1.setDuration(1000);
                 view.startAnimation(animation1);
                 //-------------------------//
+                bottomSheetLO = new BottomSheetLO(position,songArr,albumArt_fname,format,kbpsGroup.getCheckedRadioButtonId());
+                bottomSheetLO.show(getSupportFragmentManager(),"AlbumBottomSheet");
 
-                JSONObject songJsn=null;
-                tempID=null;
+                if (false){
+                JSONObject songJsn = null;
+                tempID = null;
                 String kbps = findViewById(kbpsGroup.getCheckedRadioButtonId()).getTag().toString();
 
                 try {
                     songJsn = songArr.getJSONObject(position);
-                    tempSJson=songJsn.toString();
+                    tempSJson = songJsn.toString();
 
-                    SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
-                    SharedPreferences.Editor editor=pref_main.edit();
-                    tempID=songJsn.getString("id");
-                    editor.putString(getResources().getString(R.string.pref_JsonFromID)+tempID,tempSJson).apply();
-                    int tempCount=pref_main.getInt(getResources().getString(R.string.pref_counter),0);
-                    tempCount=tempCount+1;
-                    if (tempCount>=5){
-                        tempCount=0;
+                    SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main), MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref_main.edit();
+                    tempID = songJsn.getString("id");
+                    editor.putString(getResources().getString(R.string.pref_JsonFromID) + tempID, tempSJson).apply();
+                    int tempCount = pref_main.getInt(getResources().getString(R.string.pref_counter), 0);
+                    tempCount = tempCount + 1;
+                    if (tempCount >= 5) {
+                        tempCount = 0;
                         if (mInterstitialAd.isLoaded()) {
                             mInterstitialAd.show();
                         }
                     }
-                    editor.putInt(getResources().getString(R.string.pref_counter),tempCount).apply();
+                    editor.putInt(getResources().getString(R.string.pref_counter), tempCount).apply();
 
                     folderName = StringEscapeUtils.unescapeXml(DataHandlers.getAlbumName(songJsn));
-                    fName = StringEscapeUtils.unescapeXml(songJsn.getString("song")) + "_" + kbps + "."+format;
+                    fName = StringEscapeUtils.unescapeXml(songJsn.getString("song")) + "_" + kbps + "." + format;
 //                    notificationID=DataHandlers.generateNotificationID(songJsn.getString("id"));
                     downUrl = DataHandlers.getDownloadLink(songJsn, kbps);
-                    albumArtUrl = songJsn.getString("image").replace("150x150","500x500");
+                    albumArtUrl = songJsn.getString("image").replace("150x150", "500x500");
 
 
                 } catch (Exception e) {
@@ -405,7 +449,7 @@ public class Album_Song_List extends AppCompatActivity {
                 }
                 downpath = DataHandlers.makeDir(folderName);
 
-                if (!(new File(downpath + "/"+albumArt_fname)).exists()) {
+                if (!(new File(downpath + "/" + albumArt_fname)).exists()) {
                     PRDownloader.download(albumArtUrl, downpath, albumArt_fname)
                             .build()
                             .setOnStartOrResumeListener(new OnStartOrResumeListener() {
@@ -427,64 +471,74 @@ public class Album_Song_List extends AppCompatActivity {
                             });
                 }
 
-                if((new File(downpath + "/" + fName)).exists()){
+                if ((new File(downpath + "/" + fName)).exists()) {
                     new AlertDialog.Builder(Album_Song_List.this)
                             .setTitle("Already Downloaded.!")
-                            .setMessage("Do you want to download \""+fName.replace(".m4a","")+"\" again..")
+                            .setMessage("Do you want to download \"" + fName.replace(".m4a", "") + "\" again..")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    final Request request = new Request(downUrl, downpath + "/" + fName);
-                                    request.setPriority(Priority.HIGH);
-                                    request.setNetworkType(NetworkType.ALL);
-                                    request.addHeader("clientKey", "SD78DF93_3947&MVNGHE1WONG");
-                                    if (!tempID.equals(null)) {
-                                        Map<String, String> map = new HashMap<String, String>();
-                                        map.put("ids",tempID);
-                                        request.setExtras(new Extras(map));
+                                    if (!downUrl.equals("FAILED")) {
+                                        final Request request = new Request(downUrl, downpath + "/" + fName);
+                                        request.setPriority(Priority.HIGH);
+                                        request.setNetworkType(NetworkType.ALL);
+                                        request.addHeader("clientKey", "SD78DF93_3947&MVNGHE1WONG");
+                                        if (!tempID.equals(null)) {
+                                            Map<String, String> map = new HashMap<String, String>();
+                                            map.put("ids", tempID);
+                                            request.setExtras(new Extras(map));
+                                        }
+
+                                        fetch.enqueue(request, updatedRequest -> {
+
+
+                                            //Request was successfully enqueued for download.
+                                            Toast.makeText(getApplicationContext(), "Added to Download Queue", Toast.LENGTH_SHORT).show();
+                                        }, error -> {
+                                            //An error occurred enqueuing the request.
+                                            Toast.makeText(getApplicationContext(), "Error! Unable to download song", Toast.LENGTH_SHORT).show();
+                                        });
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Sorry! You can't download this song..", Toast.LENGTH_SHORT).show();
                                     }
-
-                                    fetch.enqueue(request, updatedRequest -> {
-
-
-                                        //Request was successfully enqueued for download.
-                                        Toast.makeText(getApplicationContext(), "Added to Download Queue", Toast.LENGTH_SHORT).show();
-                                    }, error -> {
-                                        //An error occurred enqueuing the request.
-                                        Toast.makeText(getApplicationContext(), "Error! Unable to download song", Toast.LENGTH_SHORT).show();
-                                    });
                                 }
                             })
-                            .setNegativeButton("No",null)
+                            .setNegativeButton("No", null)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setCancelable(false)
                             .show();
 
-                }else{
-                    final Request request = new Request(downUrl, downpath + "/" + fName);
-                    request.setPriority(Priority.HIGH);
-                    request.setNetworkType(NetworkType.ALL);
-                    request.addHeader("clientKey", "SD78DF93_3947&MVNGHE1WONG");
-                    if (!tempID.equals(null)) {
-                        Map<String, String> map = new HashMap<String, String>();
-                        map.put("ids",tempID);
-                        request.setExtras(new Extras(map));
+
+                } else {
+                    if (!downUrl.equals("FAILED")) {
+                        final Request request = new Request(downUrl, downpath + "/" + fName);
+                        request.setPriority(Priority.HIGH);
+                        request.setNetworkType(NetworkType.ALL);
+                        request.addHeader("clientKey", "SD78DF93_3947&MVNGHE1WONG");
+                        if (!tempID.equals(null)) {
+                            Map<String, String> map = new HashMap<String, String>();
+                            map.put("ids", tempID);
+                            request.setExtras(new Extras(map));
+                        }
+
+
+                        fetch.enqueue(request, updatedRequest -> {
+
+                            //Request was successfully enqueued for download.
+
+                            Toast.makeText(getApplicationContext(), "Added to Download Queue", Toast.LENGTH_SHORT).show();
+                        }, error -> {
+
+                            //An error occurred enqueuing the request.
+                            Toast.makeText(getApplicationContext(), "Error! Unable to download song", Toast.LENGTH_SHORT).show();
+                        });
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Sorry! You can't download this song..", Toast.LENGTH_SHORT).show();
                     }
-
-                    fetch.enqueue(request, updatedRequest -> {
-
-                        //Request was successfully enqueued for download.
-
-                        Toast.makeText(getApplicationContext(), "Added to Download Queue", Toast.LENGTH_SHORT).show();
-                    }, error -> {
-
-                        //An error occurred enqueuing the request.
-                        Toast.makeText(getApplicationContext(), "Error! Unable to download song", Toast.LENGTH_SHORT).show();
-                    });
-
                 }
 
-
+            }
 
             }
         });
@@ -517,19 +571,19 @@ public class Album_Song_List extends AppCompatActivity {
 //                toCancel.putExtra("notifID",download.getId());
 //                PendingIntent cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_CANCEL_CURRENT);
 
-                String fil_name = download.getFile();
-                fil_name=fil_name.substring(fil_name.lastIndexOf("/")+1);
+//                String fil_name = download.getFile();
+//                fil_name=fil_name.substring(fil_name.lastIndexOf("/")+1);
 
 //                toCancel.putExtra("notifID",download.getId());
 //                cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_ONE_SHOT);
 
-                mBuilder.setContentTitle(fil_name).setOnlyAlertOnce(true);
-                mBuilder.setContentText("Starting..");
-                mBuilder.setProgress(0,0,true);
+//                mBuilder.setContentTitle(fil_name).setOnlyAlertOnce(true);
+//                mBuilder.setContentText("Starting..");
+//                mBuilder.setProgress(0,0,true);
 //                mBuilder.addAction(R.drawable.ic_pause_circle_filled_black_24dp,"Pause",pIntent);
 //                mBuilder.addAction(R.drawable.ic_cancel_black_24dp,"Cancel",cIntent);
-                mBuilder.setOngoing(true);
-                notificationManagerCompat.notify(download.getId(),mBuilder.build());
+//                mBuilder.setOngoing(true);
+//                notificationManagerCompat.notify(download.getId(),mBuilder.build());
 
             }
 
@@ -546,8 +600,8 @@ public class Album_Song_List extends AppCompatActivity {
             @Override
             public void onCompleted(@NotNull Download download) {
 //                notificationManagerCompat.cancel(download.getId());
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                     Extras extras= download.getExtras();
                     Map<String,String> map=extras.getMap();
                     String id=map.get("ids");
@@ -563,29 +617,30 @@ public class Album_Song_List extends AppCompatActivity {
                     }
                 }
 
-                String filname = download.getFile();
-                filname=filname.substring(filname.lastIndexOf("/")+1);
-                mBuilder.setContentTitle(filname);
-                mBuilder.setProgress(0,0,false);
-                mBuilder.setOngoing(false);
-                mBuilder.setContentText("Done");
-                notificationManagerCompat.notify(download.getId(),mBuilder.build());
+
+//                String filname = download.getFile();
+//                filname=filname.substring(filname.lastIndexOf("/")+1);
+//                mBuilder.setContentTitle(filname);
+//                mBuilder.setProgress(0,0,false);
+//                mBuilder.setOngoing(false);
+//                mBuilder.setContentText("Done");
+//                notificationManagerCompat.notify(download.getId(),mBuilder.build());
             }
 
 
             @Override
             public void onProgress(@NotNull Download download, long etaInMilliSeconds, long downloadedBytesPerSecond) {
-                String filname = download.getFile();
-                filname=filname.substring(filname.lastIndexOf("/")+1);
-                mBuilder.setContentTitle(filname);
+//                String filname = download.getFile();
+//                filname=filname.substring(filname.lastIndexOf("/")+1);
+//                mBuilder.setContentTitle(filname);
+//
+//                totMB=((float)(download.getTotal()))/1048576;
+//                curMB=((float)(download.getDownloaded()))/1048576;
+//
+//                mBuilder.setContentText(f.format(curMB)+"MB/"+f.format(totMB)+"MB");
+//                mBuilder.setProgress((int)download.getTotal(),(int)download.getDownloaded(),false);
 
-                totMB=((float)(download.getTotal()))/1048576;
-                curMB=((float)(download.getDownloaded()))/1048576;
-
-                mBuilder.setContentText(f.format(curMB)+"MB/"+f.format(totMB)+"MB");
-                mBuilder.setProgress((int)download.getTotal(),(int)download.getDownloaded(),false);
-
-                notificationManagerCompat.notify(download.getId(),mBuilder.build());
+//                notificationManagerCompat.notify(download.getId(),mBuilder.build());
 
             }
 
@@ -628,6 +683,197 @@ public class Album_Song_List extends AppCompatActivity {
 
 
 
+    }
+
+    public static class BottomSheetLO extends BottomSheetDialogFragment{
+        String tempID,tempSJson,folderName,fName,downUrl,albumArtUrl,downpath;
+        String albumArt_fname,format;
+        int kbpsGroup;
+        JSONArray songArr;
+        int position;
+
+        public BottomSheetLO(int position1,JSONArray songArr1,String albumArt_fname1,String format1,int kbpsGroup1) {
+            this.albumArt_fname=albumArt_fname1;
+            this.songArr=songArr1;
+            this.format=format1;
+            this.position=position1;
+            this.kbpsGroup=kbpsGroup1;
+        }
+
+        @androidx.annotation.Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @androidx.annotation.Nullable ViewGroup container, @androidx.annotation.Nullable Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.album_bottom_sheet,container,false);
+
+            rootView.findViewById(R.id.btn_sht_down).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(1000);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+
+
+
+                    JSONObject songJsn = null;
+                    tempID = null;
+                    String kbps = getActivity().findViewById(kbpsGroup).getTag().toString();
+
+                    try {
+                        songJsn = songArr.getJSONObject(position);
+                        tempSJson = songJsn.toString();
+
+                        SharedPreferences pref_main = rootView.getContext().getSharedPreferences(getResources().getString(R.string.pref_main), MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref_main.edit();
+                        tempID = songJsn.getString("id");
+                        editor.putString(getResources().getString(R.string.pref_JsonFromID) + tempID, tempSJson).apply();
+                        int tempCount = pref_main.getInt(getResources().getString(R.string.pref_counter), 0);
+                        tempCount = tempCount + 1;
+                        if (tempCount >= 5) {
+                            tempCount = 0;
+                            if (mInterstitialAd.isLoaded()) {
+                                mInterstitialAd.show();
+                            }
+                        }
+                        editor.putInt(getResources().getString(R.string.pref_counter), tempCount).apply();
+
+                        folderName = StringEscapeUtils.unescapeXml(DataHandlers.getAlbumName(songJsn));
+                        fName = StringEscapeUtils.unescapeXml(songJsn.getString("song")) + "_" + kbps + "." + format;
+//                    notificationID=DataHandlers.generateNotificationID(songJsn.getString("id"));
+                        downUrl = DataHandlers.getDownloadLink(songJsn, kbps);
+                        albumArtUrl = songJsn.getString("image").replace("150x150", "500x500");
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    downpath = DataHandlers.makeDir(folderName);
+
+                    if (!(new File(downpath + "/" + albumArt_fname)).exists()) {
+                        PRDownloader.download(albumArtUrl, downpath, albumArt_fname)
+                                .build()
+                                .setOnStartOrResumeListener(new OnStartOrResumeListener() {
+                                    @Override
+                                    public void onStartOrResume() {
+
+                                    }
+                                })
+                                .start(new OnDownloadListener() {
+                                    @Override
+                                    public void onDownloadComplete() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Error error) {
+
+                                    }
+                                });
+                    }
+
+                    if ((new File(downpath + "/" + fName)).exists()) {
+                        new AlertDialog.Builder(rootView.getContext())
+                                .setTitle("Already Downloaded.!")
+                                .setMessage("Do you want to download \"" + fName.replace(".m4a", "") + "\" again..")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (!downUrl.equals("FAILED")) {
+                                            final Request request = new Request(downUrl, downpath + "/" + fName);
+                                            request.setPriority(Priority.HIGH);
+                                            request.setNetworkType(NetworkType.ALL);
+                                            request.addHeader("clientKey", "SD78DF93_3947&MVNGHE1WONG");
+                                            if (!tempID.equals(null)) {
+                                                Map<String, String> map = new HashMap<String, String>();
+                                                map.put("ids", tempID);
+                                                request.setExtras(new Extras(map));
+                                            }
+
+                                            fetch.enqueue(request, updatedRequest -> {
+
+
+                                                //Request was successfully enqueued for download.
+                                                Toast.makeText(rootView.getContext(), "Added to Download Queue", Toast.LENGTH_SHORT).show();
+                                            }, error -> {
+                                                //An error occurred enqueuing the request.
+                                                Toast.makeText(rootView.getContext(), "Error! Unable to download song", Toast.LENGTH_SHORT).show();
+                                            });
+                                        } else {
+                                            Toast.makeText(rootView.getContext(), "Sorry! You can't download this song..", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("No", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setCancelable(false)
+                                .show();
+
+
+                    } else {
+                        if (!downUrl.equals("FAILED")) {
+                            final Request request = new Request(downUrl, downpath + "/" + fName);
+                            request.setPriority(Priority.HIGH);
+                            request.setNetworkType(NetworkType.ALL);
+                            request.addHeader("clientKey", "SD78DF93_3947&MVNGHE1WONG");
+                            if (!tempID.equals(null)) {
+                                Map<String, String> map = new HashMap<String, String>();
+                                map.put("ids", tempID);
+                                request.setExtras(new Extras(map));
+                            }
+
+
+                            fetch.enqueue(request, updatedRequest -> {
+
+                                //Request was successfully enqueued for download.
+
+                                Toast.makeText(rootView.getContext(), "Added to Download Queue", Toast.LENGTH_SHORT).show();
+                            }, error -> {
+
+                                //An error occurred enqueuing the request.
+                                Toast.makeText(rootView.getContext(), "Error! Unable to download song", Toast.LENGTH_SHORT).show();
+                            });
+
+                        } else {
+                            Toast.makeText(rootView.getContext(), "Sorry! You can't download this song..", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+
+                    bottomSheetLO.dismiss();
+                }
+            });
+
+            rootView.findViewById(R.id.btn_sht_playnow).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(1000);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+
+
+
+                }
+            });
+
+            rootView.findViewById(R.id.btn_sht_queue).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(1000);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+
+
+
+                }
+            });
+
+            return rootView;
+        }
     }
 
     class CustomAdapter extends BaseAdapter {

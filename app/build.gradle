@@ -55,7 +55,8 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.12.1'
 
     implementation files('libs/jaudiotagger-2.2.6-SNAPSHOT.jar')
-    implementation 'com.tonyodev.fetch2:fetch2:3.0.7'
+    implementation 'com.tonyodev.fetch2:fetch2:3.0.10'
+    implementation "com.tonyodev.fetch2okhttp:fetch2okhttp:3.0.10"
 
     implementation 'com.google.android.gms:play-services-ads:17.2.1'
     implementation 'androidx.browser:browser:1.0.0'
