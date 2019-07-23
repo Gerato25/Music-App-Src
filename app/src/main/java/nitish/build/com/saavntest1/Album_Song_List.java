@@ -46,6 +46,10 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.snackbar.Snackbar;
+import com.tonyodev.fetch2core.FetchObserver;
+import com.tonyodev.fetch2core.Func;
+import com.tonyodev.fetch2core.Reason;
 import com.tonyodev.fetch2okhttp.OkHttpDownloader;
 import com.tonyodev.fetch2.DefaultFetchNotificationManager;
 import com.tonyodev.fetch2.Download;
@@ -104,6 +108,8 @@ public class Album_Song_List extends AppCompatActivity {
     ListView song_list;
     static final String FETCH_NAMESPACE = "SongDownload";
     static BottomSheetLO bottomSheetLO;
+
+
 
 
     @Override
@@ -479,7 +485,7 @@ public class Album_Song_List extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if (!downUrl.equals("FAILED")) {
-                                        final Request request = new Request(downUrl, downpath + "/" + fName);
+                                        Request request = new Request(downUrl, downpath + "/" + fName);
                                         request.setPriority(Priority.HIGH);
                                         request.setNetworkType(NetworkType.ALL);
                                         request.addHeader("clientKey", "SD78DF93_3947&MVNGHE1WONG");
@@ -546,7 +552,7 @@ public class Album_Song_List extends AppCompatActivity {
         FetchListener fetchListener = new FetchListener() {
             @Override
             public void onAdded(@NotNull Download download) {
-
+                Log.i("FTCH_OBS","DP");
             }
 
             @Override
@@ -680,6 +686,7 @@ public class Album_Song_List extends AppCompatActivity {
         };
 
         fetch.addListener(fetchListener);
+
 
 
 

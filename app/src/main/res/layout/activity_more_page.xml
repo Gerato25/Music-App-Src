@@ -9,12 +9,12 @@
 
     <Button
         android:id="@+id/btm_srch"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/ic_dsearch"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_search_dull"
         android:onClick="btmSrch"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView53"
         app:layout_constraintEnd_toStartOf="@+id/btm_brws"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -22,36 +22,38 @@
 
     <Button
         android:id="@+id/btm_brws"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_browse_dull"
         android:onClick="btmBrws"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/ic_dbrowse"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView54"
         app:layout_constraintEnd_toStartOf="@+id/btm_down"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_srch" />
 
     <Button
         android:id="@+id/btm_down"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_play_dull"
         android:onClick="btmDown"
-        android:background="@drawable/ic_ddown"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView55"
         app:layout_constraintEnd_toStartOf="@+id/btm_more"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_brws" />
 
     <Button
         android:id="@+id/btm_more"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_more"
         android:onClick="btmMore"
-        android:background="@drawable/ic_wmore"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView56"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_down" />
@@ -177,59 +179,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_mor_cl" />
 
-    <TextView
-        android:id="@+id/tv_toGmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/jockey_one"
-        android:text="@string/more_page_ClickText"
-
-        android:textColor="@android:color/holo_blue_bright"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/advent_pro_semibold"
-        android:text="@string/more_page_Disclaimer"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/acme"
-        android:text="Disclaimer"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_toGmail" />
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/capriola"
@@ -239,9 +193,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView20"
@@ -258,7 +210,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
         app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -319,7 +270,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/buy_me_cofee"
         app:layout_constraintBottom_toTopOf="@+id/textView20"
         app:layout_constraintEnd_toEndOf="parent"
@@ -331,88 +282,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         android:fontFamily="@font/capriola"
         android:text="Like my work ?"
         android:textColor="@android:color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_buy_me_cofee"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_getIntouch"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/tv_getIntouch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/jockey_one"
-        android:text="@string/get_intouch"
-        android:textColor="@android:color/holo_blue_bright"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView36" />
-
-    <TextView
-        android:id="@+id/tv_telegram"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/jockey_one"
-        android:text="@string/more_telegram"
-        android:textColor="@android:color/holo_blue_bright"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_toGmail" />
-
-    <TextView
-        android:id="@+id/tv_github"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/jockey_one"
-        android:text="@string/star_github"
-        android:textColor="@android:color/holo_blue_bright"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_telegram" />
-
-    <TextView
-        android:id="@+id/tv_faqs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/jockey_one"
-        android:text="@string/more_faqs"
-        android:textColor="@android:color/holo_blue_bright"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_github" />
-
-    <TextView
-        android:id="@+id/textView36"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/more_disclaimer"
-        android:textColor="@android:color/holo_blue_bright"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_faqs" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_mor_cl"
@@ -426,5 +304,116 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView5"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Search"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_srch"
+        app:layout_constraintStart_toStartOf="@+id/btm_srch" />
+
+    <TextView
+        android:id="@+id/textView54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Browse"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_brws"
+        app:layout_constraintStart_toStartOf="@+id/btm_brws" />
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Now playing"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_down"
+        app:layout_constraintStart_toStartOf="@+id/btm_down" />
+
+    <TextView
+        android:id="@+id/textView56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="More"
+        android:textColor="@android:color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_more"
+        app:layout_constraintStart_toStartOf="@+id/btm_more" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_toGmail1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jockey_one"
+                android:text="Click here to Report a Bug or Suggest a feature.(use Gmail)"
+                android:textColor="@android:color/holo_blue_bright" />
+
+            <TextView
+                android:id="@+id/tv_telegram1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/jockey_one"
+                android:text="@string/more_telegram"
+                android:textColor="@android:color/holo_blue_bright" />
+
+            <TextView
+                android:id="@+id/tv_github1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/jockey_one"
+                android:text="@string/star_github"
+                android:textColor="@android:color/holo_blue_bright" />
+
+            <TextView
+                android:id="@+id/tv_faqs1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/jockey_one"
+                android:text="@string/more_faqs"
+                android:textColor="@android:color/holo_blue_bright" />
+
+            <TextView
+                android:id="@+id/tv_getIntouch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/jockey_one"
+                android:text="@string/get_intouch"
+                android:textColor="@android:color/holo_blue_bright" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

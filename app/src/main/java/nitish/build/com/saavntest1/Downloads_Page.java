@@ -7,6 +7,7 @@ import android.os.Environment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -21,6 +22,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.material.snackbar.Snackbar;
+import com.tonyodev.fetch2.Download;
+import com.tonyodev.fetch2.FetchListener;
+import com.tonyodev.fetch2core.FetchObserver;
+import com.tonyodev.fetch2core.Reason;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -33,7 +41,7 @@ public class Downloads_Page extends AppCompatActivity {
     AdView mAdView;
     ImageView btn_set_dp,btn_bak_dp;
     Button btn_folder_dp;
-
+    static FetchListener fetchListener1;
 
     @Override
     public void onBackPressed() {
@@ -47,7 +55,7 @@ public class Downloads_Page extends AppCompatActivity {
         setContentView(R.layout.activity_downloads__page);
 
         lv_queueList=findViewById(R.id.list_inQueue);
-        tv_info=findViewById(R.id.tv_downInfo);
+
 
 
         mAdView = findViewById(R.id.adView_Downloads);
@@ -92,6 +100,10 @@ public class Downloads_Page extends AppCompatActivity {
                 v.startAnimation(animation1);
                 //-------------------------//
 
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                Uri uri = Uri.parse("file://"+Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/"); //  directory path
+//                intent.setDataAndType(uri, "*/*");
+//                startActivity(Intent.createChooser(intent, "Open folder"));
                 Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(selectedUri, "resource/folder");
@@ -102,10 +114,12 @@ public class Downloads_Page extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "Please Install a File Manager.", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(android.R.id.content),"Please install ant third-party file browser",Snackbar.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "Please Install a File Manager.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
 
 
@@ -138,6 +152,10 @@ public class Downloads_Page extends AppCompatActivity {
 
 
     }
+
+
+
+
 
     public void btmSrch(View v){
         //------Animation-----------//

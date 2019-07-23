@@ -96,10 +96,10 @@ public class MorePage extends AppCompatActivity {
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
         tv_changeLog = findViewById(R.id.tv_mor_cl);
-        tv_Faqs = findViewById(R.id.tv_faqs);
-        tv_getIntouch = findViewById(R.id.tv_getIntouch);
-        tv_Github = findViewById(R.id.tv_github);
-        tv_TelegramGroup = findViewById(R.id.tv_telegram);
+        tv_Faqs = findViewById(R.id.tv_faqs1);
+        tv_getIntouch = findViewById(R.id.tv_getIntouch1);
+        tv_Github = findViewById(R.id.tv_github1);
+        tv_TelegramGroup = findViewById(R.id.tv_telegram1);
         btn_buyMeCoffee = findViewById(R.id.btn_buy_me_cofee);
 
         btn_buyMeCoffee.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +205,7 @@ public class MorePage extends AppCompatActivity {
             }
         });
 
-        TextView tv_toGmail=findViewById(R.id.tv_toGmail);
+        TextView tv_toGmail=findViewById(R.id.tv_toGmail1);
         tv_toGmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

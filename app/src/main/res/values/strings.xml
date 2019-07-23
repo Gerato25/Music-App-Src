@@ -55,6 +55,8 @@
                         Please Force Close the app and try downloading again.\n
                         Also check weather you have given all Permissions or not.\n
                         I will fix this issue in next release.</string>
+    <string name="under_construction">Streaming is disabled in this build due to few unknown bugs. \n
+        It will be enabled in the next update, which will be released soon.</string>
     <string name="searchPage"><b><u>Instructions:</u></b>\n
         Use the above <b>Search bar</b> to Search songs and the results appear here.\n
         Use <b>Browse tab</b> to browse songs directly from Saavn web UI.\n

@@ -18,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class Settings_Alb extends AppCompatActivity {
     RadioGroup rg_kbps,rg_format;
     TextView tv_path,set_down_path;
@@ -34,8 +36,10 @@ public class Settings_Alb extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (sved)
+//            Snackbar.make(getCurrentFocus(),"Your Settings Saved.",Snackbar.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "Your Settings Saved.", Toast.LENGTH_SHORT).show();
         else
+//            Snackbar.make(findViewById(android.R.id.content),"Your settings wont be saved.",Snackbar.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "Your settings wont be saved.", Toast.LENGTH_SHORT).show();
         if (is_fromAlb){
             Intent to_init = new Intent(getApplicationContext(),Search_Songs.class);

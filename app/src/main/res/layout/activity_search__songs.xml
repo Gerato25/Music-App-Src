@@ -142,12 +142,12 @@
 
     <Button
         android:id="@+id/btm_srch"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/ic_wsearch"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_search"
         android:onClick="sBtmSrch"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView45"
         app:layout_constraintEnd_toStartOf="@+id/btm_brws"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -155,36 +155,36 @@
 
     <Button
         android:id="@+id/btm_brws"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_browse_dull"
         android:onClick="sBtmBrws"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/ic_dbrowse"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView46"
         app:layout_constraintEnd_toStartOf="@+id/btm_down"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_srch" />
 
     <Button
         android:id="@+id/btm_down"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_play_dull"
         android:onClick="sBtmDown"
-        android:background="@drawable/ic_ddown"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView47"
         app:layout_constraintEnd_toStartOf="@+id/btm_more"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_brws" />
 
     <Button
         android:id="@+id/btm_more"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_more_dull"
         android:onClick="sBtmMore"
-        android:background="@drawable/ic_dmore"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView48"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_down" />
@@ -215,6 +215,55 @@
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintHorizontal_bias="0.498"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Search"
+        android:textColor="@android:color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_srch"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="@+id/btm_srch" />
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Browse"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_brws"
+        app:layout_constraintStart_toStartOf="@+id/btm_brws" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Now Playing"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_down"
+        app:layout_constraintStart_toStartOf="@+id/btm_down" />
+
+    <TextView
+        android:id="@+id/textView48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="More"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_more"
+        app:layout_constraintStart_toStartOf="@+id/btm_more" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

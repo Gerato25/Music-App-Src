@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/darkAccent"
     tools:context=".Downloads_Page">
+
     <Button
         android:id="@+id/btm_srch"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/ic_dsearch"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_search_dull"
         android:onClick="btmSrch"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView49"
         app:layout_constraintEnd_toStartOf="@+id/btm_brws"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -21,36 +22,36 @@
 
     <Button
         android:id="@+id/btm_brws"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_browse_dull"
         android:onClick="btmBrws"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/ic_dbrowse"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView50"
         app:layout_constraintEnd_toStartOf="@+id/btm_down"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_srch" />
 
     <Button
         android:id="@+id/btm_down"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_play"
         android:onClick="btmDown"
-        android:background="@drawable/ic_wdown"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView51"
         app:layout_constraintEnd_toStartOf="@+id/btm_more"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_brws" />
 
     <Button
         android:id="@+id/btm_more"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_btm_more_dull"
         android:onClick="btmMore"
-        android:background="@drawable/ic_dmore"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView52"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btm_down" />
@@ -75,7 +76,7 @@
         android:background="@android:color/white"
         android:fontFamily="@font/jockey_one"
         android:gravity="center"
-        android:text="Music will be saved to   FREEMIUM_DOWNLOADS   folder"
+        android:text="This Page is Under Construction"
         android:textAlignment="center"
         android:textColor="@color/darkAccent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,35 +84,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
-    <TextView
-        android:id="@+id/tv_downInfo"
-        android:layout_width="364dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/abel"
-        android:text="@string/downloads_page"
-        android:textAlignment="center"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/adView_Downloads"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.64" />
-
     <ListView
         android:id="@+id/list_inQueue"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="6dp"
-        android:layout_marginBottom="8dp"
         android:background="@color/darkAccent"
         android:paddingLeft="16dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/tv_downInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -212,7 +192,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:fontFamily="@font/secular_one"
-        android:text="Downloads"
+        android:text="Now Playing"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -246,7 +226,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/curvature"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -254,10 +234,105 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_downInfo"
+        app:layout_constraintBottom_toTopOf="@+id/adView_Downloads"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView37"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView49"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Search"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_srch"
+        app:layout_constraintStart_toStartOf="@+id/btm_srch" />
+
+    <TextView
+        android:id="@+id/textView50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Browse"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_brws"
+        app:layout_constraintStart_toStartOf="@+id/btm_brws" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Now Playing"
+        android:textColor="@android:color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_down"
+        app:layout_constraintStart_toStartOf="@+id/btm_down" />
+
+    <TextView
+        android:id="@+id/textView52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="More"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btm_more"
+        app:layout_constraintStart_toStartOf="@+id/btm_more" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView_Downloads"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.35000002"
+        app:srcCompat="@drawable/ic_under_construction" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/secular_one"
+        android:text="@string/under_construction"
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/adView_Downloads"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/capriola"
+        android:text="This page is still Under Construction"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
