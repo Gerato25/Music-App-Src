@@ -22,181 +22,381 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/acme"
-        android:text="Preferred Audio Quality :"
-        android:textColor="@android:color/white"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-    <RadioGroup
-        android:id="@+id/rg_set_kbps"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView40"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24">
+        app:layout_constraintTop_toBottomOf="@+id/textView23">
 
-        <RadioButton
-            android:id="@+id/set_320"
-            android:tag="320"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@android:color/white"
-            android:fontFamily="@font/secular_one"
-            android:text="320kbps"
-            android:textColor="@android:color/white" />
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/set_160"
-            android:tag="160"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@android:color/white"
-            android:fontFamily="@font/secular_one"
-            android:text="160kbps"
-            android:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/jockey_one"
+                android:text="Download settings"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="19sp" />
 
-        <RadioButton
-            android:id="@+id/set_96"
-            android:tag="96"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@android:color/white"
-            android:fontFamily="@font/secular_one"
-            android:text="96kbps"
-            android:textColor="@android:color/white" />
-    </RadioGroup>
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/white" />
 
-    <TextView
-        android:id="@+id/textView26"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_set_kbps" />
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/acme"
+                android:text="Preferred Audio Quality :"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/acme"
-        android:text="Preferred Audio Format :"
-        android:textColor="@android:color/white"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+            <RadioGroup
+                android:id="@+id/rg_set_kbps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
-    <RadioGroup
-        android:id="@+id/rg_set_format"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:weightSum="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27">
+                <RadioButton
+                    android:id="@+id/set_320"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/secular_one"
+                    android:tag="320"
+                    android:text="320kbps"
+                    android:textColor="@android:color/white" />
 
-        <RadioButton
-            android:id="@+id/set_m4a"
-            android:tag="m4a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@android:color/white"
-            android:fontFamily="@font/secular_one"
-            android:text="m4a"
-            android:textColor="@android:color/white" />
+                <RadioButton
+                    android:id="@+id/set_160"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/secular_one"
+                    android:tag="160"
+                    android:text="160kbps"
+                    android:textColor="@android:color/white" />
 
-        <RadioButton
-            android:id="@+id/set_mp3"
-            android:tag="mp3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@android:color/white"
-            android:fontFamily="@font/secular_one"
-            android:text="mp3"
-            android:textColor="@android:color/white" />
-    </RadioGroup>
+                <RadioButton
+                    android:id="@+id/set_96"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/secular_one"
+                    android:tag="96"
+                    android:text="96kbps"
+                    android:textColor="@android:color/white" />
+            </RadioGroup>
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/acme"
+                android:text="Preferred Audio Format :"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                 />
+            <RadioGroup
+                android:id="@+id/rg_set_format"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:weightSum="4">
 
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_set_format" />
+                <RadioButton
+                    android:id="@+id/set_m4a"
+                    android:tag="m4a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/secular_one"
+                    android:text="m4a"
+                    android:textColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/acme"
-        android:text="Default Download Directory :"
-        android:textColor="@android:color/white"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                <RadioButton
+                    android:id="@+id/set_mp3"
+                    android:tag="mp3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/secular_one"
+                    android:text="mp3"
+                    android:textColor="@android:color/white" />
+            </RadioGroup>
+            <TextView
+                android:id="@+id/textView89"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/acme"
+                android:text="Default Download Directory :"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"/>
+            <TextView
+                android:id="@+id/set_down_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/abel"
+                android:text="/FREEMIUM_DOWNLOADS/"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/set_down_path"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/abel"
-        android:text="/FREEMIUM_DOWNLOADS/"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView29"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+            <Switch
+                android:id="@+id/switch_sub_folders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:checked="true"
+                android:fontFamily="@font/acme"
+                android:shadowColor="@android:color/darker_gray"
+                android:text="Make Sub Folders"
+                android:textColor="@android:color/white"
+                android:textColorLink="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView31"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_down_path" />
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="@string/setting_subfolders"
+                android:textColor="@android:color/darker_gray" />
+
+            <Switch
+                android:id="@+id/cb_hide_albumArt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/acme"
+                android:shadowColor="@android:color/darker_gray"
+                android:text="Hide Albumart files"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="@string/albumart_settings_page"
+                android:textColor="@android:color/darker_gray" />
+
+            <Switch
+                android:id="@+id/switch_audio_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/acme"
+                android:shadowColor="@android:color/darker_gray"
+                android:text="Toggle Audio Tagging"
+                android:textColor="@android:color/white"
+                android:checked="true"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView56"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="@string/settings_audio_tagging"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/textVi2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/jockey_one"
+                android:text="FileName Preferences"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="19sp" />
+            <TextView
+                android:id="@+id/textew27"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/white" />
+            <TextView
+                android:id="@+id/cur_fn_format"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/abel"
+                android:text="SongName[AlbumName]_kbps.format"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="17sp" />
+
+            <Switch
+                android:id="@+id/switch3"
+                android:layout_marginStart="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="concatinate AlbumName"
+                android:textSize="16sp"
+                android:checked="true"
+                android:textColor="@android:color/white" />
+
+            <Switch
+                android:id="@+id/set_fnp_kbps"
+                android:layout_marginStart="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="concatinate Kbps"
+                android:checked="true"
+                android:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/extVi2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/jockey_one"
+                android:text="Streaming Settings"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="19sp" />
+            <TextView
+                android:id="@+id/extew27"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/white" />
+            <TextView
+                android:id="@+id/textVw24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/acme"
+                android:text="Preferred Streaming Quality :"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+            <RadioGroup
+                android:id="@+id/rg_set_strm_kbps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <RadioButton
+                    android:id="@+id/set_strm_320"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/secular_one"
+                    android:tag="320"
+                    android:text="320kbps"
+                    android:textColor="@android:color/white" />
+
+                <RadioButton
+                    android:id="@+id/set_strm_160"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/secular_one"
+                    android:tag="160"
+                    android:text="160kbps"
+                    android:textColor="@android:color/white" />
+
+                <RadioButton
+                    android:id="@+id/set_strm_96"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@android:color/white"
+                    android:fontFamily="@font/secular_one"
+                    android:tag="96"
+                    android:text="96kbps"
+                    android:textColor="@android:color/white" />
+            </RadioGroup>
+            <Switch
+                android:id="@+id/switch_strm_lyrics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:checked="true"
+                android:fontFamily="@font/acme"
+                android:shadowColor="@android:color/darker_gray"
+                android:text="Auto download lyrics"
+                android:textColor="@android:color/white"
+                android:textColorLink="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textVie39"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="@string/setting_subfolders"
+                android:textColor="@android:color/darker_gray" />
+
+            <Switch
+                android:id="@+id/switch_strm_cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/acme"
+                android:shadowColor="@android:color/darker_gray"
+                android:text="Hide Albumart files"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textViw32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/abel"
+                android:text="@string/albumart_settings_page"
+                android:textColor="@android:color/darker_gray" />
+
+
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView57"
@@ -237,43 +437,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_save" />
-
-    <TextView
-        android:id="@+id/textView38"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/acme"
-        android:text="Hide AlbumArt :"
-        android:textColor="@android:color/white"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView31" />
-
-    <CheckBox
-        android:id="@+id/cb_hide_albumArt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:buttonTint="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView31" />
-
-    <TextView
-        android:id="@+id/textView39"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/abel"
-        android:text="@string/albumart_settings_page"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintEnd_toStartOf="@+id/cb_hide_albumArt"
-        app:layout_constraintStart_toStartOf="@+id/textView38"
-        app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
     <TextView
         android:id="@+id/textView40"

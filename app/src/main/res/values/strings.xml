@@ -62,6 +62,9 @@
         Use <b>Browse tab</b> to browse songs directly from Saavn web UI.\n
         All downloaded songs will be saved to  <b>FREEMIUM_DOWNLOADS</b> folder.\n
         Check out   <b>Downloads</b>   and   <b>More page</b>   for further info.</string>
+    <string name="setting_subfolders">Enabling this will store the downloaded music files in seperate folders
+    names as per their Album name</string>
+    <string name="settings_audio_tagging">Try disabling this if you encounter random force closes in the app while downloading.</string>
 
     <string name="more_page">Note : This a beta release of the app. So its common to have Bugs and Lags in the app.
         For further development of the app please report the bugs you find.</string>

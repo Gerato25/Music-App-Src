@@ -161,7 +161,6 @@
         android:background="@drawable/ic_navigate_next_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_home_web" />
 
     <Button

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class Settings_Alb extends AppCompatActivity {
     String d_kbps="320",d_format="m4a";
     String s_kbps="320",s_format="m4a";
     Boolean sved = false,s_aA_hidden,d_aA_hidden;
-    CheckBox cb_hide_albumArt;
+    Switch cb_hide_albumArt;
     Boolean is_fromAlb = false;
 
 
