@@ -64,13 +64,13 @@ public class MorePage extends AppCompatActivity {
                     //25 --  https://p-y.tm/kHt-P4t
                     //55 --  https://p-y.tm/BdS-La9
                     //85 --  https://p-y.tm/cf4-xgQ
-                    String url = "https://p-y.tm/BdS-La9";
-                    if (amount.equals("25"))
-                        url = "https://p-y.tm/kHt-P4t";
-                    else if (amount.equals("55"))
-                        url = "https://p-y.tm/BdS-La9";
-                    else if (amount.equals("85"))
-                        url = "https://p-y.tm/cf4-xgQ";
+                    String url = "https://p-y.tm/W8-4mek";
+//                    if (amount.equals("25"))
+//                        url = "https://p-y.tm/kHt-P4t";
+//                    else if (amount.equals("55"))
+//                        url = "https://p-y.tm/BdS-La9";
+//                    else if (amount.equals("85"))
+//                        url = "https://p-y.tm/cf4-xgQ";
 
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));

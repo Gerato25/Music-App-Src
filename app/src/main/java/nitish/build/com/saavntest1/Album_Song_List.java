@@ -346,6 +346,7 @@ public class Album_Song_List extends AppCompatActivity {
 
         FetchConfiguration fetchConfiguration = new FetchConfiguration.Builder(this)
                 .setDownloadConcurrentLimit(1)
+                .setAutoRetryMaxAttempts(3)
                 .setHttpDownloader(new OkHttpDownloader(Downloader.FileDownloaderType.PARALLEL))
                 .setNamespace(FETCH_NAMESPACE)
                 .setNotificationManager(new DefaultFetchNotificationManager(this) {

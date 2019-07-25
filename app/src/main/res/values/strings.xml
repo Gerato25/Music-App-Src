@@ -42,6 +42,7 @@
     <string name="pref_JsonFromID">nitish.build.com.saavntest1_JsonFromID</string>
     <string name="pref_search_counter">nitish.build.com.saavntest1_search_counter</string>
     <string name="pref_inqueue">nitish.build.com.saavntest1_inqueue</string>
+    <string name="pref_update">nitish.build.com.saavntest1_update</string>
 
     <string name="set_main">nitish.build.com.saavntest1_settings_preferences</string>
     <string name="set_kbps">nitish.build.com.saavntest1_set_kbps</string>

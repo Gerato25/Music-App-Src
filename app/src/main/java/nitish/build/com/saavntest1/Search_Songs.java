@@ -1,7 +1,9 @@
 package nitish.build.com.saavntest1;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import androidx.core.app.ActivityCompat;
@@ -19,9 +22,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
@@ -31,6 +36,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -194,6 +200,9 @@ public class Search_Songs extends AppCompatActivity {
                     1);
         }
         //---------------Done Permission--------------//
+        Boolean displayed = pref_main.getBoolean(getResources().getString(R.string.pref_update),false);
+        if (!displayed)
+            new Updater().execute();
 
         btn_search1=findViewById(R.id.btn_searchBox);
         EditText et_SearchBox=findViewById(R.id.et_searchBox);
@@ -257,6 +266,92 @@ public class Search_Songs extends AppCompatActivity {
 
 
 
+    }
+
+    public class Updater extends AsyncTask<Void,Void,String>{
+        @Override
+        protected String doInBackground(Void... voids) {
+            return DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1yxVd1HRTBbO5ZjVHggjSEC3cLviRdJsMxojHODl6hSU&sheet=Sheet1");
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s.contains("YES_THERE_IS")){
+                Log.i("UPD_TEST","YES");
+                try {
+                    JSONObject obj = new JSONObject(s);
+                    JSONArray jsonArray = obj.getJSONArray("Sheet1");
+                    JSONObject mainObj = jsonArray.getJSONObject(0);
+                    String url =mainObj.getString("URL");
+                    String description = mainObj.getString("Description");
+                    String version = mainObj.getString("Version");
+                    String date = mainObj.getString("Date");
+
+                    ViewDialog viewDialog=new ViewDialog(version+"   "+date,description,url);
+                    viewDialog.showDialog(Search_Songs.this);
+                    SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref_main.edit();
+                    editor.putBoolean(getResources().getString(R.string.pref_update),true).apply();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                Log.i("UPD_TEST","NO UPdate");
+            }
+        }
+    }
+
+    public class ViewDialog {
+        String head,des,url;
+        ViewDialog(String head,String des,String url){
+            this.head=head;
+            this.des=des;
+            this.url=url;
+        }
+
+        public void showDialog(Activity activity){
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_update);
+
+            TextView tv_head = dialog.findViewById(R.id.dialog_ud_head);
+            TextView tv_des = dialog.findViewById(R.id.dialog_ud_des);
+            Button btn_update = dialog.findViewById(R.id.dialog_ud_btn_ud);
+            Button close = dialog.findViewById(R.id.ud_dialog_close);
+
+            tv_des.setText(des);
+            tv_head.setText(head);
+
+            btn_update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(500);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+            });
+
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(500);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+
+        }
     }
 
     public class ViewPagerAdapter extends FragmentPagerAdapter {

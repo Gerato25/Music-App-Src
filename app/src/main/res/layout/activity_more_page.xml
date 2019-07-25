@@ -416,4 +416,18 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/advent_pro_semibold"
+        android:text="(check updates)"
+        android:textColor="@android:color/holo_blue_bright"
+        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
