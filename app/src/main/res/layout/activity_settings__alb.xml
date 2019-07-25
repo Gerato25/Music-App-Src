@@ -65,7 +65,7 @@
                 android:fontFamily="@font/acme"
                 android:text="Preferred Audio Quality :"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
 
             <RadioGroup
                 android:id="@+id/rg_set_kbps"
@@ -154,15 +154,35 @@
                     android:text="mp3"
                     android:textColor="@android:color/white" />
             </RadioGroup>
-            <TextView
-                android:id="@+id/textView89"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/acme"
-                android:text="Default Download Directory :"
-                android:textColor="@android:color/white"
-                android:textSize="17sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView89"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/acme"
+                    android:text="Default Download Directory :"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/set_change_dir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:text="change"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/set_down_path"
                 android:layout_width="match_parent"
@@ -186,7 +206,8 @@
                 android:textColor="@android:color/white"
                 android:textColorLink="#FFFFFF"
                 android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumbTint="#A4A4A4"/>
 
             <TextView
                 android:id="@+id/textView39"
@@ -206,7 +227,8 @@
                 android:text="Hide Albumart files"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumbTint="#A4A4A4" />
             <TextView
                 android:id="@+id/textView32"
                 android:layout_width="match_parent"
@@ -226,7 +248,8 @@
                 android:textColor="@android:color/white"
                 android:checked="true"
                 android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumbTint="#A4A4A4"/>
 
             <TextView
                 android:id="@+id/textView56"
@@ -265,24 +288,26 @@
                 android:textSize="17sp" />
 
             <Switch
-                android:id="@+id/switch3"
-                android:layout_marginStart="4dp"
+                android:id="@+id/fn_pref_con_AlbumName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="concatinate AlbumName"
-                android:textSize="16sp"
+                android:layout_marginStart="4dp"
                 android:checked="true"
-                android:textColor="@android:color/white" />
+                android:text="include AlbumName"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:thumbTint="#A4A4A4"/>
 
             <Switch
-                android:id="@+id/set_fnp_kbps"
-                android:layout_marginStart="4dp"
+                android:id="@+id/fn_pref_con_kbps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="concatinate Kbps"
+                android:layout_marginStart="4dp"
                 android:checked="true"
-                android:textColor="@android:color/white" />
+                android:text="include Kbps"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:thumbTint="#A4A4A4"/>
             <TextView
                 android:id="@+id/extVi2"
                 android:layout_width="match_parent"
@@ -299,6 +324,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="4dp"
                 android:background="@android:color/white" />
+
             <TextView
                 android:id="@+id/textVw24"
                 android:layout_width="wrap_content"
@@ -307,7 +333,7 @@
                 android:fontFamily="@font/acme"
                 android:text="Preferred Streaming Quality :"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
             <RadioGroup
                 android:id="@+id/rg_set_strm_kbps"
                 android:layout_width="match_parent"
@@ -364,14 +390,15 @@
                 android:textColor="@android:color/white"
                 android:textColorLink="#FFFFFF"
                 android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumbTint="#A4A4A4"/>
 
             <TextView
                 android:id="@+id/textVie39"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/abel"
-                android:text="@string/setting_subfolders"
+                android:text="@string/settings_lyrics_download"
                 android:textColor="@android:color/darker_gray" />
 
             <Switch
@@ -381,17 +408,19 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/acme"
                 android:shadowColor="@android:color/darker_gray"
-                android:text="Hide Albumart files"
+                android:text="Auto Caching"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumbTint="#A4A4A4"/>
+
             <TextView
                 android:id="@+id/textViw32"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/abel"
-                android:text="@string/albumart_settings_page"
+                android:text="@string/settings_autochaching"
                 android:textColor="@android:color/darker_gray" />
 
 

@@ -47,6 +47,10 @@
     <string name="set_kbps">nitish.build.com.saavntest1_set_kbps</string>
     <string name="set_format">nitish.build.com.saavntest1_set_format</string>
     <string name="set_AlbumArt">nitish.build.com.saavntest1_set_AlbumArt</string>
+    <string name="set_Directory">nitish.build.com.saavntest1_defDirectory</string>
+    <string name="set_subFolders">nitish.build.com.saavntest1_sub_folders</string>
+    <string name="set_audioTagging">nitish.build.com.saavntest1_audio_tagging</string>
+    <string name="set_defFN_code">nitish.build.com.saavntest1_def_FN_code</string>
 
     <string name="albumart_settings_page">(This feature is only for Android Oreo and Above) \n
         When enabled it hides \"albumArt.jpg\" files. So that they wont annoy you by appearing in Galley. \n
@@ -62,9 +66,13 @@
         Use <b>Browse tab</b> to browse songs directly from Saavn web UI.\n
         All downloaded songs will be saved to  <b>FREEMIUM_DOWNLOADS</b> folder.\n
         Check out   <b>Downloads</b>   and   <b>More page</b>   for further info.</string>
-    <string name="setting_subfolders">Enabling this will store the downloaded music files in seperate folders
-    names as per their Album name</string>
+    <string name="setting_subfolders">Enabling this will store the downloaded music files in separate folders,
+    named as per their Album name</string>
     <string name="settings_audio_tagging">Try disabling this if you encounter random force closes in the app while downloading.</string>
+    <string name="settings_lyrics_download">Enabling this will save .lrc files when ever possible to reduce loading time for
+        future playbacks.</string>
+    <string name="settings_autochaching">[Experimental]This will temporarily store the required audio data locally to reduce
+        buffer time during the next playback. However, this might occupy some of your internal storage space. </string>
 
     <string name="more_page">Note : This a beta release of the app. So its common to have Bugs and Lags in the app.
         For further development of the app please report the bugs you find.</string>

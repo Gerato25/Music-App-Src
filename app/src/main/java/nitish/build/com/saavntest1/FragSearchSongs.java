@@ -97,7 +97,7 @@ public class FragSearchSongs extends Fragment {
                 listSize=0;
                 info1.setImageResource(R.drawable.ic_err_flag);
                 info1.setVisibility(View.VISIBLE);
-                info2.setText("No songs found for '"+query+"'");
+                info2.setText("No songsfound for '"+query.replace("%20"," ")+"'");
                 info2.setVisibility(View.VISIBLE);
                 info3.setText("Please check you have the right spelling, or try different keywords.");
                 info3.setVisibility(View.VISIBLE);
