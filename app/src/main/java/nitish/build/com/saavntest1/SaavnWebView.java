@@ -4,20 +4,24 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +31,9 @@ public class SaavnWebView extends AppCompatActivity {
     TextView tv_link;
     Button btn_Download,tv_found;
     String curUrl,songType;
-    Button btn_next,btn_prev,btn_home;
+    Button btn_next,btn_prev,btn_home,btn_web_serch,btn_web_set;
+    EditText web_srch_et;
+    Boolean isEtOPen=false;
 
     //------------------------   Double tap to Exit   ----------------------------//
 
@@ -87,6 +93,10 @@ public class SaavnWebView extends AppCompatActivity {
         btn_next = findViewById(R.id.btn_next_web);
         btn_prev = findViewById(R.id.btn_prev_web);
 
+        web_srch_et = findViewById(R.id.web_srch_et);
+        btn_web_serch = findViewById(R.id.btn_web_serch);
+        btn_web_set= findViewById(R.id.btn_web_set);
+
         if (!isNetworkAvailable()){
             new AlertDialog.Builder(SaavnWebView.this)
                     .setTitle("Not Connected to internet?")
@@ -126,6 +136,62 @@ public class SaavnWebView extends AppCompatActivity {
                     progressDialog.show();
 
                 }
+            }
+        });
+
+        btn_web_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(1000);
+                v.startAnimation(animation1);
+                //-------------------------//
+
+                startActivity(new Intent(getApplicationContext(),Settings_Alb.class));
+                overridePendingTransition(R.anim.slide_in_down,  R.anim.slide_out_down);
+
+            }
+        });
+
+        btn_web_serch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(1000);
+                v.startAnimation(animation1);
+                //-------------------------//
+                if(isEtOPen){
+                    btn_web_serch.setBackgroundResource(R.drawable.ic_btm_search);
+                    web_srch_et.setVisibility(View.GONE);
+                    isEtOPen=false;
+                }
+                else{
+                    btn_web_serch.setBackgroundResource(R.drawable.ic_close_black_24dp);
+                    web_srch_et.setVisibility(View.VISIBLE);
+                    isEtOPen=true;
+                }
+
+            }
+        });
+
+
+        web_srch_et.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    View view = getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                    startWebView(web_srch_et.getText().toString());
+                    btn_web_serch.callOnClick();
+                    return true;
+                }
+                return false;
             }
         });
 

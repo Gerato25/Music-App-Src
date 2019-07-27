@@ -212,15 +212,7 @@ public class DataHandlers {
         return songJsn.getString("album")+"-"+songJsn.getString("year");
     }
 
-    static String makeDir(String folderName){
-        File albdirectory = new File(Environment.getExternalStorageDirectory()+ "/FREEMIUM_DOWNLOADS/"+folderName+"/");
-        if (!albdirectory.exists())
-            if(albdirectory.mkdirs())
-                Log.i("DIRDONE2","2DONE");
-            else
-                Log.i("DIRDONE2","FAILED");
-        return albdirectory.getPath();
-    }
+
 
     static String getSearchResult(String query) throws JSONException {
 
@@ -447,7 +439,8 @@ public class DataHandlers {
             audioFile.commit();
 
 //            url_img=url_img.replace("150x150.jpg","500x500.jpg");
-            File img_art = new File(Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/" + ALBUM_N+"-"+YEAR + "/" + albumArt_fName);
+            File img_art = new File(absPath.substring(0,absPath.lastIndexOf("/"))+ "/" + albumArt_fName);
+            Log.i("STAGS_2",img_art.getPath());
 
             Artwork artwork = ArtworkFactory.createArtworkFromFile(img_art);
             mp4tag.setField(artwork);
@@ -465,6 +458,58 @@ public class DataHandlers {
             File new_mp3 = new File(absPath.substring(0,absPath.lastIndexOf("."))+".mp3");
             prev_mp3.renameTo(new_mp3);
         }
+    }
+
+    static String getFileName(String songName,String albumName,String kbps,String format,String d_FN_code){
+
+        String res="FAILED";
+
+        if (d_FN_code.equals("S")){
+            res=songName+"."+format;
+
+        }else if (d_FN_code.equals("SA")){
+            res=songName+"["+albumName+"]"+"."+format;
+
+        }else if (d_FN_code.equals("SAK")){
+            res=songName+"["+albumName+"]"+"_"+kbps+"."+format;
+
+        }else if (d_FN_code.equals("SK")){
+
+            res=songName+"_"+kbps+"."+format;
+        }
+
+        return res;
+    }
+
+    static String makeDir(String folderName){
+        File albdirectory = new File(Environment.getExternalStorageDirectory()+ "/FREEMIUM_DOWNLOADS/"+folderName+"/");
+        if (!albdirectory.exists())
+            if(albdirectory.mkdirs())
+                Log.i("DIRDONE2","2DONE");
+            else
+                Log.i("DIRDONE2","FAILED");
+        return albdirectory.getPath();
+    }
+
+    static String makeDir2(String d_dir,String folderName,Boolean isSfEnabled){
+        String res = "FAILED";
+        try {
+            File albdirectory = new File(d_dir);
+            if (isSfEnabled)
+                albdirectory = new File(d_dir+folderName+"/");
+
+            if (!albdirectory.exists())
+                if(albdirectory.mkdirs())
+                    Log.i("DIRDONE2","2DONE");
+                else
+                    Log.i("DIRDONE2","FAILED");
+
+                res = albdirectory.getPath();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return res;
     }
 
 

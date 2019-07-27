@@ -75,9 +75,9 @@ public class Settings_Alb extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.i("HERE","IAMHR");
         switch(requestCode) {
             case 9999:
-                Log.i("Test111", "Result URI: " + data.getData());
                 try {
                     Uri uri = data.getData();
                     File file = new File(uri.getPath());//create path from uri
@@ -90,8 +90,8 @@ public class Settings_Alb extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                     new AlertDialog.Builder(Settings_Alb.this)
-                            .setTitle("Sorry \uD83D\uDE14 !")
-                            .setMessage("This feature is not working in your device. Please report the bug to resolve the error.")
+                            .setTitle("Try again \uD83D\uDE14 !")
+                            .setMessage("If this happens again.This feature might not be working in your device. Please report the bug to resolve the error.")
                             .setPositiveButton("Ok", null)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();

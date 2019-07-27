@@ -2,10 +2,16 @@ package nitish.build.com.saavntest1;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
@@ -14,14 +20,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MorePage extends AppCompatActivity {
     AdView mAdView;
     ImageView btn_set_more;
     Button btn_buyMeCoffee;
-    TextView tv_changeLog,tv_TelegramGroup,tv_Github,tv_Faqs,tv_getIntouch;
+    TextView tv_changeLog,tv_TelegramGroup,tv_Github,tv_Faqs,tv_getIntouch,tv_checkUpdates;
+    ProgressDialog progressDialog;
 
     @Override
     public void onBackPressed() {
@@ -86,6 +98,107 @@ public class MorePage extends AppCompatActivity {
         }
     }
 
+    public class ViewDialog2 {
+        String head,des,url;
+        ViewDialog2(String head,String des,String url){
+            this.head=head;
+            this.des=des;
+            this.url=url;
+        }
+
+        public void showDialog(Activity activity){
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_update);
+
+            TextView tv_head = dialog.findViewById(R.id.dialog_ud_head);
+            TextView tv_des = dialog.findViewById(R.id.dialog_ud_des);
+            Button btn_update = dialog.findViewById(R.id.dialog_ud_btn_ud);
+            Button close = dialog.findViewById(R.id.ud_dialog_close);
+
+            tv_des.setText(des);
+            tv_head.setText(head);
+
+            btn_update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(500);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+            });
+
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(500);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+
+        }
+    }
+
+    public class Updater extends AsyncTask<Void,Void,String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            return DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1yxVd1HRTBbO5ZjVHggjSEC3cLviRdJsMxojHODl6hSU&sheet=Sheet1");
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s.contains("YES_THERE_IS")){
+                Log.i("UPD_TEST","YES");
+                try {
+                    JSONObject obj = new JSONObject(s);
+                    JSONArray jsonArray = obj.getJSONArray("Sheet1");
+                    JSONObject mainObj = jsonArray.getJSONObject(0);
+                    String url =mainObj.getString("URL");
+                    String description = mainObj.getString("Description");
+                    String version = mainObj.getString("Version");
+                    String date = mainObj.getString("Date");
+
+                    ViewDialog2 viewDialog=new ViewDialog2(version+"   "+date,description,url);
+                    progressDialog.dismiss();
+                    viewDialog.showDialog(MorePage.this);
+                    SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main), Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref_main.edit();
+                    editor.putBoolean(getResources().getString(R.string.pref_update),true).apply();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                progressDialog.dismiss();
+                Toast.makeText(MorePage.this, "No Update Available", Toast.LENGTH_SHORT).show();
+                Log.i("UPD_TEST","NO UPdate");
+            }
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +214,24 @@ public class MorePage extends AppCompatActivity {
         tv_Github = findViewById(R.id.tv_github1);
         tv_TelegramGroup = findViewById(R.id.tv_telegram1);
         btn_buyMeCoffee = findViewById(R.id.btn_buy_me_cofee);
+        tv_checkUpdates = findViewById(R.id.tv_checkUpdates);
+
+        progressDialog = new ProgressDialog(MorePage.this);
+        progressDialog.setMessage("Checking..");
+        progressDialog.setCancelable(false);
+        progressDialog.dismiss();
+
+        tv_checkUpdates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(500);
+                v.startAnimation(animation1);
+                //-------------------------//
+                new Updater().execute();
+            }
+        });
 
         btn_buyMeCoffee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,8 +348,9 @@ public class MorePage extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "apps.nitish@gmail.com" });
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App");
-                startActivity(Intent.createChooser(intent, ""));
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v0.8b]")
+                .putExtra(Intent.EXTRA_TEXT, "Required info:-\nIssue Description:\nAndroid OS version:\nDevice Name:");
+                startActivity(Intent.createChooser(intent, "select Gmail"));
             }
         });
 

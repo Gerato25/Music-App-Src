@@ -136,7 +136,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/advent_pro_semibold"
-        android:text="0.6_beta"
+        android:text="0.8_beta"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -158,7 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/advent_pro_semibold"
-        android:text="13 June,2019"
+        android:text="27 July,2019"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -417,7 +417,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/textView38"
+        android:id="@+id/tv_checkUpdates"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

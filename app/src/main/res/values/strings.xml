@@ -69,13 +69,13 @@
         Check out   <b>Downloads</b>   and   <b>More page</b>   for further info.</string>
     <string name="setting_subfolders">Enabling this will store the downloaded music files in separate folders,
     named as per their Album name</string>
-    <string name="settings_audio_tagging">Try disabling this if you encounter random force closes in the app while downloading.</string>
+    <string name="settings_audio_tagging">[Only for Android Oreo and Above]Try disabling this if you encounter random force closes in the app while downloading.</string>
     <string name="settings_lyrics_download">Enabling this will save .lrc files when ever possible to reduce loading time for
         future playbacks.</string>
     <string name="settings_autochaching">[Experimental]This will temporarily store the required audio data locally to reduce
         buffer time during the next playback. However, this might occupy some of your internal storage space. </string>
 
-    <string name="more_page">Note : This a beta release of the app. So its common to have Bugs and Lags in the app.
+    <string name="more_page">Note : This is a beta release of the app. So its common to have Bugs and Lags in the app.
         For further development of the app please report the bugs you find.</string>
     <string name="get_intouch">Want to get in touch with me ? (Click here)</string>
     <string name="more_telegram">Click here to join our Telegram Group</string>

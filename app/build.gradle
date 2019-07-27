@@ -23,7 +23,7 @@ android {
     defaultConfig {
         applicationId "nitish.build.com.saavntest1"
         manifestPlaceholders = [
-                onesignal_app_id: '5e30a452-fd88-445f-9583-3578cc617172',
+                onesignal_app_id: '0b1fc4f0-325e-4966-9256-0381774aa648',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]

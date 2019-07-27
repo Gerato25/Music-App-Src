@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/textView33"
-        android:layout_width="300dp"
+        android:layout_width="270dp"
 
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
