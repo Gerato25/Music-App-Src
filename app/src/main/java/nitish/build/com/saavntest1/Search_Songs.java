@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -121,7 +123,7 @@ public class Search_Songs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search__songs);
         //--------------------------------------------------------------------------------//
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, getResources().getString(R.string.ad_id));
         mAdView = findViewById(R.id.adView_search);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -149,7 +151,7 @@ public class Search_Songs extends AppCompatActivity {
 
         pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),Context.MODE_PRIVATE);
         mInterstitialAd = new InterstitialAd(getApplicationContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.ad_inter1));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener(){
             @Override
@@ -249,6 +251,7 @@ public class Search_Songs extends AppCompatActivity {
         et_SearchBox.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
+
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     View view = getCurrentFocus();
@@ -256,13 +259,47 @@ public class Search_Songs extends AppCompatActivity {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
-                    btn_search1.callOnClick();
+//                    onBackPressed();
                     return true;
                 }
                 return false;
             }
         });
 
+        et_SearchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()>0){
+                    viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+                    info1.setVisibility(View.GONE);
+                    info2.setVisibility(View.GONE);
+                    info3.setVisibility(View.GONE);
+                }
+                int tempCount=pref_main.getInt(getResources().getString(R.string.pref_counter1),0);
+                if (tempCount>=20){
+                    tempCount=0;
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                        Log.i("ADTEST","AAAAAAADDDDDDDDDD");
+                    }
+                    //Toast.makeText(getApplicationContext(), "Add...", Toast.LENGTH_SHORT).show();
+                }
+                tempCount=tempCount+1;
+                Log.i("ADTEST","COUNT: "+tempCount);
+                SharedPreferences.Editor editor=pref_main.edit();
+                editor.putInt(getResources().getString(R.string.pref_counter1),tempCount).apply();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
 

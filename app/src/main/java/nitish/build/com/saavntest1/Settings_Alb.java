@@ -30,6 +30,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codekidlabs.storagechooser.Content;
+import com.codekidlabs.storagechooser.StorageChooser;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
@@ -49,6 +51,9 @@ public class Settings_Alb extends AppCompatActivity {
     Boolean d_aA_hidden,d_audTagging,d_subFolders;
     Switch cb_hide_albumArt,switch_sub_folders,switch_audio_tag,fn_pref_con_kbps,fn_pref_con_AlbumName;
     Boolean is_fromAlb = false;
+    StorageChooser chooser;
+
+
 
 
     @Override
@@ -146,7 +151,7 @@ public class Settings_Alb extends AppCompatActivity {
 
         Log.i("Test111", "Def Path: " + d_dir);
 
-        set_down_path.setText(d_dir.replace(Environment.getExternalStorageDirectory().getAbsolutePath(),"/"));
+        set_down_path.setText(d_dir.replace(Environment.getExternalStorageDirectory().getAbsolutePath()," "));
         s_dir=d_dir;
 
         if (d_FN_code.equals("S")){
@@ -196,6 +201,27 @@ public class Settings_Alb extends AppCompatActivity {
         else
             rb_m4a.setChecked(true);
 
+        StorageChooser.Theme theme = new StorageChooser.Theme(Settings_Alb.this);
+        theme.setScheme(theme.getDefaultDarkScheme());
+        chooser = new StorageChooser.Builder()
+                .withActivity(Settings_Alb.this)
+                .withFragmentManager(getFragmentManager())
+                .withMemoryBar(true).allowAddFolder(true).disableMultiSelect()
+                .allowCustomPath(true).setTheme(theme)
+                .setType(StorageChooser.DIRECTORY_CHOOSER)
+                .build();
+
+
+
+
+        chooser.setOnSelectListener(new StorageChooser.OnSelectListener() {
+            @Override
+            public void onSelect(String path) {
+                Log.e("SELECTED_PATH", path);
+                s_dir = path+ "/FREEMIUM_DOWNLOADS/";
+                set_down_path.setText(s_dir.replace(Environment.getExternalStorageDirectory().getAbsolutePath(),"").replace("/storage/",""));
+            }
+        });
 
 
 
@@ -209,9 +235,12 @@ public class Settings_Alb extends AppCompatActivity {
                 v.startAnimation(animation1);
                 //-------------------------//
 
-                Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                i.addCategory(Intent.CATEGORY_DEFAULT);
-                startActivityForResult(Intent.createChooser(i, "Choose directory"), 9999);
+//                Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+//                i.addCategory(Intent.CATEGORY_DEFAULT);
+//                startActivityForResult(Intent.createChooser(i, "Choose directory"), 9999);
+
+
+                chooser.show();
 
             }
         });

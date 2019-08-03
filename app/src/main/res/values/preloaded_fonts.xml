@@ -9,6 +9,9 @@
         <item>@font/aldrich</item>
         <item>@font/capriola</item>
         <item>@font/jockey_one</item>
+        <item>@font/roboto_bold</item>
+        <item>@font/roboto_light</item>
+        <item>@font/roboto_medium</item>
         <item>@font/secular_one</item>
     </array>
 </resources>

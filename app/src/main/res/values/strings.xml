@@ -39,6 +39,7 @@
 
     <string name="pref_main">nitish.build.com.saavntest1_main_sp</string>
     <string name="pref_counter">nitish.build.com.saavntest1_counter</string>
+    <string name="pref_counter1">nitish.build.com.saavntest1_counter_one</string>
     <string name="pref_JsonFromID">nitish.build.com.saavntest1_JsonFromID</string>
     <string name="pref_search_counter">nitish.build.com.saavntest1_search_counter</string>
     <string name="pref_inqueue">nitish.build.com.saavntest1_inqueue</string>
@@ -56,6 +57,8 @@
     <string name="albumart_settings_page">(This feature is only for Android Oreo and Above) \n
         When enabled it hides \"albumArt.jpg\" files. So that they wont annoy you by appearing in Galley. \n
         [Please turn off , if your music player doesn\'t recognize AlbumArt]</string>
+    <string name="delete_albumart_settings">Enabling this will automayically deletes the \"albumArt.jpg\" files after usage. \n
+    [Please turn off , if your music player doesn\'t recognize AlbumArt]</string>
     <string name="downloads_page">Note : If your Download got stuck up in Middle.\n
                         Please Force Close the app and try downloading again.\n
                         Also check weather you have given all Permissions or not.\n
@@ -92,6 +95,9 @@
         provide you regular updates with awesome new features.</string>
 
 
+    <string name="ad_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="ad_inter1">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="ad_inter2">ca-app-pub-3940256099942544/1033173712</string>
     <string name="ad_Search">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_Album">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_Down">ca-app-pub-3940256099942544/6300978111</string>

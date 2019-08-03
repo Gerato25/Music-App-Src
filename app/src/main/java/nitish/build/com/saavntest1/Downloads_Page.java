@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Environment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codekidlabs.storagechooser.StorageChooser;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.snackbar.Snackbar;
@@ -42,6 +45,8 @@ public class Downloads_Page extends AppCompatActivity {
     ImageView btn_set_dp,btn_bak_dp;
     Button btn_folder_dp;
     static FetchListener fetchListener1;
+    StorageChooser chooser;
+
 
     @Override
     public void onBackPressed() {
@@ -90,6 +95,9 @@ public class Downloads_Page extends AppCompatActivity {
             }
         });
 
+
+
+
         btn_folder_dp =findViewById(R.id.btn_folder_dp);
         btn_folder_dp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,19 +112,21 @@ public class Downloads_Page extends AppCompatActivity {
 //                Uri uri = Uri.parse("file://"+Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/"); //  directory path
 //                intent.setDataAndType(uri, "*/*");
 //                startActivity(Intent.createChooser(intent, "Open folder"));
-                Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/");
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(selectedUri, "resource/folder");
+//                Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/");
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setDataAndType(selectedUri, "resource/folder");
+//
+//                if (intent.resolveActivityInfo(getPackageManager(), 0) != null)
+//                {
+//                    startActivity(intent);
+//                }
+//                else
+//                {
+//                    Snackbar.make(findViewById(android.R.id.content),"Please install ant third-party file browser",Snackbar.LENGTH_LONG).show();
+////                    Toast.makeText(getApplicationContext(), "Please Install a File Manager.", Toast.LENGTH_SHORT).show();
+//                }
 
-                if (intent.resolveActivityInfo(getPackageManager(), 0) != null)
-                {
-                    startActivity(intent);
-                }
-                else
-                {
-                    Snackbar.make(findViewById(android.R.id.content),"Please install ant third-party file browser",Snackbar.LENGTH_LONG).show();
-//                    Toast.makeText(getApplicationContext(), "Please Install a File Manager.", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
 

@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/acme"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Preferred Audio Quality :"
                 android:textColor="@android:color/white"
                 android:textSize="17sp" />
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
-                    android:fontFamily="@font/secular_one"
+                    android:fontFamily="@font/roboto_medium"
                     android:tag="320"
                     android:text="320kbps"
                     android:textColor="@android:color/white" />
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
-                    android:fontFamily="@font/secular_one"
+                    android:fontFamily="@font/roboto_medium"
                     android:tag="160"
                     android:text="160kbps"
                     android:textColor="@android:color/white" />
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
-                    android:fontFamily="@font/secular_one"
+                    android:fontFamily="@font/roboto_medium"
                     android:tag="96"
                     android:text="96kbps"
                     android:textColor="@android:color/white" />
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/acme"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Preferred Audio Format :"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
-                    android:fontFamily="@font/secular_one"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="m4a"
                     android:textColor="@android:color/white" />
 
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
-                    android:fontFamily="@font/secular_one"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="mp3"
                     android:textColor="@android:color/white" />
             </RadioGroup>
@@ -165,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="@font/acme"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="Default Download Directory :"
                     android:textColor="@android:color/white"
                     android:textSize="17sp" />
@@ -200,14 +200,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:checked="true"
-                android:fontFamily="@font/acme"
+                android:fontFamily="@font/roboto_bold"
                 android:shadowColor="@android:color/darker_gray"
                 android:text="Make Sub Folders"
                 android:textColor="@android:color/white"
                 android:textColorLink="#FFFFFF"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:thumbTint="#A4A4A4"/>
+                android:thumbTint="#A4A4A4"
+                android:trackTint="#A4A4A4"/>
 
             <TextView
                 android:id="@+id/textView39"
@@ -222,13 +223,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/acme"
+                android:fontFamily="@font/roboto_bold"
                 android:shadowColor="@android:color/darker_gray"
                 android:text="Hide Albumart files"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:thumbTint="#A4A4A4" />
+                android:thumbTint="#A4A4A4"
+                android:trackTint="#A4A4A4"/>
             <TextView
                 android:id="@+id/textView32"
                 android:layout_width="match_parent"
@@ -236,20 +238,42 @@
                 android:fontFamily="@font/abel"
                 android:text="@string/albumart_settings_page"
                 android:textColor="@android:color/darker_gray" />
+            <Switch
+                android:id="@+id/cb_delete_albumArt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto_bold"
+                android:shadowColor="@android:color/darker_gray"
+                android:text="Delete Albumart files after usage"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:thumbTint="#A4A4A4"
+                android:trackTint="#A4A4A4"/>
+
+            <TextView
+                android:id="@+id/textVie2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel"
+                android:text="@string/delete_albumart_settings"
+                android:textColor="@android:color/darker_gray" />
 
             <Switch
                 android:id="@+id/switch_audio_tag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/acme"
+                android:fontFamily="@font/roboto_bold"
                 android:shadowColor="@android:color/darker_gray"
                 android:text="Toggle Audio Tagging"
                 android:textColor="@android:color/white"
                 android:checked="true"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:thumbTint="#A4A4A4"/>
+                android:thumbTint="#A4A4A4"
+                android:trackTint="#A4A4A4"/>
 
             <TextView
                 android:id="@+id/textView56"
@@ -296,7 +320,8 @@
                 android:text="include AlbumName"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:thumbTint="#A4A4A4"/>
+                android:thumbTint="#A4A4A4"
+                android:trackTint="#A4A4A4"/>
 
             <Switch
                 android:id="@+id/fn_pref_con_kbps"
@@ -307,7 +332,8 @@
                 android:text="include Kbps"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:thumbTint="#A4A4A4"/>
+                android:thumbTint="#A4A4A4"
+                android:trackTint="#A4A4A4"/>
             <TextView
                 android:id="@+id/extVi2"
                 android:layout_width="match_parent"
@@ -330,7 +356,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/acme"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Preferred Streaming Quality :"
                 android:textColor="@android:color/white"
                 android:textSize="17sp" />
@@ -351,7 +377,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
-                    android:fontFamily="@font/secular_one"
+                    android:fontFamily="@font/roboto_medium"
                     android:tag="320"
                     android:text="320kbps"
                     android:textColor="@android:color/white" />
@@ -362,7 +388,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
-                    android:fontFamily="@font/secular_one"
+                    android:fontFamily="@font/roboto_medium"
                     android:tag="160"
                     android:text="160kbps"
                     android:textColor="@android:color/white" />
@@ -373,7 +399,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
-                    android:fontFamily="@font/secular_one"
+                    android:fontFamily="@font/roboto_medium"
                     android:tag="96"
                     android:text="96kbps"
                     android:textColor="@android:color/white" />
@@ -384,14 +410,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:checked="true"
-                android:fontFamily="@font/acme"
+                android:fontFamily="@font/roboto_bold"
                 android:shadowColor="@android:color/darker_gray"
                 android:text="Auto download lyrics"
                 android:textColor="@android:color/white"
                 android:textColorLink="#FFFFFF"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:thumbTint="#A4A4A4"/>
+                android:thumbTint="#A4A4A4"
+                android:trackTint="#A4A4A4"/>
 
             <TextView
                 android:id="@+id/textVie39"
@@ -406,13 +433,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/acme"
+                android:fontFamily="@font/roboto_bold"
                 android:shadowColor="@android:color/darker_gray"
                 android:text="Auto Caching"
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:thumbTint="#A4A4A4"/>
+                android:thumbTint="#A4A4A4"
+                android:trackTint="#A4A4A4"/>
 
             <TextView
                 android:id="@+id/textViw32"

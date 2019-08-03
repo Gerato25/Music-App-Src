@@ -157,6 +157,7 @@ public class FragSearchSongs extends Fragment {
                 toSongList.putExtra("TYPE_ID",s);
                 toSongList.putExtra("PREV_ACT","SEARCH_ACT");
                 progressDialog.dismiss();
+
                 startActivity(toSongList);
                 getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }

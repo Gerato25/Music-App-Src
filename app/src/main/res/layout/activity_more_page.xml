@@ -165,7 +165,7 @@
 
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
@@ -175,6 +175,7 @@
         android:paddingRight="16dp"
         android:text="@string/more_page"
         android:textColor="@android:color/white"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_mor_cl" />
@@ -374,7 +375,7 @@
                 android:id="@+id/tv_toGmail1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/jockey_one"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Click here to Report a Bug or Suggest a feature.(use Gmail)"
                 android:textColor="@android:color/holo_blue_bright" />
 
@@ -383,7 +384,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/jockey_one"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/more_telegram"
                 android:textColor="@android:color/holo_blue_bright" />
 
@@ -392,7 +393,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/jockey_one"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/star_github"
                 android:textColor="@android:color/holo_blue_bright" />
 
@@ -401,7 +402,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/jockey_one"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/more_faqs"
                 android:textColor="@android:color/holo_blue_bright" />
 
@@ -410,7 +411,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/jockey_one"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/get_intouch"
                 android:textColor="@android:color/holo_blue_bright" />
         </LinearLayout>

@@ -75,7 +75,7 @@ public class FragSearchTop extends Fragment {
         pref_main = getActivity().getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),Context.MODE_PRIVATE);
 
         mInterstitialAd = new InterstitialAd(getActivity().getApplicationContext());
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.ad_inter1));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener(){
             @Override
