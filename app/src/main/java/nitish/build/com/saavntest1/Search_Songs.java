@@ -275,6 +275,7 @@ public class Search_Songs extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length()>0){
+
                     viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
                     info1.setVisibility(View.GONE);
                     info2.setVisibility(View.GONE);
@@ -285,12 +286,10 @@ public class Search_Songs extends AppCompatActivity {
                     tempCount=0;
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
-                        Log.i("ADTEST","AAAAAAADDDDDDDDDD");
                     }
                     //Toast.makeText(getApplicationContext(), "Add...", Toast.LENGTH_SHORT).show();
                 }
                 tempCount=tempCount+1;
-                Log.i("ADTEST","COUNT: "+tempCount);
                 SharedPreferences.Editor editor=pref_main.edit();
                 editor.putInt(getResources().getString(R.string.pref_counter1),tempCount).apply();
             }

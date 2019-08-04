@@ -47,6 +47,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -509,6 +514,45 @@ public class DataHandlers {
         }catch (Exception e){
             e.printStackTrace();
         }
+        return res;
+    }
+
+    static String getFullDirectory(String srcPath){
+        String res="FAILED";
+        try {
+            File directory = new File(srcPath);
+            File[] files = directory.listFiles();
+//            Log.d("Files", "Size: "+ files.length);
+//            Log.i("Files_TEST", "FileName:" +srcPath);
+            JSONArray dirArr = new JSONArray();
+            for (File file:files)
+            {
+                String fileName = file.getName();
+                Date date = new Date(file.lastModified());
+                Time time = new Time(file.lastModified());
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+                JSONObject fileObj= new JSONObject();
+                fileObj.put("file_name",fileName.replace(".mp3","").replace(".m4a",""));
+                fileObj.put("abs_path",file.getAbsolutePath());
+                fileObj.put("last_modified",date.toString()+"\t"+sdf.format(time));
+                if (file.isDirectory()){
+                    fileObj.put("file_type","FOLDER");
+                    dirArr.put(fileObj);
+                }
+                else if (fileName.substring(fileName.lastIndexOf(".")).equals(".mp3")){
+                    fileObj.put("file_type","MP3");
+                    dirArr.put(fileObj);
+                }else if (fileName.substring(fileName.lastIndexOf(".")).equals(".m4a")){
+                    fileObj.put("file_type","M4A");
+                    dirArr.put(fileObj);
+                }
+//                Log.i("Files_TEST", "FileName:" + file.getName() + " : "+sdf.format(time)+" : "+file.getAbsolutePath());
+            }
+            return dirArr.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return res;
     }
 

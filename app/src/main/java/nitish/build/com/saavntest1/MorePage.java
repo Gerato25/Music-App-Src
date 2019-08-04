@@ -22,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
@@ -205,9 +206,9 @@ public class MorePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_page);
 
-//        mAdView = findViewById(R.id.adView_More);
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        mAdView.loadAd(adRequest);
+        mAdView = findViewById(R.id.adView_More);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         tv_changeLog = findViewById(R.id.tv_mor_cl);
         tv_Faqs = findViewById(R.id.tv_faqs1);
         tv_getIntouch = findViewById(R.id.tv_getIntouch1);

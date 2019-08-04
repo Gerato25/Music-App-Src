@@ -118,7 +118,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="2dp"
-        android:background="@drawable/ic_btm_play_dull"
+        android:background="@drawable/ic_btm_downloads_dull"
         android:onClick="wBtmDown"
         app:layout_constraintBottom_toTopOf="@+id/textView42"
         app:layout_constraintEnd_toStartOf="@+id/btm_more"
@@ -211,7 +211,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Now Playing"
+        android:text="Downloads"
         android:textColor="@android:color/darker_gray"
         android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -275,5 +275,18 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_home_web"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView_Browse"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_more"
+        ads:layout_constraintBottom_toTopOf="@+id/btn_found"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

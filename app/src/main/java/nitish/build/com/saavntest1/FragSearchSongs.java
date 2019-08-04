@@ -9,12 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -44,6 +40,15 @@ public class FragSearchSongs extends Fragment {
     RecyclerView rv_fragAlbum;
     RecyclerView.LayoutManager layoutManager;
 
+    RecViewSetup recViewSetup;
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(recViewSetup != null && recViewSetup.getStatus() == AsyncTask.Status.RUNNING)
+            recViewSetup.cancel(true);
+    }
 
     @Nullable
     @Override
@@ -69,10 +74,14 @@ public class FragSearchSongs extends Fragment {
 
         res_out =  new ArrayList<>();
 
+        recViewSetup = new RecViewSetup();
+
         query=et_SearchBox.getText().toString();
         query=query.replace(" ", "%20");
-        if(query.length()>0)
-            new RecViewSetup().execute(query);
+        if(query.length()>0){
+            recViewSetup.execute(query);
+        }
+
 
 
 
@@ -215,7 +224,7 @@ public class FragSearchSongs extends Fragment {
                 super(itemView);
                 tv_head = itemView.findViewById(R.id.cus_songName_frag);
                 tv_subhead = itemView.findViewById(R.id.cus_artist_frag);
-                img_art = itemView.findViewById(R.id.cus_img_frag);
+                img_art = itemView.findViewById(R.id.cus_img_frag69);
                 parentLayout = itemView.findViewById(R.id.cust_search_view);
             }
         }

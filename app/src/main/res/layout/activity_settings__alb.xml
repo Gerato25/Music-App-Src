@@ -27,7 +27,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView40"
+        app:layout_constraintBottom_toTopOf="@+id/adView_Settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23">
@@ -111,6 +111,7 @@
                     android:text="96kbps"
                     android:textColor="@android:color/white" />
             </RadioGroup>
+
             <TextView
                 android:id="@+id/textView29"
                 android:layout_width="wrap_content"
@@ -119,8 +120,8 @@
                 android:fontFamily="@font/roboto_bold"
                 android:text="Preferred Audio Format :"
                 android:textColor="@android:color/white"
-                android:textSize="17sp"
-                 />
+                android:textSize="17sp" />
+
             <RadioGroup
                 android:id="@+id/rg_set_format"
                 android:layout_width="match_parent"
@@ -134,23 +135,23 @@
 
                 <RadioButton
                     android:id="@+id/set_m4a"
-                    android:tag="m4a"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
                     android:fontFamily="@font/roboto_medium"
+                    android:tag="m4a"
                     android:text="m4a"
                     android:textColor="@android:color/white" />
 
                 <RadioButton
                     android:id="@+id/set_mp3"
-                    android:tag="mp3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@android:color/white"
                     android:fontFamily="@font/roboto_medium"
+                    android:tag="mp3"
                     android:text="mp3"
                     android:textColor="@android:color/white" />
             </RadioGroup>
@@ -187,8 +188,8 @@
                 android:id="@+id/set_down_path"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/abel"
                 android:text="/FREEMIUM_DOWNLOADS/"
                 android:textColor="@android:color/darker_gray"
@@ -208,7 +209,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:thumbTint="#A4A4A4"
-                android:trackTint="#A4A4A4"/>
+                android:trackTint="#A4A4A4" />
 
             <TextView
                 android:id="@+id/textView39"
@@ -230,7 +231,8 @@
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:thumbTint="#A4A4A4"
-                android:trackTint="#A4A4A4"/>
+                android:trackTint="#A4A4A4" />
+
             <TextView
                 android:id="@+id/textView32"
                 android:layout_width="match_parent"
@@ -238,6 +240,7 @@
                 android:fontFamily="@font/abel"
                 android:text="@string/albumart_settings_page"
                 android:textColor="@android:color/darker_gray" />
+
             <Switch
                 android:id="@+id/cb_delete_albumArt"
                 android:layout_width="match_parent"
@@ -250,7 +253,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:thumbTint="#A4A4A4"
-                android:trackTint="#A4A4A4"/>
+                android:trackTint="#A4A4A4" />
 
             <TextView
                 android:id="@+id/textVie2"
@@ -265,15 +268,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:checked="true"
                 android:fontFamily="@font/roboto_bold"
                 android:shadowColor="@android:color/darker_gray"
                 android:text="Toggle Audio Tagging"
                 android:textColor="@android:color/white"
-                android:checked="true"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:thumbTint="#A4A4A4"
-                android:trackTint="#A4A4A4"/>
+                android:trackTint="#A4A4A4" />
 
             <TextView
                 android:id="@+id/textView56"
@@ -293,23 +296,25 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="19sp" />
+
             <TextView
                 android:id="@+id/textew27"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="4dp"
                 android:background="@android:color/white" />
+
             <TextView
                 android:id="@+id/cur_fn_format"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/abel"
                 android:text="SongName[AlbumName]_kbps.format"
-                android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <Switch
                 android:id="@+id/fn_pref_con_AlbumName"
@@ -321,7 +326,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:thumbTint="#A4A4A4"
-                android:trackTint="#A4A4A4"/>
+                android:trackTint="#A4A4A4" />
 
             <Switch
                 android:id="@+id/fn_pref_con_kbps"
@@ -333,7 +338,8 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:thumbTint="#A4A4A4"
-                android:trackTint="#A4A4A4"/>
+                android:trackTint="#A4A4A4" />
+
             <TextView
                 android:id="@+id/extVi2"
                 android:layout_width="match_parent"
@@ -344,6 +350,7 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="19sp" />
+
             <TextView
                 android:id="@+id/extew27"
                 android:layout_width="match_parent"
@@ -360,6 +367,7 @@
                 android:text="Preferred Streaming Quality :"
                 android:textColor="@android:color/white"
                 android:textSize="17sp" />
+
             <RadioGroup
                 android:id="@+id/rg_set_strm_kbps"
                 android:layout_width="match_parent"
@@ -404,6 +412,7 @@
                     android:text="96kbps"
                     android:textColor="@android:color/white" />
             </RadioGroup>
+
             <Switch
                 android:id="@+id/switch_strm_lyrics"
                 android:layout_width="match_parent"
@@ -418,7 +427,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:thumbTint="#A4A4A4"
-                android:trackTint="#A4A4A4"/>
+                android:trackTint="#A4A4A4" />
 
             <TextView
                 android:id="@+id/textVie39"
@@ -440,7 +449,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:thumbTint="#A4A4A4"
-                android:trackTint="#A4A4A4"/>
+                android:trackTint="#A4A4A4" />
 
             <TextView
                 android:id="@+id/textViw32"
@@ -505,5 +514,20 @@
         app:layout_constraintBottom_toTopOf="@+id/textView57"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView_Settings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="visible"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/ad_more"
+        ads:layout_constraintBottom_toTopOf="@+id/textView40"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

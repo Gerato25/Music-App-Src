@@ -12,7 +12,6 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -42,6 +40,16 @@ public class FragSearchAlbums extends Fragment {
     ArrayList<String> songIds;
     String query;
     int listSize=0;
+
+    SetupSearchData recViewSetup;
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(recViewSetup != null && recViewSetup.getStatus() == AsyncTask.Status.RUNNING)
+            recViewSetup.cancel(true);
+    }
 
     @Nullable
     @Override
@@ -70,8 +78,9 @@ public class FragSearchAlbums extends Fragment {
 
         query=et_SearchBox.getText().toString();
         query=query.replace(" ", "%20");
+        recViewSetup = new SetupSearchData();
         if(query.length()>0)
-            new SetupSearchData().execute(query);
+            recViewSetup.execute(query);
 
         return rootView;
     }
@@ -187,7 +196,7 @@ public class FragSearchAlbums extends Fragment {
                 super(itemView);
                 tv_head = itemView.findViewById(R.id.cus_songName_frag);
                 tv_subhead = itemView.findViewById(R.id.cus_artist_frag);
-                img_art = itemView.findViewById(R.id.cus_img_frag);
+                img_art = itemView.findViewById(R.id.cus_img_frag69);
                 parentLayout = itemView.findViewById(R.id.cust_search_view);
             }
         }

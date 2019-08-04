@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 import com.codekidlabs.storagechooser.Content;
 import com.codekidlabs.storagechooser.StorageChooser;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
@@ -52,6 +54,8 @@ public class Settings_Alb extends AppCompatActivity {
     Switch cb_hide_albumArt,switch_sub_folders,switch_audio_tag,fn_pref_con_kbps,fn_pref_con_AlbumName;
     Boolean is_fromAlb = false;
     StorageChooser chooser;
+
+    AdView mAdView;
 
 
 
@@ -117,6 +121,10 @@ public class Settings_Alb extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings__alb);
+
+        mAdView = findViewById(R.id.adView_Settings);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         Intent fromAlb = getIntent();
         is_fromAlb =fromAlb.getBooleanExtra("fromAlb",false);

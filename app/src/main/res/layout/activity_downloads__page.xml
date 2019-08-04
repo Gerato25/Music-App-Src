@@ -37,7 +37,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="2dp"
-        android:background="@drawable/ic_btm_play"
+        android:background="@drawable/ic_btm_downloads"
         android:onClick="btmDown"
         app:layout_constraintBottom_toTopOf="@+id/textView51"
         app:layout_constraintEnd_toStartOf="@+id/btm_more"
@@ -69,14 +69,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_head_dir"
         android:layout_width="0dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/white"
+        android:ellipsize="start"
         android:fontFamily="@font/jockey_one"
         android:gravity="center"
-        android:text="This Page is Under Construction"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:text="Under Construction Under Construction Under Construction Under Construction"
         android:textAlignment="center"
         android:textColor="@color/darkAccent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,7 +184,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="2dp"
-        ads:adSize="SMART_BANNER"
+        ads:adSize="BANNER"
         ads:adUnitId="@string/ad_Down"
         ads:layout_constraintBottom_toTopOf="@+id/textView4"
         ads:layout_constraintEnd_toEndOf="parent"
@@ -192,7 +196,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:fontFamily="@font/secular_one"
-        android:text="Now Playing"
+        android:text="Downloads"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -221,24 +225,22 @@
 
     <Button
         android:id="@+id/btn_folder_dp"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/curvature"
+        android:fontFamily="@font/roboto_medium"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Open Downloads Folder"
+        android:text="Open file explorer"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/adView_Downloads"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_back_files"
+        app:layout_constraintStart_toEndOf="@+id/btn_home_files" />
 
     <TextView
         android:id="@+id/textView49"
@@ -269,7 +271,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Now Playing"
+        android:text="Downloads"
         android:textColor="@android:color/white"
         android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -288,52 +290,70 @@
         app:layout_constraintEnd_toEndOf="@+id/btm_more"
         app:layout_constraintStart_toStartOf="@+id/btm_more" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_showfiles"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_folder_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_head_dir" />
+
+    <Button
+        android:id="@+id/btn_back_files"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/folder_back"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_folder_dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_folder_dp" />
+
+    <Button
+        android:id="@+id/btn_home_files"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/ic_home_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_folder_dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_folder_dp" />
+
+    <ImageView
+        android:id="@+id/empty_box_downPage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/adView_Downloads"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_folder_dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.35000002"
-        app:srcCompat="@drawable/ic_under_construction" />
+        app:layout_constraintTop_toBottomOf="@+id/textView37"
+        app:layout_constraintVertical_bias="0.38"
+        app:srcCompat="@drawable/empty_boc" />
 
     <TextView
-        android:id="@+id/textView17"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/secular_one"
-        android:text="@string/under_construction"
-        android:textAlignment="center"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/adView_Downloads"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/tv_empty_box_downPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/capriola"
-        android:text="This page is still Under Construction"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="No downloads found"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/empty_box_downPage"
+        app:layout_constraintStart_toStartOf="@+id/empty_box_downPage"
+        app:layout_constraintTop_toBottomOf="@+id/empty_box_downPage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

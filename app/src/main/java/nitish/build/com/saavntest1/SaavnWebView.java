@@ -25,6 +25,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class SaavnWebView extends AppCompatActivity {
     WebView webView;
     ProgressDialog progressDialog;
@@ -34,6 +37,8 @@ public class SaavnWebView extends AppCompatActivity {
     Button btn_next,btn_prev,btn_home,btn_web_serch,btn_web_set;
     EditText web_srch_et;
     Boolean isEtOPen=false;
+
+    AdView mAdView;
 
     //------------------------   Double tap to Exit   ----------------------------//
 
@@ -107,6 +112,10 @@ public class SaavnWebView extends AppCompatActivity {
                     .show();
 
         }
+
+        mAdView = findViewById(R.id.adView_Browse);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         startWebView("https://www.jiosaavn.com/");

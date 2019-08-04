@@ -40,6 +40,16 @@ public class FragSearchPlaylists extends Fragment {
     RecyclerView rv_fragAlbum;
     RecyclerView.LayoutManager layoutManager;
 
+    RecViewSetup recViewSetup;
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(recViewSetup != null && recViewSetup.getStatus() == AsyncTask.Status.RUNNING)
+            recViewSetup.cancel(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,8 +77,9 @@ public class FragSearchPlaylists extends Fragment {
 
         query=et_SearchBox.getText().toString();
         query=query.replace(" ", "%20");
+        recViewSetup = new RecViewSetup();
         if(query.length()>0)
-            new RecViewSetup().execute(query);
+            recViewSetup.execute(query);
 
         return rootView;
 
@@ -210,7 +221,7 @@ public class FragSearchPlaylists extends Fragment {
                 super(itemView);
                 tv_head = itemView.findViewById(R.id.cus_songName_frag);
                 tv_subhead = itemView.findViewById(R.id.cus_artist_frag);
-                img_art = itemView.findViewById(R.id.cus_img_frag);
+                img_art = itemView.findViewById(R.id.cus_img_frag69);
                 parentLayout = itemView.findViewById(R.id.cust_search_view);
             }
         }
