@@ -57,7 +57,7 @@
     <string name="albumart_settings_page">(This feature is only for Android Oreo and Above) \n
         When enabled it hides \"albumArt.jpg\" files. So that they wont annoy you by appearing in Galley. \n
         [Please turn off , if your music player doesn\'t recognize AlbumArt]</string>
-    <string name="delete_albumart_settings">Enabling this will automayically deletes the \"albumArt.jpg\" files after usage. \n
+    <string name="delete_albumart_settings">Enabling this will automatically deletes the \"albumArt.jpg\" files after usage. \n
     [Please turn off , if your music player doesn\'t recognize AlbumArt]</string>
     <string name="downloads_page">Note : If your Download got stuck up in Middle.\n
                         Please Force Close the app and try downloading again.\n
@@ -93,6 +93,21 @@
         projects in free time.\n
         You can encourage me by buying me a coffee which motivates me to work consistently on this project and
         provide you regular updates with awesome new features.</string>
+
+    <string name="change_log">### (version 0.8_beta) (Released: 27 July,2019)
+* Now the app is super smooth (far better than previous build).
+* New UI for search tab. Now will get more intuitive and segregated results.
+  * Now you can find your songs more easily.
+* New Improved Settings tab with various requested features.
+  * Now you can set file name format.
+  * You can change download location and turn off Sub folders.
+  * Option to Enable/Disable audio tagging.
+* Added option to enter url in browse tab.
+* Updated the download notification style.
+  * Now you can Pause/Resume or Cancel your Ongoing downloads.
+* Now you can check for updates with in the app (go to More Tab).
+* Now you can donate as per your choice [buy me a coffee ☕].
+* Need to wait for next build for complete stable build with Online streaming feature.</string>
 
 
     <string name="ad_id">ca-app-pub-3940256099942544~3347511713</string>

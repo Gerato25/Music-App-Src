@@ -28,6 +28,9 @@ import com.google.android.gms.ads.AdView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import io.noties.markwon.Markwon;
 
 public class MorePage extends AppCompatActivity {
     AdView mAdView;
@@ -152,10 +155,53 @@ public class MorePage extends AppCompatActivity {
         }
     }
 
+    public class ViewDialog3 {
+        String head,subhead;
+
+        ViewDialog3(String head,String subhead){
+            this.head=head;
+            this.subhead=subhead;
+        }
+
+        public void showDialog(Activity activity){
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_more_info);
+
+
+            Button close = dialog.findViewById(R.id.dia_mor_close);
+
+            TextView tv_head = dialog.findViewById(R.id.dia_mor_head);
+            TextView tv_subH = dialog.findViewById(R.id.dia_mor_subHead);
+
+            tv_head.setText(head);
+
+            final Markwon markwon = Markwon.create(getApplicationContext());
+            markwon.setMarkdown(tv_subH, subhead);
+
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(500);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+
+        }
+    }
+
     public class Updater extends AsyncTask<Void,Void,String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressDialog.setMessage("checking...");
             progressDialog.show();
         }
 
@@ -200,6 +246,44 @@ public class MorePage extends AppCompatActivity {
         }
     }
 
+
+    public class Faqs extends AsyncTask<Void,Void,String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("Fetching...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            return DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1yxVd1HRTBbO5ZjVHggjSEC3cLviRdJsMxojHODl6hSU&sheet=Sheet1");
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+                Log.i("UPD_TEST","YES");
+                try {
+                    JSONObject obj = new JSONObject(s);
+                    JSONArray jsonArray = obj.getJSONArray("Sheet1");
+                    JSONObject mainObj = jsonArray.getJSONObject(0);
+                    String faqs = mainObj.getString("faqs");
+
+                    ViewDialog3 viewDialog= new ViewDialog3("FAQ's",faqs);
+                    progressDialog.dismiss();
+                    viewDialog.showDialog(MorePage.this);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MorePage.this, "Error: Unable to fetch faqs.", Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,10 +339,27 @@ public class MorePage extends AppCompatActivity {
                 animation1.setDuration(500);
                 v.startAnimation(animation1);
                 //-------------------------//
-                String url = "https://github.com/NitishGadangi/Freemium-App/blob/master/change_log.md";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
+//                String url = "https://github.com/NitishGadangi/Freemium-App/blob/master/change_log.md";
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse(url));
+//                startActivity(i);
+                String tempStr = "" +
+                        "* Now the app is super smooth (far better than previous build).\n" +
+                        "* New UI for search tab. Now will get more intutive and segregated results.\n" +
+                        "  * Now you can find your songs more easily.\n" +
+                        "* New Improved Settings tab with various requested features.\n" +
+                        "  * Now you can set file name format.\n" +
+                        "  * You can change download location and turn off Subfolders.\n" +
+                        "  * Option to Enable/Disable audio tagging.\n" +
+                        "* Added option to enter url in browse tab.\n" +
+                        "* Updated the download notification style.\n" +
+                        "  * Now you can Pause/Resume or Cancel your Ongoing downloads.\n" +
+                        "* Now you can check for updates with in the app (go to More Tab).\n" +
+                        "* Now you can donate as per your choice ([buy me a coffee ☕]).\n" +
+                        "* Need to wait for next build for complete stable build with Online streaming feature.";
+
+                ViewDialog3 viewDialog3=new ViewDialog3("Change Log",tempStr);
+                viewDialog3.showDialog(MorePage.this);
             }
         });
 
@@ -315,10 +416,15 @@ public class MorePage extends AppCompatActivity {
                 animation1.setDuration(500);
                 v.startAnimation(animation1);
                 //-------------------------//
-                String url = "https://github.com/NitishGadangi/Freemium-App/blob/master/FAQ's.md";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
+
+
+
+                new Faqs().execute();
+
+//                String url = "https://github.com/NitishGadangi/Freemium-App/blob/master/FAQ's.md";
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse(url));
+//                startActivity(i);
             }
         });
 

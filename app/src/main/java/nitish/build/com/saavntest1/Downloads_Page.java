@@ -82,6 +82,8 @@ public class Downloads_Page extends AppCompatActivity {
 
         lv_queueList=findViewById(R.id.list_inQueue);
 
+        btn_back_files = findViewById(R.id.btn_back_files);
+
         rv_showfiles= findViewById(R.id.rv_showfiles);
         layoutManager = new LinearLayoutManager(getApplicationContext());
         rv_showfiles.setLayoutManager(layoutManager);
@@ -114,7 +116,7 @@ public class Downloads_Page extends AppCompatActivity {
                 v.startAnimation(animation1);
                 //-------------------------//
 
-                onBackPressed();
+                btn_back_files.callOnClick();
             }
         });
 
@@ -170,7 +172,7 @@ public class Downloads_Page extends AppCompatActivity {
             }
         }
 
-        btn_back_files = findViewById(R.id.btn_back_files);
+
         btn_back_files.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,7 +193,8 @@ public class Downloads_Page extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                }
+                }else
+                    Toast.makeText(Downloads_Page.this, "You are already in home directory..", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -201,18 +204,20 @@ public class Downloads_Page extends AppCompatActivity {
                 Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
                 animation1.setDuration(1000);
                 v.startAnimation(animation1);
-
-                String mainJsonArr =DataHandlers.getFullDirectory(def_down_dir);
-                if (!mainJsonArr.equals("FAILED")){
-                    try {
-                        cur_down_path=def_down_dir;
-                        JSONArray fullArr = new JSONArray(mainJsonArr);
-                        RecAdapter recAdapter = new RecAdapter(fullArr,fullArr.length());
-                        rv_showfiles.setAdapter(recAdapter);
-                    }catch (Exception e){
-                        e.printStackTrace();
+                if (!cur_down_path.equals(def_down_dir)) {
+                    String mainJsonArr = DataHandlers.getFullDirectory(def_down_dir);
+                    if (!mainJsonArr.equals("FAILED")) {
+                        try {
+                            cur_down_path = def_down_dir;
+                            JSONArray fullArr = new JSONArray(mainJsonArr);
+                            RecAdapter recAdapter = new RecAdapter(fullArr, fullArr.length());
+                            rv_showfiles.setAdapter(recAdapter);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
+                }else
+                    Toast.makeText(Downloads_Page.this, "You are already in home directory..", Toast.LENGTH_SHORT).show();
             }
         });
 

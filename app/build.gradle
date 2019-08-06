@@ -78,4 +78,5 @@ dependencies {
 
     implementation 'com.github.codekidX:storage-chooser:2.0.4.4'
 
+    implementation 'io.noties.markwon:core:4.0.2'
 }

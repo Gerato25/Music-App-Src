@@ -534,7 +534,7 @@ public class DataHandlers {
                 JSONObject fileObj= new JSONObject();
                 fileObj.put("file_name",fileName.replace(".mp3","").replace(".m4a",""));
                 fileObj.put("abs_path",file.getAbsolutePath());
-                fileObj.put("last_modified",date.toString()+"\t"+sdf.format(time));
+                fileObj.put("last_modified",sdf.format(time)+"\t\t"+date.toString());
                 if (file.isDirectory()){
                     fileObj.put("file_type","FOLDER");
                     dirArr.put(fileObj);

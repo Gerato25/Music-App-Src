@@ -29,10 +29,10 @@
         app:layout_constraintEnd_toEndOf="@+id/textView31"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_update" />
+        app:srcCompat="@drawable/ic_info_black_24dp" />
 
     <TextView
-        android:id="@+id/textView28"
+        android:id="@+id/dialog_ud_top_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jockey_one"
@@ -52,7 +52,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_ud_top_head" />
 
     <TextView
         android:id="@+id/dialog_ud_head"

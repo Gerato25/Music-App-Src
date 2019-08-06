@@ -1,5 +1,6 @@
 package nitish.build.com.saavntest1;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -10,6 +11,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
@@ -23,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
@@ -717,10 +722,18 @@ public class Album_Song_List extends AppCompatActivity {
             this.kbpsGroup=kbpsGroup1;
         }
 
+        @Override
+        public void onCreate(@androidx.annotation.Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
+        }
+
         @androidx.annotation.Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @androidx.annotation.Nullable ViewGroup container, @androidx.annotation.Nullable Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.album_bottom_sheet,container,false);
+
+
 
             rootView.findViewById(R.id.btn_sht_down).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -897,9 +910,54 @@ public class Album_Song_List extends AppCompatActivity {
                 }
             });
 
+            rootView.findViewById(R.id.btn_sht_song_info).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(1000);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+                    bottomSheetLO.dismiss();
+
+                }
+            });
+
+            JSONObject songJsn = null;
+            try {
+                songJsn=songArr.getJSONObject(position);
+
+                ImageView img_art= rootView.findViewById(R.id.dia_si_art1);
+                TextView tv_song =  rootView.findViewById(R.id.dia_si_song1);
+                TextView tv_album =  rootView.findViewById(R.id.dia_si_album1);
+                TextView tv_music =  rootView.findViewById(R.id.dia_si_music1);
+                TextView tv_singers =  rootView.findViewById(R.id.dia_si_singers1);
+                TextView tv_lang =  rootView.findViewById(R.id.dia_si_lang1);
+                TextView tv_year =  rootView.findViewById(R.id.dia_si_year1);
+
+                Glide.with(getActivity()).load(songJsn.getString("image")).into(img_art);
+
+                tv_song.setText(songJsn.getString("song"));
+                tv_album.setText("Album : "+songJsn.getString("album"));
+                if (songJsn.getString("music").equals("")){
+                    tv_music.setVisibility(View.GONE);
+                }else
+                    tv_music.setText("Music : "+songJsn.getString("music"));
+
+                tv_singers.setText("Singers : "+songJsn.getString("singers"));
+                tv_lang.setText(songJsn.getString("language"));
+                tv_year.setText(songJsn.getString("year"));
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
             return rootView;
         }
     }
+
+
+
 
     class CustomAdapter extends BaseAdapter {
 
