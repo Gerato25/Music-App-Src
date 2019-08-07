@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView splash = findViewById(R.id.ic_splash);
         YoYo.with(Techniques.FadeIn)
-                .duration(1000)
+                .duration(700)
                 .playOn(splash);
 
         new Handler().postDelayed(new Runnable(){
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.finish();
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
-        }, 1000);
+        }, 700);
 
 
 

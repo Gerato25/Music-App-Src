@@ -55,6 +55,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class Search_Songs extends AppCompatActivity {
     String query=" ",searchRes;
     int listSize=0;
@@ -127,6 +131,7 @@ public class Search_Songs extends AppCompatActivity {
         mAdView = findViewById(R.id.adView_search);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
         //--------------------------------------------------------------------------------//
 
         //----------------One Signal------------------------//
@@ -241,6 +246,9 @@ public class Search_Songs extends AppCompatActivity {
                 query=query.replace(" ", "");
                 if(query.length()>0)
                     viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+
+
+
 
 
 

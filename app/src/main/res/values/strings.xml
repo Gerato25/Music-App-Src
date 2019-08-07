@@ -92,7 +92,9 @@
     <string name="but_me_coffee">I am an undergraduate student who enjoys making these kinds of
         projects in free time.\n
         You can encourage me by buying me a coffee which motivates me to work consistently on this project and
-        provide you regular updates with awesome new features.</string>
+        provide you regular updates with awesome new features.\n
+        <b>In return, you can enjoy complete Ad-free experience.</b>
+    </string>
 
     <string name="change_log">### (version 0.8_beta) (Released: 27 July,2019)
 * Now the app is super smooth (far better than previous build).

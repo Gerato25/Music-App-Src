@@ -31,6 +31,11 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import io.noties.markwon.Markwon;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MorePage extends AppCompatActivity {
     AdView mAdView;
@@ -88,9 +93,21 @@ public class MorePage extends AppCompatActivity {
 //                    else if (amount.equals("85"))
 //                        url = "https://p-y.tm/cf4-xgQ";
 
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(url));
+//                    startActivity(i);
+
+                    try {
+                        String out=DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxEZZ5oejQCAt2iw_Ck3dOZeSxOVoE0" +
+                                "OvViPmKpy9_a7PYkAEg/exec?mobile=898989898989&android_id=xxxxxxxxxxxxxxxxxxx&id=10Tj7i5utEXaBoJpo74eY" +
+                                "dc2sH1jtGoEx-bBiVNwcpAo");
+                        dialog.dismiss();
+                        Toast.makeText(MorePage.this, out, Toast.LENGTH_SHORT).show();
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
 
                 }
             });
