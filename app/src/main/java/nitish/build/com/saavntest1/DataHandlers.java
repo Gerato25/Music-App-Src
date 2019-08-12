@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -56,6 +57,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class DataHandlers {
@@ -97,6 +101,11 @@ public class DataHandlers {
             e.printStackTrace();
         }
         return finString;
+    }
+
+    static void genCheckSum(String finUrl){
+
+
     }
 
     static String getAlbumJson(String albumID){
@@ -555,6 +564,7 @@ public class DataHandlers {
 
         return res;
     }
+
 
 
 }

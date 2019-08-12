@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="nitish.build.com.saavntest1">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +14,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:usesCleartextTraffic,android:allowBackup">
+
         <provider
             android:name=".GenericFileProvider"
             android:authorities="nitish.build.com.saavntest1.fileprovider"
@@ -21,9 +25,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
-        <activity android:name=".Settings_Alb"></activity>
+
+        <activity android:name=".Settings_Alb" />
         <activity android:name=".MorePage" />
         <activity android:name=".Downloads_Page" />
         <activity
@@ -32,12 +37,11 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SaavnWebView"
-            android:screenOrientation="portrait"
-
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Album_Song_List"
             android:screenOrientation="portrait" />
+        <activity android:name=".checksum" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -57,7 +61,8 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/ad_id"/>
+            android:value="@string/ad_id" />
+
         <receiver android:name=".NotificationRecive" />
     </application>
 

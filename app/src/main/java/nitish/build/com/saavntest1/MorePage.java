@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,6 +31,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.util.Random;
 
 import io.noties.markwon.Markwon;
 import okhttp3.MediaType;
@@ -82,30 +87,38 @@ public class MorePage extends AppCompatActivity {
                     v.startAnimation(animation1);
                     //-------------------------//
                     String amount = dialog.findViewById(rg_dialog.getCheckedRadioButtonId()).getTag().toString();
-                    //25 --  https://p-y.tm/kHt-P4t
-                    //55 --  https://p-y.tm/BdS-La9
-                    //85 --  https://p-y.tm/cf4-xgQ
                     String url = "https://p-y.tm/W8-4mek";
-//                    if (amount.equals("25"))
-//                        url = "https://p-y.tm/kHt-P4t";
-//                    else if (amount.equals("55"))
-//                        url = "https://p-y.tm/BdS-La9";
-//                    else if (amount.equals("85"))
-//                        url = "https://p-y.tm/cf4-xgQ";
 
-//                    Intent i = new Intent(Intent.ACTION_VIEW);
-//                    i.setData(Uri.parse(url));
-//                    startActivity(i);
+//                    try {
+//                        String out=DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxEZZ5oejQCAt2iw_Ck3dOZeSxOVoE0" +
+//                                "OvViPmKpy9_a7PYkAEg/exec?mobile=898989898989&android_id=xxxxxxxxxxxxxxxxxxx&id=10Tj7i5utEXaBoJpo74eY" +
+//                                "dc2sH1jtGoEx-bBiVNwcpAo");
+//                        dialog.dismiss();
+//                        Toast.makeText(MorePage.this, out, Toast.LENGTH_SHORT).show();
+//
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }
 
-                    try {
-                        String out=DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxEZZ5oejQCAt2iw_Ck3dOZeSxOVoE0" +
-                                "OvViPmKpy9_a7PYkAEg/exec?mobile=898989898989&android_id=xxxxxxxxxxxxxxxxxxx&id=10Tj7i5utEXaBoJpo74eY" +
-                                "dc2sH1jtGoEx-bBiVNwcpAo");
-                        dialog.dismiss();
-                        Toast.makeText(MorePage.this, out, Toast.LENGTH_SHORT).show();
+                    Random rand = new Random();
+                    int i_custID = rand.nextInt(9999);
+                    int i_orderID = rand.nextInt(9999);
+                    String unique_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
-                    }catch (Exception e){
-                        e.printStackTrace();
+                    EditText et = dialog.findViewById(R.id.et_payment_dialog);
+                    String num = et.getText().toString();
+
+                    if (true){
+                    Intent intent=new Intent(getApplicationContext(),checksum.class);
+                    intent.putExtra("orderid",num+"_"+i_orderID);
+                    intent.putExtra("custid",num+"_"+i_custID);
+                    intent.putExtra("android_id",unique_id);
+                    intent.putExtra("mobile",num+"");
+
+                    dialog.dismiss();
+                    startActivity(intent);
+                    }else {
+                        Toast.makeText(MorePage.this, "enter correct mobile number", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -118,6 +131,9 @@ public class MorePage extends AppCompatActivity {
 
         }
     }
+
+
+
 
     public class ViewDialog2 {
         String head,des,url;

@@ -708,7 +708,7 @@ public class Album_Song_List extends AppCompatActivity {
     }
 
     public static class BottomSheetLO extends BottomSheetDialogFragment{
-        String tempID,tempSJson,folderName,fName,downUrl,albumArtUrl,downpath;
+        String tempID,tempSJson,folderName,fName,downUrl="FAILED",albumArtUrl,downpath;
         String albumArt_fname,format;
         int kbpsGroup;
         JSONArray songArr;
