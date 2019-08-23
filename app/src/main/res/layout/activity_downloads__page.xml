@@ -183,11 +183,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/ad_Down"
-        ads:layout_constraintBottom_toTopOf="@+id/textView4"
+        android:visibility="gone"
+        ads:layout_constraintBottom_toTopOf="@+id/ad_layout_downs"
         ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintHorizontal_bias="1.0"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
     <TextView
@@ -297,8 +296,10 @@
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_folder_dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_head_dir" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_head_dir"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_back_files"
@@ -313,6 +314,19 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_folder_dp" />
+
+    <TextView
+        android:id="@+id/tv_noDowns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto"
+        android:text="no downloads found here"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/empty_box_downPage"
+        app:layout_constraintStart_toStartOf="@+id/empty_box_downPage"
+        app:layout_constraintTop_toBottomOf="@+id/tv_empty_box_downPage" />
 
     <Button
         android:id="@+id/btn_home_files"
@@ -329,12 +343,13 @@
 
     <ImageView
         android:id="@+id/empty_box_downPage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:alpha="0.7"
         app:layout_constraintBottom_toBottomOf="@+id/btn_folder_dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -348,12 +363,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="No downloads found"
+        android:text="Lost in Space ..."
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/empty_box_downPage"
         app:layout_constraintStart_toStartOf="@+id/empty_box_downPage"
         app:layout_constraintTop_toBottomOf="@+id/empty_box_downPage" />
+
+    <LinearLayout
+        android:id="@+id/ad_layout_downs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

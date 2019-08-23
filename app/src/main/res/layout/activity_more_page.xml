@@ -136,7 +136,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/advent_pro_semibold"
-        android:text="0.8_beta"
+        android:text="0.9_final_beta"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -158,7 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/advent_pro_semibold"
-        android:text="27 July,2019"
+        android:text="22 Aug,2019"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -191,9 +191,9 @@
         android:text="Made with ❤"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/textView22"
+        app:layout_constraintBottom_toTopOf="@+id/ad_layout_more"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -201,17 +201,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/capriola"
         android:text="@string/madeBy"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/textView22"
+        app:layout_constraintBottom_toTopOf="@+id/ad_layout_more"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toEndOf="@+id/textView19" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView_More"
@@ -221,12 +219,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:visibility="visible"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/ad_more"
-        ads:layout_constraintBottom_toTopOf="@+id/textView4"
+        android:visibility="gone"
+        ads:layout_constraintBottom_toTopOf="@+id/ad_layout_more"
         ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintHorizontal_bias="0.509"
+        ads:layout_constraintHorizontal_bias="0.0"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
     <TextView
@@ -251,7 +247,7 @@
         app:srcCompat="@drawable/ic_settings" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/img_icon_morepage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -272,7 +268,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/buy_me_cofee"
+        android:background="@drawable/koo_fi"
         app:layout_constraintBottom_toTopOf="@+id/textView20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -289,6 +285,7 @@
         android:text="Like my work ?"
         android:textColor="@android:color/white"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btn_buy_me_cofee"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -302,7 +299,7 @@
         android:fontFamily="@font/advent_pro_semibold"
         android:text="Read Change Log"
         android:textColor="@android:color/holo_blue_bright"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/img_icon_morepage"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -389,6 +386,15 @@
                 android:textColor="@android:color/holo_blue_bright" />
 
             <TextView
+                android:id="@+id/tv_toPlaystore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Rate this app on PlayStore"
+                android:textColor="@android:color/holo_blue_bright" />
+
+            <TextView
                 android:id="@+id/tv_github1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -427,8 +433,18 @@
         android:text="(check updates)"
         android:textColor="@android:color/holo_blue_bright"
         app:layout_constraintBottom_toBottomOf="@+id/textView14"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/img_icon_morepage"
         app:layout_constraintStart_toEndOf="@+id/textView14"
         app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+    <LinearLayout
+        android:id="@+id/ad_layout_more"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package nitish.build.com.saavntest1;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -60,6 +61,8 @@ import java.util.regex.Pattern;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class DataHandlers {
@@ -465,6 +468,7 @@ public class DataHandlers {
 //            mp4tag.createArtworkField(imagedata);
 
             audioFile.commit();
+
         }
 
         if (format.equals("mp3")){

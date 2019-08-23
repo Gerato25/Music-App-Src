@@ -36,7 +36,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/adView_search"
+        app:layout_constraintBottom_toTopOf="@+id/ad_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tl_searchPage">
@@ -66,7 +66,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/adView_search"
+        app:layout_constraintBottom_toTopOf="@+id/ad_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,6 +110,7 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/curvature"
         android:ems="10"
+        android:fontFamily="@font/roboto_medium"
         android:hint="Search for an Album,Song,Playlist"
         android:imeOptions="actionSearch"
         android:inputType="text"
@@ -208,8 +209,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/ad_Search"
+        android:visibility="gone"
         ads:layout_constraintBottom_toTopOf="@+id/textView4"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintHorizontal_bias="0.498"
@@ -263,6 +263,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btm_more"
         app:layout_constraintStart_toStartOf="@+id/btm_more" />
+
+    <LinearLayout
+        android:id="@+id/ad_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/adView_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

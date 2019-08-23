@@ -28,12 +28,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -48,6 +50,7 @@ import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -115,8 +118,8 @@ public class Album_Song_List extends AppCompatActivity {
     static BottomSheetLO bottomSheetLO;
     static  String d_dir,d_FN_code;
     static Boolean d_audTagging,d_subFolders;
-
-
+    String banner2,inter2;
+    static Boolean thopu;
 
 
 
@@ -199,15 +202,40 @@ public class Album_Song_List extends AppCompatActivity {
 
     }
 
+    void showAds(Boolean show,String AD_UNIT_ID){
+//        mAdView = findViewById(R.id.adView_search);
+        mAdView = new AdView(this);
+        if (show){
+            mAdView.setAdSize(AdSize.BANNER);
+            mAdView.setAdUnitId(AD_UNIT_ID);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            if(mAdView.getAdSize() != null || mAdView.getAdUnitId() != null)
+                mAdView.loadAd(adRequest);
+            LinearLayout linearLayout = findViewById(R.id.ad_layout_album);
+            linearLayout.addView(mAdView);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album__song__list);
 
-        mAdView = findViewById(R.id.adView_Album);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkAccent));
+        }
+
+//        mAdView = findViewById(R.id.adView_Album);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+        SharedPreferences sc_pref = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),Context.MODE_PRIVATE);
+        banner2 =sc_pref.getString(getResources().getString(R.string.sc_banner2),getResources().getString(R.string.banner2));
+        inter2 =sc_pref.getString(getResources().getString(R.string.sc_inter2),getResources().getString(R.string.ad_inter2));
+        thopu = sc_pref.getBoolean(getResources().getString(R.string.sc_thope),false);
+        if (!thopu)
+            showAds(true,banner2);
 
         SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
 
@@ -223,7 +251,7 @@ public class Album_Song_List extends AppCompatActivity {
         progressDialog.dismiss();
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.ad_inter2));
+        mInterstitialAd.setAdUnitId(inter2);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener(){
             @Override
@@ -235,7 +263,7 @@ public class Album_Song_List extends AppCompatActivity {
                 int tempCount=pref_main.getInt(getResources().getString(R.string.pref_counter),0);
                 if (tempCount>=5){
                     tempCount=0;
-                    if (mInterstitialAd.isLoaded()) {
+                    if (mInterstitialAd.isLoaded() && (!thopu)) {
                         mInterstitialAd.show();
                     }
                     //Toast.makeText(getApplicationContext(), "Add...", Toast.LENGTH_SHORT).show();
@@ -626,12 +654,20 @@ public class Album_Song_List extends AppCompatActivity {
                     Log.i("STAG_A",id);
                     SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main), MODE_PRIVATE);
                     String sjson= pref_main.getString(getResources().getString(R.string.pref_JsonFromID)+id,null);
+                    SharedPreferences pref_main1 = getApplicationContext().getSharedPreferences(getResources().getString(R.string.set_main), MODE_PRIVATE);
+                    Boolean remove_aA = pref_main1.getBoolean(getResources().getString(R.string.set_del_aA),false);
                     if (!sjson.equals(null)) {
                         try {
                             String fName1 = download.getFile();
                             fName1=fName1.substring(fName1.lastIndexOf("/")+1);
                             String albumArt_fname1 = albumArt_fname.replace(".jpg","_"+fName1).replace(format,"jpg");
                             DataHandlers.setTags2(download.getFile(),sjson,albumArt_fname1.replace(" ","_"));
+                            if (remove_aA){
+                                File img_art = new File(download.getFile().substring(0,download.getFile().lastIndexOf("/"))+ "/" + albumArt_fname1.replace(" ","_"));
+                                if (img_art.exists()){
+                                    img_art.delete();
+                                }
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -762,7 +798,7 @@ public class Album_Song_List extends AppCompatActivity {
                         tempCount = tempCount + 1;
                         if (tempCount >= 5) {
                             tempCount = 0;
-                            if (mInterstitialAd.isLoaded()) {
+                            if (mInterstitialAd.isLoaded() && (!thopu)) {
                                 mInterstitialAd.show();
                             }
                         }
@@ -934,19 +970,25 @@ public class Album_Song_List extends AppCompatActivity {
                 TextView tv_singers =  rootView.findViewById(R.id.dia_si_singers1);
                 TextView tv_lang =  rootView.findViewById(R.id.dia_si_lang1);
                 TextView tv_year =  rootView.findViewById(R.id.dia_si_year1);
+                TextView tv_copy = rootView.findViewById(R.id.dia_si_copyrights);
 
-                Glide.with(getActivity()).load(songJsn.getString("image")).into(img_art);
+                Glide.with(getActivity()).load(songJsn.getString("image").replace("150x150","250x250")).into(img_art);
 
-                tv_song.setText(songJsn.getString("song"));
-                tv_album.setText("Album : "+songJsn.getString("album"));
+                tv_song.setText(StringEscapeUtils.unescapeXml(songJsn.getString("song")));
+                tv_album.setText("Album : "+StringEscapeUtils.unescapeXml(songJsn.getString("album")));
                 if (songJsn.getString("music").equals("")){
                     tv_music.setVisibility(View.GONE);
                 }else
-                    tv_music.setText("Music : "+songJsn.getString("music"));
+                    tv_music.setText("Music : "+StringEscapeUtils.unescapeXml(songJsn.getString("music")));
 
-                tv_singers.setText("Singers : "+songJsn.getString("singers"));
+                tv_singers.setText("Singers : "+StringEscapeUtils.unescapeXml(songJsn.getString("singers")));
                 tv_lang.setText(songJsn.getString("language"));
                 tv_year.setText(songJsn.getString("year"));
+
+                if (songJsn.getString("copyright_text").equals("")){
+                    tv_copy.setVisibility(View.GONE);
+                }else
+                    tv_copy.setText((songJsn.getString("copyright_text").replace("\\u2117","©").replace("&copy;","©")));
 
             }catch (Exception e){
                 e.printStackTrace();

@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
@@ -37,6 +39,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -44,6 +47,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
@@ -73,6 +77,12 @@ public class Search_Songs extends AppCompatActivity {
 
     TextView info2,info3;
     ImageView info1;
+
+    String app_id,banner1,inter1;
+    Boolean thopu;
+
+    long delay = 1000; // 1 seconds after user stops typing
+    long last_text_edit = 0;
 
 
     //------------------------   Double tap to Exit   ----------------------------//
@@ -122,22 +132,53 @@ public class Search_Songs extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    void showAds(Boolean show,String AD_UNIT_ID){
+//        mAdView = findViewById(R.id.adView_search);
+        mAdView = new AdView(this);
+        if (show){
+            mAdView.setAdSize(AdSize.BANNER);
+            mAdView.setAdUnitId(AD_UNIT_ID);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            if(mAdView.getAdSize() != null || mAdView.getAdUnitId() != null)
+                mAdView.loadAd(adRequest);
+            LinearLayout linearLayout = findViewById(R.id.ad_layout);
+            linearLayout.addView(mAdView);
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search__songs);
-        //--------------------------------------------------------------------------------//
-        MobileAds.initialize(this, getResources().getString(R.string.ad_id));
-        mAdView = findViewById(R.id.adView_search);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
+        SharedPreferences sc_pref = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),Context.MODE_PRIVATE);
+        app_id=sc_pref.getString(getResources().getString(R.string.sc_app_id),getResources().getString(R.string.ad_id));
+        banner1 =sc_pref.getString(getResources().getString(R.string.sc_banner1),getResources().getString(R.string.banner1));
+        inter1 =sc_pref.getString(getResources().getString(R.string.sc_inter1),getResources().getString(R.string.ad_inter1));
+        thopu = sc_pref.getBoolean(getResources().getString(R.string.sc_thope),false);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkAccent));
+        }
+
+
+        MobileAds.initialize(this, app_id);
+        //--------------------------------------------------------------------------------//
+//        MobileAds.initialize(this, getResources().getString(R.string.ad_id));
+//        mAdView = findViewById(R.id.adView_search);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+        if (!thopu)
+            showAds(true,banner1);
         //--------------------------------------------------------------------------------//
 
         //----------------One Signal------------------------//
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
+                .unsubscribeWhenNotificationsAreDisabled(false)
                 .init();
         //--------------------------------------------------//
 
@@ -156,7 +197,7 @@ public class Search_Songs extends AppCompatActivity {
 
         pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),Context.MODE_PRIVATE);
         mInterstitialAd = new InterstitialAd(getApplicationContext());
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.ad_inter1));
+        mInterstitialAd.setAdUnitId(inter1);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener(){
             @Override
@@ -168,7 +209,7 @@ public class Search_Songs extends AppCompatActivity {
                 int tempCount=pref_main.getInt(getResources().getString(R.string.pref_counter),0);
                 if (tempCount>=4){
                     tempCount=0;
-                    if (mInterstitialAd.isLoaded()) {
+                    if (mInterstitialAd.isLoaded()&&(!thopu)) {
                         mInterstitialAd.show();
                     }
                     //Toast.makeText(getApplicationContext(), "Add...", Toast.LENGTH_SHORT).show();
@@ -233,7 +274,7 @@ public class Search_Songs extends AppCompatActivity {
                 int tempCount=pref_main.getInt(getResources().getString(R.string.pref_counter),0);
                 if (tempCount>=4){
                     tempCount=0;
-                    if (mInterstitialAd.isLoaded()) {
+                    if (mInterstitialAd.isLoaded()&&(!thopu)) {
                         mInterstitialAd.show();
                     }
                     //Toast.makeText(getApplicationContext(), "Add...", Toast.LENGTH_SHORT).show();
@@ -244,13 +285,8 @@ public class Search_Songs extends AppCompatActivity {
 
                 query=et_SearchBox.getText().toString();
                 query=query.replace(" ", "");
-                if(query.length()>0)
+                if(query.length()>0 && isNetworkAvailable())
                     viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-
-
-
-
-
 
             }
         });
@@ -274,6 +310,21 @@ public class Search_Songs extends AppCompatActivity {
             }
         });
 
+//---------------AutoSearch-----------------------------//
+
+        Handler handler = new Handler();
+        Runnable input_finish_checker = new Runnable() {
+            public void run() {
+                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
+                    viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+                    info1.setVisibility(View.GONE);
+                    info2.setVisibility(View.GONE);
+                    info3.setVisibility(View.GONE);
+                }
+            }
+        };
+
+
         et_SearchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -282,32 +333,39 @@ public class Search_Songs extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length()>0){
-
-                    viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-                    info1.setVisibility(View.GONE);
-                    info2.setVisibility(View.GONE);
-                    info3.setVisibility(View.GONE);
-                }
-                int tempCount=pref_main.getInt(getResources().getString(R.string.pref_counter1),0);
-                if (tempCount>=20){
-                    tempCount=0;
-                    if (mInterstitialAd.isLoaded()) {
-                        mInterstitialAd.show();
+                handler.removeCallbacks(input_finish_checker);
+                if (isNetworkAvailable()) {
+//                    if (s.length() > 0) {
+//
+//                        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+//                        info1.setVisibility(View.GONE);
+//                        info2.setVisibility(View.GONE);
+//                        info3.setVisibility(View.GONE);
+//                    }
+                    int tempCount = pref_main.getInt(getResources().getString(R.string.pref_counter1), 0);
+                    if (tempCount >= 20) {
+                        tempCount = 0;
+                        if (mInterstitialAd.isLoaded() && (!thopu)) {
+                            mInterstitialAd.show();
+                        }
+                        //Toast.makeText(getApplicationContext(), "Add...", Toast.LENGTH_SHORT).show();
                     }
-                    //Toast.makeText(getApplicationContext(), "Add...", Toast.LENGTH_SHORT).show();
+                    tempCount = tempCount + 1;
+                    SharedPreferences.Editor editor = pref_main.edit();
+                    editor.putInt(getResources().getString(R.string.pref_counter1), tempCount).apply();
                 }
-                tempCount=tempCount+1;
-                SharedPreferences.Editor editor=pref_main.edit();
-                editor.putInt(getResources().getString(R.string.pref_counter1),tempCount).apply();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (s.length() > 0) {
+                    last_text_edit = System.currentTimeMillis();
+                    handler.postDelayed(input_finish_checker, delay);
+                }
             }
         });
 
+//-------------------------End of AutoSearch---------------------------------//
 
 
     }
@@ -315,12 +373,16 @@ public class Search_Songs extends AppCompatActivity {
     public class Updater extends AsyncTask<Void,Void,String>{
         @Override
         protected String doInBackground(Void... voids) {
-            return DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1yxVd1HRTBbO5ZjVHggjSEC3cLviRdJsMxojHODl6hSU&sheet=Sheet1");
+ //           String serverID="1FZQ5RujUUWoPvU7byPsq-oCrLsUE_bghZa6vYBKzbS0"; //production
+//            String serverID="1f-u1MlaVpJKKL1JFIV-g6unzs5YyvBIGA1fpiph3umU"; //Staging
+            String updaterID ="1yxVd1HRTBbO5ZjVHggjSEC3cLviRdJsMxojHODl6hSU";
+
+            return DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id="+updaterID+"&sheet=Sheet1");
         }
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s.contains("YES_THERE_IS")){
+            if(s.contains("YES_TEST_BUILD1")){
                 Log.i("UPD_TEST","YES");
                 try {
                     JSONObject obj = new JSONObject(s);
@@ -338,6 +400,7 @@ public class Search_Songs extends AppCompatActivity {
                     editor.putBoolean(getResources().getString(R.string.pref_update),true).apply();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.i("UPD_TEST","UPDATER_ERROR");
                 }
             }else {
                 Log.i("UPD_TEST","NO UPdate");

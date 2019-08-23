@@ -3,6 +3,7 @@ package nitish.build.com.saavntest1;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class checksum extends AppCompatActivity  {
     String android_id="FAILED",mobile="FAILED";
     PaytmPGService Service;
     String varifyurl;
+    String fin_post;
+    String sc_amount,sc_pay_url;
 
 
 
@@ -56,9 +59,9 @@ public class checksum extends AppCompatActivity  {
         custid = intent.getExtras().getString("custid");
         android_id = intent.getExtras().getString("android_id");
         mobile = intent.getExtras().getString("mobile");
-
-        orderId="123564258";
-        custid="541236851542";
+        sc_amount = intent.getExtras().getString("amount");
+        sc_pay_url = intent.getExtras().getString("pay_url");
+        //"http://www.jntuhspoorthi.com/nitishgadangi/generateChecksum.php"
 
         //production
         mid = "ohLFRd79849378749981";
@@ -67,6 +70,9 @@ public class checksum extends AppCompatActivity  {
 
         varifyurl =  "https://securegw.paytm.in/theia/paytmCallback?ORDER_ID="+orderId;
 
+        fin_post = "https://script.google.com/macros/s/AKfycbxEZZ5oejQCAt2iw_Ck3dOZeSxOVoE0OvViPmKpy9_a7PYkAEg/exec?mobile=" +mobile+
+                "&android_id=" +android_id+
+                "&id=10Tj7i5utEXaBoJpo74eYdc2sH1jtGoEx-bBiVNwcpAo";
 
 
 
@@ -79,7 +85,7 @@ public class checksum extends AppCompatActivity  {
         try {
 
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-            StringRequest sr = new StringRequest(Request.Method.POST,"http://www.jntuhspoorthi.com/nitishgadangi/generateChecksum.php", new Response.Listener<String>() {
+            StringRequest sr = new StringRequest(Request.Method.POST,sc_pay_url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.i("pipeline","prep: "+response);
@@ -99,7 +105,7 @@ public class checksum extends AppCompatActivity  {
                     paramMap.put("ORDER_ID", orderId);
                     paramMap.put("CUST_ID", custid);
                     paramMap.put("CHANNEL_ID", "WAP");
-                    paramMap.put("TXN_AMOUNT", "50.00");
+                    paramMap.put("TXN_AMOUNT", sc_amount);
                     paramMap.put("WEBSITE", "DEFAULT");
                     paramMap.put("INDUSTRY_TYPE_ID", "Retail");
                     paramMap.put("CALLBACK_URL", varifyurl);
@@ -114,6 +120,22 @@ public class checksum extends AppCompatActivity  {
                         public void onTransactionResponse(Bundle inResponse) {
                             Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
                             Log.i("pipeline","tet: "+inResponse.toString());
+                            str1=inResponse.toString();
+                            if(str1.toLowerCase().contains(str2.toLowerCase())){
+                                DataHandlers.getContent(fin_post);
+                                Toast.makeText(getApplicationContext(), "Transaction Success " , Toast.LENGTH_LONG).show();
+                                SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref_main.edit();
+                                editor.putBoolean(getResources().getString(R.string.sc_thope),true).apply();
+                                Intent toRes = new Intent(getApplicationContext(),MorePage.class);
+                                startActivity(toRes);
+
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Transaction Failed " , Toast.LENGTH_LONG).show();
+                                Intent toRes = new Intent(getApplicationContext(),MorePage.class);
+                                startActivity(toRes);
+                            }
+
                         }
 
                         @Override
@@ -139,12 +161,15 @@ public class checksum extends AppCompatActivity  {
                         @Override
                         public void onBackPressedCancelTransaction() {
                             Toast.makeText(getApplicationContext(), "Transaction cancelled" , Toast.LENGTH_LONG).show();
+                            Intent toRes = new Intent(getApplicationContext(),MorePage.class);
+                            startActivity(toRes);
                         }
 
                         @Override
                         public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
                             Toast.makeText(getApplicationContext(), "Transaction cancelled" , Toast.LENGTH_LONG).show();
-
+                            Intent toRes = new Intent(getApplicationContext(),MorePage.class);
+                            startActivity(toRes);
                         }
                     });
 
@@ -162,7 +187,7 @@ public class checksum extends AppCompatActivity  {
                     paramMap.put("ORDER_ID", orderId);
                     paramMap.put("CUST_ID", custid);
                     paramMap.put("CHANNEL_ID", "WAP");
-                    paramMap.put("TXN_AMOUNT", "50.00");
+                    paramMap.put("TXN_AMOUNT", sc_amount);
                     paramMap.put("WEBSITE", "DEFAULT");
                     paramMap.put("INDUSTRY_TYPE_ID", "Retail");
                     paramMap.put("CALLBACK_URL", varifyurl);

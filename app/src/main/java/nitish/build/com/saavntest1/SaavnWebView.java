@@ -4,15 +4,18 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
@@ -22,10 +25,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 public class SaavnWebView extends AppCompatActivity {
@@ -39,6 +45,8 @@ public class SaavnWebView extends AppCompatActivity {
     Boolean isEtOPen=false;
 
     AdView mAdView;
+
+    String banner5;
 
     //------------------------   Double tap to Exit   ----------------------------//
 
@@ -86,10 +94,29 @@ public class SaavnWebView extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    void showAds(Boolean show,String AD_UNIT_ID){
+//        mAdView = new AdView(this);
+        if (show){
+//            mAdView.setAdSize(AdSize.BANNER);
+//            mAdView.setAdUnitId(AD_UNIT_ID);
+            AdRequest adRequest = new AdRequest.Builder().build();
+//            if(mAdView.getAdSize() != null || mAdView.getAdUnitId() != null)
+            mAdView.loadAd(adRequest);
+//            LinearLayout linearLayout = findViewById(R.id.ad_layout_browse);
+//            linearLayout.addView(mAdView);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saavn_web_view);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkAccent));
+        }
+
         webView=findViewById(R.id.webView);
         tv_link=findViewById(R.id.tv_test_link);
         tv_found=findViewById(R.id.btn_found);
@@ -113,9 +140,41 @@ public class SaavnWebView extends AppCompatActivity {
 
         }
 
+//        mAdView = findViewById(R.id.adView_Browse);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+        SharedPreferences sc_pref = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),Context.MODE_PRIVATE);
+        banner5 =sc_pref.getString(getResources().getString(R.string.sc_banner5),getResources().getString(R.string.banner5));
         mAdView = findViewById(R.id.adView_Browse);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        showAds(true,banner5);
+
+        Button btn_quotes = findViewById(R.id.btn_quotes);
+        btn_quotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(1000);
+                v.startAnimation(animation1);
+                //-------------------------//
+                startActivity(new Intent(getApplicationContext(),MorePage.class));
+            }
+        });
+
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                btn_quotes.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                btn_quotes.setVisibility(View.VISIBLE);
+            }
+        });
 
 
         startWebView("https://www.jiosaavn.com/");

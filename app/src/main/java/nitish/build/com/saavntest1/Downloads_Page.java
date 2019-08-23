@@ -1,9 +1,11 @@
 package nitish.build.com.saavntest1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 
 import androidx.annotation.NonNull;
@@ -20,11 +22,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,6 +36,7 @@ import android.widget.Toast;
 
 import com.codekidlabs.storagechooser.StorageChooser;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tonyodev.fetch2.Download;
@@ -67,6 +72,8 @@ public class Downloads_Page extends AppCompatActivity {
     String cur_down_path;
     Button btn_back_files;
 
+    String banner3;
+
 
 
     @Override
@@ -75,10 +82,29 @@ public class Downloads_Page extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
     }
 
+    void showAds(Boolean show,String AD_UNIT_ID){
+//        mAdView = findViewById(R.id.adView_search);
+        mAdView = new AdView(this);
+        if (show){
+            mAdView.setAdSize(AdSize.BANNER);
+            mAdView.setAdUnitId(AD_UNIT_ID);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            if(mAdView.getAdSize() != null || mAdView.getAdUnitId() != null)
+                mAdView.loadAd(adRequest);
+            LinearLayout linearLayout = findViewById(R.id.ad_layout_downs);
+            linearLayout.addView(mAdView);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_downloads__page);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkAccent));
+        }
 
         lv_queueList=findViewById(R.id.list_inQueue);
 
@@ -88,9 +114,14 @@ public class Downloads_Page extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext());
         rv_showfiles.setLayoutManager(layoutManager);
 
-        mAdView = findViewById(R.id.adView_Downloads);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        mAdView = findViewById(R.id.adView_Downloads);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+        SharedPreferences sc_pref = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants), Context.MODE_PRIVATE);
+        banner3 =sc_pref.getString(getResources().getString(R.string.sc_banner3),getResources().getString(R.string.banner3));
+        Boolean thopu = sc_pref.getBoolean(getResources().getString(R.string.sc_thope),false);
+        if (!thopu)
+            showAds(true,banner3);
 
         btn_set_dp = findViewById(R.id.btn_set_dp);
         btn_set_dp.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +211,8 @@ public class Downloads_Page extends AppCompatActivity {
                 animation1.setDuration(1000);
                 v.startAnimation(animation1);
 
+//                cur_down_path=cur_down_path.substring(0,cur_down_path.lastIndexOf("/")+1);
+
                 if (!cur_down_path.equals(def_down_dir)){
                     String newpath = cur_down_path.substring(0,cur_down_path.lastIndexOf("/"));
                     String mainJsonArr =DataHandlers.getFullDirectory(newpath);
@@ -204,6 +237,9 @@ public class Downloads_Page extends AppCompatActivity {
                 Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
                 animation1.setDuration(1000);
                 v.startAnimation(animation1);
+
+//                cur_down_path=cur_down_path.substring(0,cur_down_path.lastIndexOf("/")+1);
+
                 if (!cur_down_path.equals(def_down_dir)) {
                     String mainJsonArr = DataHandlers.getFullDirectory(def_down_dir);
                     if (!mainJsonArr.equals("FAILED")) {
@@ -235,10 +271,13 @@ public class Downloads_Page extends AppCompatActivity {
             if (size==0){
                 findViewById(R.id.empty_box_downPage).setVisibility(View.VISIBLE);
                 findViewById(R.id.tv_empty_box_downPage).setVisibility(View.VISIBLE);
+                findViewById(R.id.tv_noDowns).setVisibility(View.VISIBLE);
             }else {
                 findViewById(R.id.empty_box_downPage).setVisibility(View.GONE);
                 findViewById(R.id.tv_empty_box_downPage).setVisibility(View.GONE);
+                findViewById(R.id.tv_noDowns).setVisibility(View.GONE);
             }
+            tv_head_dir.setText(cur_down_path.replace("/storage/","").replace("emulated/0","").replace("emulated/1",""));
         }
         @NonNull
         @Override

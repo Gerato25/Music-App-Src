@@ -10,21 +10,25 @@ import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
@@ -33,6 +37,8 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 import io.noties.markwon.Markwon;
@@ -48,6 +54,7 @@ public class MorePage extends AppCompatActivity {
     Button btn_buyMeCoffee;
     TextView tv_changeLog,tv_TelegramGroup,tv_Github,tv_Faqs,tv_getIntouch,tv_checkUpdates;
     ProgressDialog progressDialog;
+    String banner4;
 
     @Override
     public void onBackPressed() {
@@ -75,6 +82,12 @@ public class MorePage extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
+            SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
+            String sc_amount=pref_main.getString(getResources().getString(R.string.sc_amount),"50.00");
+            String sc_pay_url=pref_main.getString(getResources().getString(R.string.sc_pay_link),"http://www.jntuhspoorthi.com/nitishgadangi/generateChecksum.php");
+
+            TextView tv_pay50 = dialog.findViewById(R.id.dialog_tv_pay50);
+            tv_pay50.setText("pay ₹"+sc_amount.replace(".00","")+" in next step");
 
             RadioGroup rg_dialog = dialog.findViewById(R.id.rg_dialog);
             Button btn_proceed = dialog.findViewById(R.id.btn_proceed_dialog);
@@ -100,20 +113,27 @@ public class MorePage extends AppCompatActivity {
 //                        e.printStackTrace();
 //                    }
 
-                    Random rand = new Random();
-                    int i_custID = rand.nextInt(9999);
-                    int i_orderID = rand.nextInt(9999);
+                    Random random = new Random();
+                    String i_custID = System.currentTimeMillis()+"";
+                    String i_orderID = System.currentTimeMillis()+"@"+String.format("%04d", random.nextInt(10000));
                     String unique_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
                     EditText et = dialog.findViewById(R.id.et_payment_dialog);
                     String num = et.getText().toString();
 
-                    if (true){
+//                    SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
+//                    String sc_amount=pref_main.getString(getResources().getString(R.string.sc_amount),"50.00");
+//                    String sc_pay_url=pref_main.getString(getResources().getString(R.string.sc_pay_link),"http://www.jntuhspoorthi.com/nitishgadangi/generateChecksum.php");
+
+
+                    if (num.length()>1){
                     Intent intent=new Intent(getApplicationContext(),checksum.class);
                     intent.putExtra("orderid",num+"_"+i_orderID);
-                    intent.putExtra("custid",num+"_"+i_custID);
+                    intent.putExtra("custid",num+"@"+i_custID);
                     intent.putExtra("android_id",unique_id);
                     intent.putExtra("mobile",num+"");
+                    intent.putExtra("amount",sc_amount+"");
+                    intent.putExtra("pay_url",sc_pay_url+"");
 
                     dialog.dismiss();
                     startActivity(intent);
@@ -230,6 +250,54 @@ public class MorePage extends AppCompatActivity {
         }
     }
 
+
+    public class ThanksDialog {
+
+
+        public void showDialog(Activity activity){
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.more_thank_you);
+
+            dialog.findViewById(R.id.more_TU_gmail).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String unique_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("plain/text");
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "apps.nitish@gmail.com" });
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.0]")
+                            .putExtra(Intent.EXTRA_TEXT, "PaymentHash:"+unique_id+"\n\nRequired info:-\nPlese Enter the Mobile number used for payment:");
+                    startActivity(Intent.createChooser(intent, "select Gmail"));
+                }
+            });
+
+            dialog.findViewById(R.id.more_TU_rate).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = "xxxxxxxxxxxxxxxxxxxx";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+//                    startActivity(i);
+                }
+            });
+
+            dialog.findViewById(R.id.thank_you_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+
+            dialog.show();
+
+        }
+    }
+
+
+
     public class Updater extends AsyncTask<Void,Void,String> {
         @Override
         protected void onPreExecute() {
@@ -251,7 +319,8 @@ public class MorePage extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s.contains("YES_THERE_IS")){
+
+            if(s.contains("YES_TEST_BUILD1")){
                 Log.i("UPD_TEST","YES");
                 try {
                     JSONObject obj = new JSONObject(s);
@@ -318,14 +387,39 @@ public class MorePage extends AppCompatActivity {
         }
     }
 
+    void showAds(Boolean show,String AD_UNIT_ID){
+//        mAdView = findViewById(R.id.adView_search);
+        mAdView = new AdView(this);
+        if (show){
+            mAdView.setAdSize(AdSize.BANNER);
+            mAdView.setAdUnitId(AD_UNIT_ID);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            if(mAdView.getAdSize() != null || mAdView.getAdUnitId() != null)
+                mAdView.loadAd(adRequest);
+            LinearLayout linearLayout = findViewById(R.id.ad_layout_more);
+            linearLayout.addView(mAdView);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_page);
 
-        mAdView = findViewById(R.id.adView_More);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkAccent));
+        }
+
+//        mAdView = findViewById(R.id.adView_More);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+        SharedPreferences sc_pref = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),Context.MODE_PRIVATE);
+        banner4 =sc_pref.getString(getResources().getString(R.string.sc_banner4),getResources().getString(R.string.banner4));
+        Boolean thopu = sc_pref.getBoolean(getResources().getString(R.string.sc_thope),false);
+        if (!thopu)
+            showAds(true,banner4);
+
         tv_changeLog = findViewById(R.id.tv_mor_cl);
         tv_Faqs = findViewById(R.id.tv_faqs1);
         tv_getIntouch = findViewById(R.id.tv_getIntouch1);
@@ -339,6 +433,14 @@ public class MorePage extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.dismiss();
 
+
+        findViewById(R.id.img_icon_morepage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MorePage.this, "icon designed by apkfolks.com", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         tv_checkUpdates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -351,6 +453,8 @@ public class MorePage extends AppCompatActivity {
             }
         });
 
+        if (thopu)
+            btn_buyMeCoffee.setBackgroundResource(R.drawable.tq_koo_fi);
         btn_buyMeCoffee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -359,8 +463,16 @@ public class MorePage extends AppCompatActivity {
                 animation1.setDuration(500);
                 v.startAnimation(animation1);
                 //-------------------------//
-                ViewDialog alert = new ViewDialog();
-                alert.showDialog(MorePage.this);
+                SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
+                Boolean thopu = pref_main.getBoolean(getResources().getString(R.string.sc_thope),false);
+                if (thopu){
+                    ThanksDialog thanksDialog = new ThanksDialog();
+                    thanksDialog.showDialog(MorePage.this);
+                }else{
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(MorePage.this);
+                }
+
             }
         });
 
@@ -376,20 +488,13 @@ public class MorePage extends AppCompatActivity {
 //                Intent i = new Intent(Intent.ACTION_VIEW);
 //                i.setData(Uri.parse(url));
 //                startActivity(i);
-                String tempStr = "" +
-                        "* Now the app is super smooth (far better than previous build).\n" +
-                        "* New UI for search tab. Now will get more intutive and segregated results.\n" +
-                        "  * Now you can find your songs more easily.\n" +
-                        "* New Improved Settings tab with various requested features.\n" +
-                        "  * Now you can set file name format.\n" +
-                        "  * You can change download location and turn off Subfolders.\n" +
-                        "  * Option to Enable/Disable audio tagging.\n" +
-                        "* Added option to enter url in browse tab.\n" +
-                        "* Updated the download notification style.\n" +
-                        "  * Now you can Pause/Resume or Cancel your Ongoing downloads.\n" +
-                        "* Now you can check for updates with in the app (go to More Tab).\n" +
-                        "* Now you can donate as per your choice ([buy me a coffee ☕]).\n" +
-                        "* Need to wait for next build for complete stable build with Online streaming feature.";
+                String tempStr = "*This is the final Beta before public launch.*\n" +
+                        "* Improved all UI elements to make it smooth.\n" +
+                        "* New updated downloads tab to browse all the downloaded stuff.\n" +
+                        "* Automatic search results is enabled.\n" +
+                        "* Updated the Change Storage feature in settings.\n" +
+                        "* Add Auto delete albumart option in settings.\n" +
+                        "* Now you can buy me a coffee ☕ and enjoy complete Ad-Free experience.";
 
                 ViewDialog3 viewDialog3=new ViewDialog3("Change Log",tempStr);
                 viewDialog3.showDialog(MorePage.this);

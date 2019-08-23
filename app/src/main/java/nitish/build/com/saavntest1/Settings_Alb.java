@@ -20,10 +20,12 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -33,6 +35,7 @@ import android.widget.Toast;
 import com.codekidlabs.storagechooser.Content;
 import com.codekidlabs.storagechooser.StorageChooser;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -50,12 +53,13 @@ public class Settings_Alb extends AppCompatActivity {
     String d_kbps="320",d_format="m4a",d_dir,d_FN_code;
     String s_kbps="320",s_format="m4a",s_dir,s_FN_code;
     Boolean sved = false,s_aA_hidden,s_audTagging,s_subFolders;
-    Boolean d_aA_hidden,d_audTagging,d_subFolders;
-    Switch cb_hide_albumArt,switch_sub_folders,switch_audio_tag,fn_pref_con_kbps,fn_pref_con_AlbumName;
+    Boolean d_aA_hidden,d_audTagging,d_subFolders,d_del_aA;
+    Switch cb_hide_albumArt,switch_sub_folders,switch_audio_tag,fn_pref_con_kbps,fn_pref_con_AlbumName,cb_delete_albumArt;
     Boolean is_fromAlb = false;
     StorageChooser chooser;
 
     AdView mAdView;
+    String banner6;
 
 
 
@@ -106,14 +110,21 @@ public class Settings_Alb extends AppCompatActivity {
                             .show();
                 }
 
-//                Log.i("Test111", "Result Path: " + filePath);
-//                try {
-//                    Log.i("Test111", "Result R_Path: " + PathUtil.getPath(this,uri));
-//                } catch (URISyntaxException e) {
-//                    e.printStackTrace();
-//                    Log.i("Test111", "Result R_Path: Failed");
-//                }
                 break;
+        }
+    }
+
+    void showAds(Boolean show,String AD_UNIT_ID){
+//        mAdView = findViewById(R.id.adView_search);
+        mAdView = new AdView(this);
+        if (show){
+            mAdView.setAdSize(AdSize.SMART_BANNER);
+            mAdView.setAdUnitId(AD_UNIT_ID);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            if(mAdView.getAdSize() != null || mAdView.getAdUnitId() != null)
+                mAdView.loadAd(adRequest);
+            LinearLayout linearLayout = findViewById(R.id.ad_layout_settings);
+            linearLayout.addView(mAdView);
         }
     }
 
@@ -122,9 +133,19 @@ public class Settings_Alb extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings__alb);
 
-        mAdView = findViewById(R.id.adView_Settings);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        mAdView = findViewById(R.id.adView_Settings);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+        SharedPreferences sc_pref = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),Context.MODE_PRIVATE);
+        banner6 =sc_pref.getString(getResources().getString(R.string.sc_banner6),getResources().getString(R.string.banner6));
+        Boolean thopu = sc_pref.getBoolean(getResources().getString(R.string.sc_thope),false);
+        if (!thopu)
+            showAds(true,banner6);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkAccent));
+        }
 
         Intent fromAlb = getIntent();
         is_fromAlb =fromAlb.getBooleanExtra("fromAlb",false);
@@ -146,6 +167,7 @@ public class Settings_Alb extends AppCompatActivity {
         fn_pref_con_kbps = findViewById(R.id.fn_pref_con_kbps);
         set_change_dir = findViewById(R.id.set_change_dir);
         cb_hide_albumArt = findViewById(R.id.cb_hide_albumArt);
+        cb_delete_albumArt = findViewById(R.id.cb_delete_albumArt);
 
         pref_set = getApplicationContext().getSharedPreferences(getResources().getString(R.string.set_main),MODE_PRIVATE);
         d_format = pref_set.getString(getResources().getString(R.string.set_format),"m4a");
@@ -156,6 +178,8 @@ public class Settings_Alb extends AppCompatActivity {
         d_audTagging = pref_set.getBoolean(getResources().getString(R.string.set_audioTagging),true);
         d_subFolders = pref_set.getBoolean(getResources().getString(R.string.set_subFolders),true);
         d_FN_code = pref_set.getString(getResources().getString(R.string.set_defFN_code),"SAK");
+
+        d_del_aA = pref_set.getBoolean(getResources().getString(R.string.set_del_aA),false);
 
         Log.i("Test111", "Def Path: " + d_dir);
 
@@ -180,18 +204,24 @@ public class Settings_Alb extends AppCompatActivity {
             fn_pref_con_AlbumName.setChecked(false);
         }
 
-        if (d_subFolders)
-            switch_sub_folders.setChecked(true);
-        else
-            switch_sub_folders.setChecked(false);
+        switch_sub_folders.setChecked(d_subFolders);
+        switch_audio_tag.setChecked(d_audTagging);
+        cb_hide_albumArt.setChecked(d_aA_hidden);
+        cb_delete_albumArt.setChecked(d_del_aA);
 
-        if (d_audTagging)
-            switch_audio_tag.setChecked(true);
-        else
-            switch_audio_tag.setChecked(false);
 
-        if (d_aA_hidden)
-            cb_hide_albumArt.setChecked(true);
+//        if (d_subFolders)
+//            switch_sub_folders.setChecked(true);
+//        else
+//            switch_sub_folders.setChecked(false);
+//
+//        if (d_audTagging)
+//            switch_audio_tag.setChecked(true);
+//        else
+//            switch_audio_tag.setChecked(false);
+//
+//        if (d_aA_hidden)
+//            cb_hide_albumArt.setChecked(true);
 
         if (d_kbps.equals("320"))
             rb_320.setChecked(true);
@@ -359,6 +389,8 @@ public class Settings_Alb extends AppCompatActivity {
                 edit_set.putBoolean(getResources().getString(R.string.set_subFolders),s_subFolders).apply();
                 edit_set.putString(getResources().getString(R.string.set_Directory),s_dir).apply();
                 edit_set.putString(getResources().getString(R.string.set_defFN_code),s_FN_code).apply();
+
+                edit_set.putBoolean(getResources().getString(R.string.set_del_aA),cb_delete_albumArt.isChecked()).apply();
                 onBackPressed();
             }
         });

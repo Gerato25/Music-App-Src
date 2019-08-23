@@ -46,6 +46,18 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_found"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/ad_layout_browse"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btn_found"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="0dp"
@@ -61,6 +73,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_quotes"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:background="@color/darkAccent"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/browse_coffee"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_found"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <WebView
         android:id="@+id/webView"
         android:layout_width="0dp"
@@ -70,7 +96,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" >
+
+    </WebView>
 
     <TextView
         android:id="@+id/tv_test_link"
@@ -284,7 +312,7 @@
         android:layout_centerHorizontal="true"
         android:visibility="visible"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/ad_more"
+        ads:adUnitId="@string/banner5"
         ads:layout_constraintBottom_toTopOf="@+id/btn_found"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>

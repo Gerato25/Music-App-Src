@@ -53,6 +53,23 @@
     <string name="set_subFolders">nitish.build.com.saavntest1_sub_folders</string>
     <string name="set_audioTagging">nitish.build.com.saavntest1_audio_tagging</string>
     <string name="set_defFN_code">nitish.build.com.saavntest1_def_FN_code</string>
+    <string name="set_del_aA">nitish.build.com.saavntest1_set_del_aA</string>
+
+    <string name="server_constants">nitish.build.com.saavntest1_server_constants</string>
+    <string name="sc_thope">nitish.build.com.saavntest1_sc_thopu</string>
+    <string name="sc_app_id">nitish.build.com.saavntest1_sc_app_id</string>
+    <string name="sc_banner1">nitish.build.com.saavntest1_sc_banner1</string>
+    <string name="sc_inter1">nitish.build.com.saavntest1_sc_inter1</string>
+    <string name="sc_amount">nitish.build.com.saavntest1_sc_amount</string>
+    <string name="sc_pay_link">nitish.build.com.saavntest1_sc_pay_link</string>
+    <string name="sc_inter2">nitish.build.com.saavntest1_sc_inter2</string>
+    <string name="sc_banner2">nitish.build.com.saavntest1_sc_banner2</string>
+    <string name="sc_banner3">nitish.build.com.saavntest1_sc_banner3</string>
+    <string name="sc_banner4">nitish.build.com.saavntest1_sc_banner4</string>
+    <string name="sc_banner5">nitish.build.com.saavntest1_sc_banner5</string>
+    <string name="sc_banner6">nitish.build.com.saavntest1_sc_banner6</string>
+
+
 
     <string name="albumart_settings_page">(This feature is only for Android Oreo and Above) \n
         When enabled it hides \"albumArt.jpg\" files. So that they wont annoy you by appearing in Galley. \n
@@ -95,29 +112,36 @@
         provide you regular updates with awesome new features.\n
         <b>In return, you can enjoy complete Ad-free experience.</b>
     </string>
+    <string name="thank_you">Thank you for showing your love towards the app.\nEnjoy the complete <b>Ad-free experience</b>.</string>
+    <string name="still_ads">Report here if you are still getting ads with in the app.(use G-Mail)</string>
 
-    <string name="change_log">### (version 0.8_beta) (Released: 27 July,2019)
-* Now the app is super smooth (far better than previous build).
-* New UI for search tab. Now will get more intuitive and segregated results.
-  * Now you can find your songs more easily.
-* New Improved Settings tab with various requested features.
-  * Now you can set file name format.
-  * You can change download location and turn off Sub folders.
-  * Option to Enable/Disable audio tagging.
-* Added option to enter url in browse tab.
-* Updated the download notification style.
-  * Now you can Pause/Resume or Cancel your Ongoing downloads.
-* Now you can check for updates with in the app (go to More Tab).
-* Now you can donate as per your choice [buy me a coffee ☕].
-* Need to wait for next build for complete stable build with Online streaming feature.</string>
+    <string name="browse_coffee">Like my work?\nConsider Buying me a Coffee</string>
 
+    <string name="change_log">test</string>
 
+    <!--OLD_Production-->
+    <!--<string name="ad_id">ca-app-pub-8197793372423670~5267150302</string>-->
+    <!--<string name="ad_inter1">ca-app-pub-8197793372423670/4577132583</string>-->
+    <!--<string name="ad_inter2">ca-app-pub-8197793372423670/5358024926</string>-->
+    <!--<string name="ad_Search">ca-app-pub-8197793372423670/2640986965</string>-->
+    <!--<string name="ad_Album">ca-app-pub-8197793372423670/6479534908</string>-->
+    <!--<string name="ad_Down">ca-app-pub-8197793372423670/2540289895</string>-->
+    <!--<string name="ad_more">ca-app-pub-8197793372423670/8740782452</string>-->
+    <!--<string name="ad_browse">ca-app-pub-8197793372423670/8119919639</string>-->
+    <!--<string name="ad_setting">ca-app-pub-8197793372423670/5493756297</string>-->
+
+    <!--Staging-->
     <string name="ad_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="ad_inter1">ca-app-pub-3940256099942544/1033173712</string>
     <string name="ad_inter2">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="ad_Search">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="ad_Album">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="ad_Down">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="ad_more">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner1">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner2">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner3">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner4">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner5">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner6">ca-app-pub-3940256099942544/6300978111</string>
+
+
+
 
 </resources>

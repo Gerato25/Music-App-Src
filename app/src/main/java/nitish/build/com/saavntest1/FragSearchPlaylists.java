@@ -91,7 +91,7 @@ public class FragSearchPlaylists extends Fragment {
             super.onPreExecute();
             info1.setImageResource(R.drawable.ic_loading);
             info1.setVisibility(View.VISIBLE);
-            info2.setText("Please wait...");
+            info2.setText("Hang On!");
             info2.setVisibility(View.VISIBLE);
             info3.setText("We are searching for your happiness...");
             info3.setVisibility(View.VISIBLE);

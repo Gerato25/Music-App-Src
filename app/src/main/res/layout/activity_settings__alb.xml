@@ -33,6 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView23">
 
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -523,11 +524,21 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:visibility="visible"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/ad_more"
-        ads:layout_constraintBottom_toTopOf="@+id/textView40"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        ads:layout_constraintBottom_toTopOf="@+id/ad_layout_settings"
         ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintHorizontal_bias="0.0"
         ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
+    <LinearLayout
+        android:id="@+id/ad_layout_settings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/textView40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
