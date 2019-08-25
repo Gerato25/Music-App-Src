@@ -21,9 +21,9 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "nitish.build.com.saavntest1"
+        applicationId "nitish.build.com.freemium"
         manifestPlaceholders = [
-                onesignal_app_id               : '0b1fc4f0-325e-4966-9256-0381774aa648',
+                onesignal_app_id               : '8a727c51-fdf9-4b9c-9d10-a39849a7ec05',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]

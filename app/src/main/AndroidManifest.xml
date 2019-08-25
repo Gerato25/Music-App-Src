@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="nitish.build.com.saavntest1">
+    package="nitish.build.com.freemium">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -19,8 +19,8 @@
         tools:replace="android:usesCleartextTraffic,android:allowBackup">
 
         <provider
-            android:name=".GenericFileProvider"
-            android:authorities="nitish.build.com.saavntest1.fileprovider"
+            android:name="nitish.build.com.freemium.GenericFileProvider"
+            android:authorities="nitish.build.com.freemium.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -28,22 +28,22 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".Settings_Alb" />
-        <activity android:name=".MorePage" />
-        <activity android:name=".Downloads_Page" />
+        <activity android:name="nitish.build.com.freemium.Settings_Alb" />
+        <activity android:name="nitish.build.com.freemium.MorePage" />
+        <activity android:name="nitish.build.com.freemium.Downloads_Page" />
         <activity
-            android:name=".Search_Songs"
+            android:name="nitish.build.com.freemium.Search_Songs"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".SaavnWebView"
+            android:name="nitish.build.com.freemium.SaavnWebView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Album_Song_List"
+            android:name="nitish.build.com.freemium.Album_Song_List"
             android:screenOrientation="portrait" />
-        <activity android:name=".checksum" />
+        <activity android:name="nitish.build.com.freemium.checksum" />
         <activity
-            android:name=".MainActivity"
+            android:name="nitish.build.com.freemium.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,7 +63,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ad_id" />
 
-        <receiver android:name=".NotificationRecive" />
+        <receiver android:name="nitish.build.com.freemium.NotificationRecive" />
     </application>
 
 </manifest>

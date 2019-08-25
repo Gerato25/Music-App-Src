@@ -95,7 +95,7 @@
     <string name="settings_autochaching">[Experimental]This will temporarily store the required audio data locally to reduce
         buffer time during the next playback. However, this might occupy some of your internal storage space. </string>
 
-    <string name="more_page">Note : This is a beta release of the app. So its common to have Bugs and Lags in the app.
+    <string name="more_page">Note : This is a initial release of the app. So its common to have Bugs and Lags in the app.
         For further development of the app please report the bugs you find.</string>
     <string name="get_intouch">Want to get in touch with me ? (Click here)</string>
     <string name="more_telegram">Click here to join our Telegram Group</string>
@@ -119,18 +119,21 @@
 
     <string name="change_log">test</string>
 
-    <!--OLD_Production-->
-    <!--<string name="ad_id">ca-app-pub-8197793372423670~5267150302</string>-->
-    <!--<string name="ad_inter1">ca-app-pub-8197793372423670/4577132583</string>-->
-    <!--<string name="ad_inter2">ca-app-pub-8197793372423670/5358024926</string>-->
-    <!--<string name="ad_Search">ca-app-pub-8197793372423670/2640986965</string>-->
-    <!--<string name="ad_Album">ca-app-pub-8197793372423670/6479534908</string>-->
-    <!--<string name="ad_Down">ca-app-pub-8197793372423670/2540289895</string>-->
-    <!--<string name="ad_more">ca-app-pub-8197793372423670/8740782452</string>-->
-    <!--<string name="ad_browse">ca-app-pub-8197793372423670/8119919639</string>-->
-    <!--<string name="ad_setting">ca-app-pub-8197793372423670/5493756297</string>-->
+    <string name="playstore_link">https://play.google.com/store/apps/details?id=nitish.build.com.freemium</string>
 
-    <!--Staging-->
+
+
+
+    <!--<string name="ad_id">ca-app-pub-8197793372423670~5074985716</string>-->
+    <!--<string name="ad_inter1">ca-app-pub-8197793372423670/3371021802</string>-->
+    <!--<string name="ad_inter2">ca-app-pub-8197793372423670/7494740276</string>-->
+    <!--<string name="banner1">ca-app-pub-8197793372423670/2441083511</string>-->
+    <!--<string name="banner2">ca-app-pub-8197793372423670/8121426236</string>-->
+    <!--<string name="banner3">ca-app-pub-8197793372423670/2677527866</string>-->
+    <!--<string name="banner4">ca-app-pub-8197793372423670/9933201353</string>-->
+    <!--<string name="banner5">ca-app-pub-8197793372423670/4018529694</string>-->
+    <!--<string name="banner6">ca-app-pub-8197793372423670/3635386316</string>-->
+
     <string name="ad_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="ad_inter1">ca-app-pub-3940256099942544/1033173712</string>
     <string name="ad_inter2">ca-app-pub-3940256099942544/1033173712</string>

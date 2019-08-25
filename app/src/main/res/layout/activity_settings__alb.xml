@@ -225,6 +225,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:checked="true"
                 android:fontFamily="@font/roboto_bold"
                 android:shadowColor="@android:color/darker_gray"
                 android:text="Hide Albumart files"
@@ -350,6 +351,7 @@
                 android:text="Streaming Settings"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
+                android:alpha="0.5"
                 android:textSize="19sp" />
 
             <TextView
@@ -357,6 +359,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="4dp"
+                android:alpha="0.5"
                 android:background="@android:color/white" />
 
             <TextView
@@ -367,6 +370,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:text="Preferred Streaming Quality :"
                 android:textColor="@android:color/white"
+                android:alpha="0.5"
                 android:textSize="17sp" />
 
             <RadioGroup
@@ -389,6 +393,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:tag="320"
                     android:text="320kbps"
+                    android:alpha="0.5"
                     android:textColor="@android:color/white" />
 
                 <RadioButton
@@ -400,6 +405,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:tag="160"
                     android:text="160kbps"
+                    android:alpha="0.5"
                     android:textColor="@android:color/white" />
 
                 <RadioButton
@@ -411,6 +417,7 @@
                     android:fontFamily="@font/roboto_medium"
                     android:tag="96"
                     android:text="96kbps"
+                    android:alpha="0.5"
                     android:textColor="@android:color/white" />
             </RadioGroup>
 
@@ -428,6 +435,7 @@
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:thumbTint="#A4A4A4"
+                android:alpha="0.5"
                 android:trackTint="#A4A4A4" />
 
             <TextView
@@ -449,6 +457,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="17sp"
                 android:textStyle="bold"
+                android:alpha="0.5"
                 android:thumbTint="#A4A4A4"
                 android:trackTint="#A4A4A4" />
 
@@ -458,6 +467,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/abel"
+                android:alpha="0.5"
                 android:text="@string/settings_autochaching"
                 android:textColor="@android:color/darker_gray" />
 

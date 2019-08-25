@@ -135,8 +135,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="3dp"
-        android:fontFamily="@font/advent_pro_semibold"
-        android:text="0.9_final_beta"
+        android:fontFamily="@font/roboto_medium"
+        android:text="1.0_stable"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -157,8 +157,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:fontFamily="@font/advent_pro_semibold"
-        android:text="22 Aug,2019"
+        android:fontFamily="@font/roboto_medium"
+        android:text="24 Aug,2019"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
