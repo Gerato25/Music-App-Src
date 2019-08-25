@@ -8,10 +8,6 @@
 <img src="https://img.shields.io/badge/Downloads-5100%2B-orange.svg" />
 
 <br>
-Enjoy downloading your dream collection from over 50 million songs across English,Hindi,Telugu,Tamil,Punjabi and More.
-Remove the hurdles of streaming low-quality content and enjoy your favorite music on your favorite Music Player by downloading any required song on a single click directly into your local storage.
-<br>
-<br>
 
 **This repository contains only the source code and some Nerd Stuff of Freemium App**
 **Please [visit this Repo](https://github.com/NitishGadangi/Freemium-App) to download the app and to know more info about Freemium Music**
