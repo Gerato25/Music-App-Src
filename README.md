@@ -1,59 +1,48 @@
 <img src="https://github.com/NitishGadangi/Freemium-App/blob/master/icon_app.png?raw=true" align="right" height='250' />
 
-<h1> Freemium Music App (v0.2beta)</h1>
-<img src="https://img.shields.io/badge/Build-Beta-blue.svg" />
-<img src="https://img.shields.io/badge/Version-0.6-green.svg" />
+<h1> Freemium Music App (v1.0_stable)</h1>
+<img src="https://img.shields.io/badge/Build-Stable-blue.svg" />
+<img src="https://img.shields.io/badge/Version-1.0-green.svg" />
 <img src="https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg" />
-<img src="https://img.shields.io/badge/Last%20Update-13%20June%202019-red.svg" />
-<img src="https://img.shields.io/badge/Downloads-3100%2B-orange.svg" />
+<img src="https://img.shields.io/badge/Last%20Update-25%20Aug%202019-red.svg" />
+<img src="https://img.shields.io/badge/Downloads-5100%2B-orange.svg" />
 
 <br>
-            So I recently found a vulnerability in Saavn Rest API which enables you to access premium content directly. 
-So I decided why not make an app so that everyone can enjoy it.... and this app is the result.
+Enjoy downloading your dream collection from over 50 million songs across English,Hindi,Telugu,Tamil,Punjabi and More.
+Remove the hurdles of streaming low-quality content and enjoy your favorite music on your favorite Music Player by downloading any required song on a single click directly into your local storage.
 <br>
 
+**This repository contains only the source code and some Nerd Stuff of Freemium App**
+**Please [visit this Repo](https://github.com/NitishGadangi/Freemium-App) to download the app and to know more info about Freemium Music**
 
-### Change Log (version 0.6_beta)
-* Made UI Smooth by adding new animations for seamless transitions between activities.
-* Added new settings tab to configure defaults.
-* Added Mp3 support.
-* Now you can hide AlbumArt files if needed (check settings page).
-* Improved UI for Browse Page.
-* Now Search Page and Browse page runs in seperate thread. So no lags anymore.
-* Open downloads folders right from the app.
-* New Icon designed by [Pruthvi Chandra](http://apkfolks.com).
-* Now you can buy me a coffee ☕
-* Fixed Several Bugs reported by many users.
-* Fixed random force close issues.
-* Fixed random appearance of XML code in file names.
+## Nerd Stuff
+### Libraries Used:
+**[Fetch](https://github.com/tonyofrancis/Fetch)** - A simple, powerful, customizable file download manager library for Android by Tonyofransis.
 
-**Consider Giving a ⭐ [here](https://github.com/NitishGadangi/Freemium-App) if you like my work**
+**[okhtttp](https://github.com/square/okhttp)** - An HTTP client for Android, Kotlin, and Java.
 
-### Features:
-* Download High-Quality Music .m4a (320kbps or 160kbps or 96kbps) directly into your local storage.
-* Enabled ID3 tagging and Album art features.
-* So every song will be compiled with song info and Album Art.
-* Search Songs directly from Saavn Database with Search feature.
-* Browse songs using Saavn Web UI.
+**[Glide](https://github.com/bumptech/glide)** - An image loading and caching library for Android focused on smooth scrolling.
 
-### Few ScreenShots:
+**[StorageChooser](https://github.com/codekidX/storage-chooser)** - Storage Choosing simplified.
 
-![Screen Shots](https://github.com/NitishGadangi/Freemium-App/blob/master/screen_shots.png?raw=true)
+**[Markwon](https://github.com/noties/Markwon)** - Android markdown library.
+
+**[Jaudiotagger](https://bitbucket.org/ijabz/jaudiotagger/src/master/README.md)** - Jaudiotagger is the Audio Tagging library used for tagging data in Audio files.
+
+**[PRDownloader](https://github.com/MindorksOpenSource/PRDownloader)** - A file downloader library for Android with pause and resume support
+
+**[Jsoup](https://jsoup.org/)** - a Java library for working with real-world HTML.
+
+**Thanks to [apkfolks.com](http://apkfolks.com) for awesome icon**
+
+**Credits to [flaticon.con](https://flaticon.com) for amazing flat UI elements**
 
 ### Download from here:
 
-[![](https://github.com/NitishGadangi/Freemium-App/blob/master/click_here.png?raw=true)](https://www.mediafire.com/file/79nwirbj2vvunjg/Freemium_Music_v0.6Beta.apk/file)
+[![](https://github.com/NitishGadangi/Freemium-App/blob/master/GitHub-Mark.png?raw=true)](https://github.com/NitishGadangi/Freemium-App)
+[![](https://github.com/NitishGadangi/Freemium-App/blob/master/google_play_store.png?raw=true)]()
 
-### Things to consider:
-* The app is still in beta. So having bugs is common. If you found any bug, please report it here [Telegram Group](https://t.me/joinchat/HH4B2xFVtt6_2hbJl_qKQA).
-* This App is developed Lollipop (API level 22) as the base, so it should work flawlessly on Marshmallow and above devices.
-* However, ID3 tagging and Album art feature are currently enabled for only for devices with Android Oreo(Api 26) and Above.
-* Downloads page is still under development and will be released in next beta...
-
-### What about next release?
-* Will include an online streaming feature within the app.
-* Revamp the downloads page.
-* Make the app more Smoother
-* And you say... (mail me: apps.nitish@gmail.com)!
+### Like my work?
+[![Buy me a coffee](https://github.com/NitishGadangi/Freemium-App/blob/master/ic_buy_me_cofee.png?raw=true)](https://github.com/NitishGadangi/Freemium-App/blob/master/buy_me_coffee.md)
 
 **Made with ❤️ by Nitish**
