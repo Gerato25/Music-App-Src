@@ -38,7 +38,7 @@
 ### Download from here:
 
 [![](https://github.com/NitishGadangi/Freemium-App/blob/master/GitHub-Mark.png?raw=true)](https://github.com/NitishGadangi/Freemium-App)
-[![](https://github.com/NitishGadangi/Freemium-App/blob/master/google_play_store.png?raw=true)]()
+[![](https://github.com/NitishGadangi/Freemium-App/blob/master/google_play_store.png?raw=true)](https://play.google.com/store/apps/details?id=nitish.build.com.freemium)
 
 ### Like my work?
 [![Buy me a coffee](https://github.com/NitishGadangi/Freemium-App/blob/master/ic_buy_me_cofee.png?raw=true)](https://github.com/NitishGadangi/Freemium-App/blob/master/buy_me_coffee.md)
