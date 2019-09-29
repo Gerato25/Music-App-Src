@@ -4,7 +4,7 @@
 <img src="https://img.shields.io/badge/Build-Stable-blue.svg" />
 <img src="https://img.shields.io/badge/Version-1.0-green.svg" />
 <img src="https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg" />
-<img src="https://img.shields.io/badge/Last%20Update-25%20Aug%202019-red.svg" />
+<img src="https://img.shields.io/badge/Last%20Update-25%20Sept%202019-red.svg" />
 <img src="https://img.shields.io/badge/Downloads-5100%2B-orange.svg" />
 
 <br>
