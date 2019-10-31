@@ -81,7 +81,7 @@
         android:fontFamily="@font/roboto_bold"
         android:text="@string/browse_coffee"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_found"
         app:layout_constraintEnd_toEndOf="parent"

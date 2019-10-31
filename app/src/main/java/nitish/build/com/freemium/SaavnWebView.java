@@ -57,6 +57,8 @@ public class SaavnWebView extends AppCompatActivity {
 
     String banner5;
 
+    Boolean thopu;
+
     //------------------------   Double tap to Exit   ----------------------------//
 
 
@@ -157,7 +159,12 @@ public class SaavnWebView extends AppCompatActivity {
         mAdView = findViewById(R.id.adView_Browse);
         showAds(true,banner5);
 
+        thopu = sc_pref.getBoolean(getResources().getString(R.string.sc_thope),false);
+        thopu=true;
+
         Button btn_quotes = findViewById(R.id.btn_quotes);
+        if (thopu)
+            btn_quotes.setText("Enjoy HQ MUSIC");
         btn_quotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

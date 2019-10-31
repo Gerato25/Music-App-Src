@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
             String thopulu = DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=10Tj7i5utEXaBoJpo74eYdc2sH1jtGoEx-bBiVNwcpAo&sheet=Sheet1");
 //            Log.i("Thop_Stuff","1:"+thopulu);
 
-//           String serverID="1FZQ5RujUUWoPvU7byPsq-oCrLsUE_bghZa6vYBKzbS0"; //production
-            String serverID="1f-u1MlaVpJKKL1JFIV-g6unzs5YyvBIGA1fpiph3umU"; //Staging
+           String serverID="1FZQ5RujUUWoPvU7byPsq-oCrLsUE_bghZa6vYBKzbS0"; //production
+//            String serverID="1f-u1MlaVpJKKL1JFIV-g6unzs5YyvBIGA1fpiph3umU"; //Staging
 
             String serverValues = DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id="+serverID+"&sheet=Sheet1");
 //            Log.i("Thop_Stuff","2:"+serverValues);

@@ -385,7 +385,7 @@ public class Search_Songs extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s.contains("YES_PLAYSTORE1")){
+            if(s.contains("YES_OPENAPP1")){
                 Log.i("UPD_TEST","YES");
                 try {
                     JSONObject obj = new JSONObject(s);

@@ -70,7 +70,6 @@
     <string name="sc_banner6">nitish.build.com.saavntest1_sc_banner6</string>
 
 
-
     <string name="albumart_settings_page">(This feature is only for Android Oreo and Above) \n
         When enabled it hides \"albumArt.jpg\" files. So that they wont annoy you by appearing in Galley. \n
         [Please turn off , if your music player doesn\'t recognize AlbumArt]</string>
@@ -110,7 +109,7 @@
         projects in free time.\n
         You can encourage me by buying me a coffee which motivates me to work consistently on this project and
         provide you regular updates with awesome new features.\n
-        <b>In return, you can enjoy complete Ad-free experience.</b>
+        <b>I need your support to keep the app going forward.</b>
     </string>
     <string name="thank_you">Thank you for showing your love towards the app.\nEnjoy the complete <b>Ad-free experience</b>.</string>
     <string name="still_ads">Report here if you are still getting ads with in the app.(use G-Mail)</string>
@@ -122,29 +121,25 @@
     <string name="playstore_link">https://play.google.com/store/apps/details?id=nitish.build.com.freemium</string>
 
 
+    <string name="ad_id">ca-app-pub-7700991162542555~7472979964</string>
+    <string name="ad_inter1">ca-app-pub-7700991162542555/5445582423</string>
+    <string name="ad_inter2">ca-app-pub-7700991162542555/3122671411</string>
+    <string name="banner1">ca-app-pub-7700991162542555/3046101050</string>
+    <string name="banner2">ca-app-pub-7700991162542555/5097549322</string>
+    <string name="banner3">ca-app-pub-7700991162542555/6027487617</string>
+    <string name="banner4">ca-app-pub-7700991162542555/6957425901</string>
+    <string name="banner5">ca-app-pub-7700991162542555/9987462668</string>
+    <string name="banner6">ca-app-pub-7700991162542555/2575876509</string>
 
-
-    <!--<string name="ad_id">ca-app-pub-8197793372423670~5074985716</string>-->
-    <!--<string name="ad_inter1">ca-app-pub-8197793372423670/3371021802</string>-->
-    <!--<string name="ad_inter2">ca-app-pub-8197793372423670/7494740276</string>-->
-    <!--<string name="banner1">ca-app-pub-8197793372423670/2441083511</string>-->
-    <!--<string name="banner2">ca-app-pub-8197793372423670/8121426236</string>-->
-    <!--<string name="banner3">ca-app-pub-8197793372423670/2677527866</string>-->
-    <!--<string name="banner4">ca-app-pub-8197793372423670/9933201353</string>-->
-    <!--<string name="banner5">ca-app-pub-8197793372423670/4018529694</string>-->
-    <!--<string name="banner6">ca-app-pub-8197793372423670/3635386316</string>-->
-
-    <string name="ad_id">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="ad_inter1">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="ad_inter2">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="banner1">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner2">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner3">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner4">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner5">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner6">ca-app-pub-3940256099942544/6300978111</string>
-
-
+    <!--<string name="ad_id">ca-app-pub-3940256099942544~3347511713</string>-->
+    <!--<string name="ad_inter1">ca-app-pub-3940256099942544/1033173712</string>-->
+    <!--<string name="ad_inter2">ca-app-pub-3940256099942544/1033173712</string>-->
+    <!--<string name="banner1">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="banner2">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="banner3">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="banner4">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="banner5">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="banner6">ca-app-pub-3940256099942544/6300978111</string>-->
 
 
 </resources>

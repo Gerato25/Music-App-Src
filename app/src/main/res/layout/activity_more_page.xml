@@ -136,7 +136,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="1.0_stable"
+        android:text="1.1_stable"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -158,7 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="24 Aug,2019"
+        android:text="31 Oct 2019"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -193,7 +193,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/ad_layout_more"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

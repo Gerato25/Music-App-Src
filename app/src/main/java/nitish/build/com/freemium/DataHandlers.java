@@ -66,6 +66,8 @@ public class DataHandlers {
                     dot=" • ";
 
     static String getContent(String finUrl){
+        finUrl=finUrl.replace("â\u0080\u009C","”").replace("â\u0080\u009D","”");
+
         String finString="FAILED";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
@@ -122,6 +124,8 @@ public class DataHandlers {
 
     static String getAlbumID(String url){
         String resID="FAILED";
+
+
         String data =getContent(url);
         Document doc = Jsoup.parse(data);
 
@@ -179,6 +183,7 @@ public class DataHandlers {
     }
 
     static String getSongID(String url){
+
         String resID =getSongAlbumID(url);
         return resID;
     }

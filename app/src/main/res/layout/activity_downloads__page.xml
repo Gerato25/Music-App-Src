@@ -323,7 +323,7 @@
         android:fontFamily="@font/roboto"
         android:text="no downloads found here"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/empty_box_downPage"
         app:layout_constraintStart_toStartOf="@+id/empty_box_downPage"
         app:layout_constraintTop_toBottomOf="@+id/tv_empty_box_downPage" />

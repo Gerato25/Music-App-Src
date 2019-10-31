@@ -37,7 +37,7 @@
         android:fontFamily="@font/secular_one"
         android:text="@string/thank_you"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView58" />
@@ -78,7 +78,7 @@
         android:text="Rate us on Playstore"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView63"

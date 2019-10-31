@@ -137,11 +137,11 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_proceed_dialog" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_coffee_already" />
 
     <TextView
         android:id="@+id/textView18"
@@ -151,7 +151,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Want to go Ad-free ?"
+        android:text="Buy me a coffee"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -169,14 +169,15 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/curvature"
         android:ems="10"
-        android:maxLength="10"
         android:fontFamily="@font/roboto_medium"
         android:hint="mobile number"
         android:inputType="phone"
+        android:maxLength="10"
         android:paddingLeft="10dp"
         android:textColor="@color/darkAccent"
         android:textColorHint="@android:color/darker_gray"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -193,6 +194,7 @@
         android:text="we need this for payment validation"
         android:textAlignment="center"
         android:textColor="@android:color/white"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView33" />
@@ -208,8 +210,26 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView34"
         app:layout_constraintTop_toBottomOf="@+id/et_payment_dialog" />
+
+    <TextView
+        android:id="@+id/tv_coffee_already"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:text="click here if you have already paid previously"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_proceed_dialog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
