@@ -4,16 +4,13 @@
 <img src="https://img.shields.io/badge/Build-Stable-blue.svg" />
 <img src="https://img.shields.io/badge/Version-1.0-green.svg" />
 <img src="https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg" />
-<img src="https://img.shields.io/badge/Last%20Update-25%20Aug%202019-red.svg" />
+<img src="https://img.shields.io/badge/Last%20Update-25%20Sept%202019-red.svg" />
 <img src="https://img.shields.io/badge/Downloads-5100%2B-orange.svg" />
 
 <br>
-Enjoy downloading your dream collection from over 50 million songs across English,Hindi,Telugu,Tamil,Punjabi and More.
-Remove the hurdles of streaming low-quality content and enjoy your favorite music on your favorite Music Player by downloading any required song on a single click directly into your local storage.
-<br>
-<br>
 
 **This repository contains only the source code and some Nerd Stuff of Freemium App**
+
 **Please [visit this Repo](https://github.com/NitishGadangi/Freemium-App) to download the app and to know more info about Freemium Music**
 
 ## Nerd Stuff
@@ -41,9 +38,20 @@ Remove the hurdles of streaming low-quality content and enjoy your favorite musi
 ### Download from here:
 
 [![](https://github.com/NitishGadangi/Freemium-App/blob/master/GitHub-Mark.png?raw=true)](https://github.com/NitishGadangi/Freemium-App)
-[![](https://github.com/NitishGadangi/Freemium-App/blob/master/google_play_store.png?raw=true)]()
+[![](https://github.com/NitishGadangi/Freemium-App/blob/master/google_play_store.png?raw=true)](https://play.google.com/store/apps/details?id=nitish.build.com.freemium)
 
 ### Like my work?
 [![Buy me a coffee](https://github.com/NitishGadangi/Freemium-App/blob/master/ic_buy_me_cofee.png?raw=true)](https://github.com/NitishGadangi/Freemium-App/blob/master/buy_me_coffee.md)
+
+## License
+ ```
+ Copyright © 2018 Nitish Gadangi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ ```
 
 **Made with ❤️ by Nitish**
