@@ -39,6 +39,7 @@
 
 [![](https://github.com/NitishGadangi/Freemium-App/blob/master/GitHub-Mark.png?raw=true)](https://github.com/NitishGadangi/Freemium-App)
 [![](https://github.com/NitishGadangi/Freemium-App/blob/master/google_play_store.png?raw=true)](https://play.google.com/store/apps/details?id=nitish.build.com.freemium)
+[![](https://cdn6.aptoide.com/includes/themes/2014/images/aptoide_badge.svg?timestamp=timestamp=20190318)](https://nitish-build-com-freemium.en.aptoide.com/)
 
 ### Like my work?
 [![Buy me a coffee](https://github.com/NitishGadangi/Freemium-App/blob/master/ic_buy_me_cofee.png?raw=true)](https://github.com/NitishGadangi/Freemium-App/blob/master/buy_me_coffee.md)
