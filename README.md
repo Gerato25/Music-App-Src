@@ -1,14 +1,11 @@
 ![MAIN HEADER](https://github.com/NitishGadangi/Freemium-App/blob/master/playstore_banner.png?raw=true)
 <br>
 <br>
-<br>
 ![](https://img.shields.io/badge/Build-Stable-blue.svg)
 ![](https://img.shields.io/badge/Version-1.0-green.svg)
 ![](https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg)
 ![](https://img.shields.io/badge/Last%20Update-25%20Aug%202019-red.svg)
 ![](https://img.shields.io/badge/Downloads-42,200%2B-orange.svg)
-
-<br>
 
 **This repository contains only the source code and some Nerd Stuff of Freemium App**
 
