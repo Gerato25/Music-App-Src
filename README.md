@@ -1,11 +1,12 @@
-<img src="https://github.com/NitishGadangi/Freemium-App/blob/master/icon_app.png?raw=true" align="right" height='250' />
-
-<h1> Freemium Music App (v1.0_stable)</h1>
-<img src="https://img.shields.io/badge/Build-Stable-blue.svg" />
-<img src="https://img.shields.io/badge/Version-1.0-green.svg" />
-<img src="https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg" />
-<img src="https://img.shields.io/badge/Last%20Update-25%20Sept%202019-red.svg" />
-<img src="https://img.shields.io/badge/Downloads-5100%2B-orange.svg" />
+![MAIN HEADER](https://github.com/NitishGadangi/Freemium-App/blob/master/playstore_banner.png?raw=true)
+<br>
+<br>
+<br>
+![](https://img.shields.io/badge/Build-Stable-blue.svg)
+![](https://img.shields.io/badge/Version-1.0-green.svg)
+![](https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg)
+![](https://img.shields.io/badge/Last%20Update-25%20Aug%202019-red.svg)
+![](https://img.shields.io/badge/Downloads-42,200%2B-orange.svg)
 
 <br>
 
@@ -41,12 +42,36 @@
 [![](https://github.com/NitishGadangi/Freemium-App/blob/master/google_play_store.png?raw=true)](https://play.google.com/store/apps/details?id=nitish.build.com.freemium)
 [![](https://cdn6.aptoide.com/includes/themes/2014/images/aptoide_badge.svg?timestamp=timestamp=20190318)](https://nitish-build-com-freemium.en.aptoide.com/)
 
+## About App
+Enjoy downloading your dream collection from over 50 million songs across English,Hindi,Telugu,Tamil,Punjabi and More.
+Remove the hurdles of streaming low-quality content and enjoy your favorite music on your favorite Music Player by downloading any required song on a single click directly into your local storage.
+
+### Whats special in this app?
+-	Unlimited Music Downloads
+-	In your required quality (320kbps/160kbps/96kbps)
+-	In your required format (mp3/m4a)
+-	Directly into your local storage
+-	Enabled ID3 Tagging	(*only for Android Oreo and Above)
+-	So,Every music file is embedded with AlbumArt and Audio Info
+-	With several other settings to manage downloads as per your preference
+-	You can also download lyrics for the song(Coming Soon...)
+
+**Access all the previous releases from [Releases tab](https://github.com/NitishGadangi/Freemium-App/releases).**
+
+**Try reading [FAQs](https://github.com/NitishGadangi/Freemium-App/blob/master/FAQ's.md). They might solve your issues with the app**
+
+
+### Few ScreenShots:
+
+![Screen Shots](https://github.com/NitishGadangi/Freemium-App/blob/master/screen_shots.jpg?raw=true)
+
+
 ### Like my work?
 [![Buy me a coffee](https://github.com/NitishGadangi/Freemium-App/blob/master/ic_buy_me_cofee.png?raw=true)](https://github.com/NitishGadangi/Freemium-App/blob/master/buy_me_coffee.md)
 
 ## License
  ```
- Copyright © 2018 Nitish Gadangi
+ Copyright © 2019 Nitish Gadangi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
