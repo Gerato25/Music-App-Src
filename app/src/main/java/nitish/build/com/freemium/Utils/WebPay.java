@@ -1,9 +1,8 @@
-package nitish.build.com.freemium;
+package nitish.build.com.freemium.Utils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -11,6 +10,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import nitish.build.com.freemium.R;
 
 public class WebPay extends AppCompatActivity {
     ProgressDialog progressDialog;

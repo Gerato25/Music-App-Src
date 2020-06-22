@@ -1,4 +1,4 @@
-package nitish.build.com.freemium;
+package nitish.build.com.freemium.Activities;
 
 //                           ____        _   _ _ _   _     _
 //     /\                   |  _ \      | \ | (_) | (_)   | |
@@ -43,6 +43,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import java.io.File;
+
+import nitish.build.com.freemium.R;
 
 
 public class Settings_Alb extends AppCompatActivity {

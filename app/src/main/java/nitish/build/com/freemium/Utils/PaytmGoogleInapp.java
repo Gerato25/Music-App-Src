@@ -1,4 +1,4 @@
-package nitish.build.com.freemium;
+package nitish.build.com.freemium.Utils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+
+import nitish.build.com.freemium.R;
+import nitish.build.com.freemium.Activities.Select_Payment;
 
 public class PaytmGoogleInapp extends AppCompatActivity {
 
@@ -36,16 +39,6 @@ public class PaytmGoogleInapp extends AppCompatActivity {
                 v.startAnimation(animation1);
                 //-------------------------//
 
-//                Intent intent=new Intent(getApplicationContext(),checksum.class);
-//                intent.putExtra("orderid",orderId);
-//                intent.putExtra("custid",custid);
-//                intent.putExtra("android_id",android_id);
-//                intent.putExtra("mobile",mobile);
-//                intent.putExtra("amount",sc_amount+"");
-//                intent.putExtra("pay_url",sc_pay_url+"");
-//                startActivity(intent);
-
-
             }
         });
 
@@ -58,7 +51,7 @@ public class PaytmGoogleInapp extends AppCompatActivity {
                 v.startAnimation(animation1);
                 //-------------------------//
 
-                        Intent intent2 = new Intent(getApplicationContext(),Select_Payment.class);
+                        Intent intent2 = new Intent(getApplicationContext(), Select_Payment.class);
                         intent2.putExtra("android_id",android_id);
                         intent2.putExtra("mobile",mobile);
                         startActivity(intent2);

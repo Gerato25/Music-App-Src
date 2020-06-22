@@ -1,9 +1,20 @@
-package nitish.build.com.saavntest1;
+package nitish.build.com.freemium.Activities;
+
+//                           ____        _   _ _ _   _     _
+//     /\                   |  _ \      | \ | (_) | (_)   | |
+//    /  \   _ __  _ __  ___| |_) |_   _|  \| |_| |_ _ ___| |__
+//   / /\ \ | '_ \| '_ \/ __|  _ <| | | | . ` | | __| / __| '_ \
+//  / ____ \| |_) | |_) \__ \ |_) | |_| | |\  | | |_| \__ \ | | |
+// /_/    \_\ .__/| .__/|___/____/ \__, |_| \_|_|\__|_|___/_| |_|
+//          | |   | |               __/ |
+//          |_|   |_|              |___/
+//
+//                 Freemium Music
+//   Developed and Maintained by Nitish Gadangi
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -12,13 +23,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,18 +47,16 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.snackbar.Snackbar;
-import com.tonyodev.fetch2.Download;
 import com.tonyodev.fetch2.FetchListener;
-import com.tonyodev.fetch2core.FetchObserver;
-import com.tonyodev.fetch2core.Reason;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
 
 public class Downloads_Page extends AppCompatActivity {
      ListView lv_queueList;
@@ -191,7 +197,7 @@ public class Downloads_Page extends AppCompatActivity {
             }
         });
         cur_down_path=def_down_dir;
-        String mainJsonArr =DataHandlers.getFullDirectory(def_down_dir);
+        String mainJsonArr = DataHandlers.getFullDirectory(def_down_dir);
         if (!mainJsonArr.equals("FAILED")){
             try {
                 JSONArray fullArr = new JSONArray(mainJsonArr);
@@ -331,7 +337,7 @@ public class Downloads_Page extends AppCompatActivity {
                             Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                             File file = new File(absPath);
 //                            viewIntent.setDataAndType(Uri.fromFile(file), "audio/*");
-                            Uri uri = FileProvider.getUriForFile(getApplicationContext(), "nitish.build.com.saavntest1.fileprovider", file);
+                            Uri uri = FileProvider.getUriForFile(getApplicationContext(), "nitish.build.com.freemium.fileprovider", file);
                             viewIntent.setDataAndType(uri,"audio/*");
                             viewIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             startActivity(Intent.createChooser(viewIntent, null));

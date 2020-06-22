@@ -1,19 +1,28 @@
-package nitish.build.com.saavntest1;
+package nitish.build.com.freemium.Fragments;
+
+//                           ____        _   _ _ _   _     _
+//     /\                   |  _ \      | \ | (_) | (_)   | |
+//    /  \   _ __  _ __  ___| |_) |_   _|  \| |_| |_ _ ___| |__
+//   / /\ \ | '_ \| '_ \/ __|  _ <| | | | . ` | | __| / __| '_ \
+//  / ____ \| |_) | |_) \__ \ |_) | |_| | |\  | | |_| \__ \ | | |
+// /_/    \_\ .__/| .__/|___/____/ \__, |_| \_|_|\__|_|___/_| |_|
+//          | |   | |               __/ |
+//          |_|   |_|              |___/
+//
+//                 Freemium Music
+//   Developed and Maintained by Nitish Gadangi
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -28,13 +37,16 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import nitish.build.com.freemium.Activities.Album_Song_List;
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
 
 public class FragSearchTop extends Fragment {
     String query=" ",searchRes;
@@ -133,7 +145,7 @@ public class FragSearchTop extends Fragment {
                     }
                     else
                         dataID = songJson.getString("id");
-                    Intent toSongList=new Intent(getActivity().getApplicationContext(),Album_Song_List.class);
+                    Intent toSongList=new Intent(getActivity().getApplicationContext(), Album_Song_List.class);
                     toSongList.putExtra("TYPE",dataType);
                     toSongList.putExtra("TYPE_ID",dataID);
                     toSongList.putExtra("PREV_ACT","SEARCH_ACT");

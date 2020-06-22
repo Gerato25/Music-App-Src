@@ -18,12 +18,12 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:usesCleartextTraffic,android:allowBackup">
-        <activity android:name=".WebPay"></activity>
-        <activity android:name=".PaytmGoogleInapp" />
-        <activity android:name=".Select_Payment" />
+        <activity android:name=".Utils.WebPay"></activity>
+        <activity android:name=".Utils.PaytmGoogleInapp" />
+        <activity android:name=".Activities.Select_Payment" />
 
         <provider
-            android:name=".GenericFileProvider"
+            android:name=".Utils.GenericFileProvider"
             android:authorities="nitish.build.com.freemium.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -32,21 +32,21 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".Settings_Alb" />
-        <activity android:name=".MorePage" />
-        <activity android:name=".Downloads_Page" />
+        <activity android:name=".Activities.Settings_Alb" />
+        <activity android:name=".Activities.MorePage" />
+        <activity android:name=".Activities.Downloads_Page" />
         <activity
-            android:name=".Search_Songs"
+            android:name=".Activities.Search_Songs"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".SaavnWebView"
+            android:name=".Activities.SaavnWebView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Album_Song_List"
+            android:name=".Activities.Album_Song_List"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,7 +66,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ad_id" />
 
-        <receiver android:name=".NotificationRecive" />
+        <receiver android:name=".Utils.NotificationRecive" />
     </application>
 
 </manifest>

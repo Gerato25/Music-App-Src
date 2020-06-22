@@ -1,4 +1,16 @@
-package nitish.build.com.saavntest1;
+package nitish.build.com.freemium.Activities;
+
+//                           ____        _   _ _ _   _     _
+//     /\                   |  _ \      | \ | (_) | (_)   | |
+//    /  \   _ __  _ __  ___| |_) |_   _|  \| |_| |_ _ ___| |__
+//   / /\ \ | '_ \| '_ \/ __|  _ <| | | | . ` | | __| / __| '_ \
+//  / ____ \| |_) | |_) \__ \ |_) | |_| | |\  | | |_| \__ \ | | |
+// /_/    \_\ .__/| .__/|___/____/ \__, |_| \_|_|\__|_|___/_| |_|
+//          | |   | |               __/ |
+//          |_|   |_|              |___/
+//
+//                 Freemium Music
+//   Developed and Maintained by Nitish Gadangi
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -20,7 +31,6 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -34,19 +44,10 @@ import com.google.android.gms.ads.AdView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
 
 import io.noties.markwon.Markwon;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
 
 public class MorePage extends AppCompatActivity {
     AdView mAdView;
@@ -99,53 +100,79 @@ public class MorePage extends AppCompatActivity {
                     animation1.setDuration(500);
                     v.startAnimation(animation1);
                     //-------------------------//
-                    String amount = dialog.findViewById(rg_dialog.getCheckedRadioButtonId()).getTag().toString();
-                    String url = "https://p-y.tm/W8-4mek";
-
-//                    try {
-//                        String out=DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxEZZ5oejQCAt2iw_Ck3dOZeSxOVoE0" +
-//                                "OvViPmKpy9_a7PYkAEg/exec?mobile=898989898989&android_id=xxxxxxxxxxxxxxxxxxx&id=10Tj7i5utEXaBoJpo74eY" +
-//                                "dc2sH1jtGoEx-bBiVNwcpAo");
-//                        dialog.dismiss();
-//                        Toast.makeText(MorePage.this, out, Toast.LENGTH_SHORT).show();
+//                    String amount = dialog.findViewById(rg_dialog.getCheckedRadioButtonId()).getTag().toString();
+//                    String url = "https://p-y.tm/W8-4mek";
 //
-//                    }catch (Exception e){
-//                        e.printStackTrace();
+////                    try {
+////                        String out=DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxEZZ5oejQCAt2iw_Ck3dOZeSxOVoE0" +
+////                                "OvViPmKpy9_a7PYkAEg/exec?mobile=898989898989&android_id=xxxxxxxxxxxxxxxxxxx&id=10Tj7i5utEXaBoJpo74eY" +
+////                                "dc2sH1jtGoEx-bBiVNwcpAo");
+////                        dialog.dismiss();
+////                        Toast.makeText(MorePage.this, out, Toast.LENGTH_SHORT).show();
+////
+////                    }catch (Exception e){
+////                        e.printStackTrace();
+////                    }
+//
+//                    Random random = new Random();
+//                    String i_custID = System.currentTimeMillis()+"";
+//                    String i_orderID = System.currentTimeMillis()+"@"+String.format("%04d", random.nextInt(10000));
+//                    String unique_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+//
+//                    EditText et = dialog.findViewById(R.id.et_payment_dialog);
+//                    String num = et.getText().toString();
+//
+////                    SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
+////                    String sc_amount=pref_main.getString(getResources().getString(R.string.sc_amount),"50.00");
+////                    String sc_pay_url=pref_main.getString(getResources().getString(R.string.sc_pay_link),"http://www.jntuhspoorthi.com/nitishgadangi/generateChecksum.php");
+//
+//
+//                    if (num.length()>1){
+//                    Intent intent=new Intent(getApplicationContext(),PaytmGoogleInapp.class);
+//                    intent.putExtra("orderid",num+"_"+i_orderID);
+//                    intent.putExtra("custid",num+"@"+i_custID);
+//                    intent.putExtra("android_id",unique_id);
+//                    intent.putExtra("mobile",num+"");
+//                    intent.putExtra("amount",sc_amount+"");
+//                    intent.putExtra("pay_url",sc_pay_url+"");
+//
+//                    dialog.dismiss();
+//                    startActivity(intent);
+//
+////                        Intent intent2 = new Intent(getApplicationContext(),Select_Payment.class);
+////                        intent2.putExtra("android_id",unique_id);
+////                        intent2.putExtra("mobile",num+"");
+////                        startActivity(intent2);
+//                    }else {
+//                        Toast.makeText(MorePage.this, "enter correct mobile number", Toast.LENGTH_SHORT).show();
 //                    }
 
-                    Random random = new Random();
-                    String i_custID = System.currentTimeMillis()+"";
-                    String i_orderID = System.currentTimeMillis()+"@"+String.format("%04d", random.nextInt(10000));
-                    String unique_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-
-                    EditText et = dialog.findViewById(R.id.et_payment_dialog);
-                    String num = et.getText().toString();
-
-//                    SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
-//                    String sc_amount=pref_main.getString(getResources().getString(R.string.sc_amount),"50.00");
-//                    String sc_pay_url=pref_main.getString(getResources().getString(R.string.sc_pay_link),"http://www.jntuhspoorthi.com/nitishgadangi/generateChecksum.php");
-
-
-                    if (num.length()>1){
-                    Intent intent=new Intent(getApplicationContext(),checksum.class);
-                    intent.putExtra("orderid",num+"_"+i_orderID);
-                    intent.putExtra("custid",num+"@"+i_custID);
-                    intent.putExtra("android_id",unique_id);
-                    intent.putExtra("mobile",num+"");
-                    intent.putExtra("amount",sc_amount+"");
-                    intent.putExtra("pay_url",sc_pay_url+"");
-
-                    dialog.dismiss();
-                    startActivity(intent);
-                    }else {
-                        Toast.makeText(MorePage.this, "enter correct mobile number", Toast.LENGTH_SHORT).show();
-                    }
-
+                    String url = "https://p-y.tm/W8-4mek";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
 
                 }
             });
 
+            dialog.findViewById(R.id.tv_coffee_already).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(500);
+                    v.startAnimation(animation1);
+                    //-------------------------//
 
+                    String unique_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("plain/text");
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "appsbynitish@gmail.com" });
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.1] Stable")
+                            .putExtra(Intent.EXTRA_TEXT, "PaymentHash:"+unique_id+"\n\nRequired info:-\nPlease Enter the Mobile number used for payment:");
+                    startActivity(Intent.createChooser(intent, "select Gmail"));
+                }
+            });
 
             dialog.show();
 
@@ -266,9 +293,9 @@ public class MorePage extends AppCompatActivity {
                     String unique_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("plain/text");
-                    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "apps.nitish@gmail.com" });
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.0]")
-                            .putExtra(Intent.EXTRA_TEXT, "PaymentHash:"+unique_id+"\n\nRequired info:-\nPlese Enter the Mobile number used for payment:");
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "appsbynitish@gmail.com" });
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.1] Stable")
+                            .putExtra(Intent.EXTRA_TEXT, "PaymentHash:"+unique_id+"\n\nRequired info:-\nPlease Enter the Mobile number used for payment:");
                     startActivity(Intent.createChooser(intent, "select Gmail"));
                 }
             });
@@ -276,10 +303,10 @@ public class MorePage extends AppCompatActivity {
             dialog.findViewById(R.id.more_TU_rate).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String url = "xxxxxxxxxxxxxxxxxxxx";
+                    String url = getResources().getString(R.string.playstore_link);
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
-//                    startActivity(i);
+                    startActivity(i);
                 }
             });
 
@@ -320,7 +347,7 @@ public class MorePage extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            if(s.contains("YES_TEST_BUILD1")){
+            if(s.contains("YES_OPENAPP1")){
                 Log.i("UPD_TEST","YES");
                 try {
                     JSONObject obj = new JSONObject(s);
@@ -441,6 +468,14 @@ public class MorePage extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.img_icon_morepage).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(MorePage.this, "Version Code 4", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
         tv_checkUpdates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -488,7 +523,7 @@ public class MorePage extends AppCompatActivity {
 //                Intent i = new Intent(Intent.ACTION_VIEW);
 //                i.setData(Uri.parse(url));
 //                startActivity(i);
-                String tempStr = "*This is the final Beta before public launch.*\n" +
+                String tempStr = "*First stable release*\n" +
                         "* Improved all UI elements to make it smooth.\n" +
                         "* New updated downloads tab to browse all the downloaded stuff.\n" +
                         "* Automatic search results is enabled.\n" +
@@ -590,11 +625,15 @@ public class MorePage extends AppCompatActivity {
                 animation1.setDuration(1000);
                 v.startAnimation(animation1);
                 //-------------------------//
+
+                String device_name = android.os.Build.MANUFACTURER+"_"+android.os.Build.MODEL;
+                String os_version= android.os.Build.VERSION.RELEASE;
+
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "apps.nitish@gmail.com" });
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v0.8b]")
-                .putExtra(Intent.EXTRA_TEXT, "Required info:-\nIssue Description:\nAndroid OS version:\nDevice Name:");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "appsbynitish@gmail.com" });
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.1] Stable")
+                .putExtra(Intent.EXTRA_TEXT, "Android OS version:"+os_version+"\nDevice Name:"+device_name+"\nIssue Description:\n");
                 startActivity(Intent.createChooser(intent, "select Gmail"));
             }
         });
@@ -609,6 +648,22 @@ public class MorePage extends AppCompatActivity {
                 v.startAnimation(animation1);
                 //-------------------------//
                 onBackPressed();
+            }
+        });
+
+        findViewById(R.id.tv_toPlaystore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //------Animation-----------//
+                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                animation1.setDuration(1000);
+                v.startAnimation(animation1);
+                //-------------------------//
+                String url = getResources().getString(R.string.playstore_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
             }
         });
 

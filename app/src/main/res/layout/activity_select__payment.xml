@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkAccent"
-    tools:context=".Select_Payment">
+    tools:context=".Activities.Select_Payment">
 
     <ImageView
         android:id="@+id/imageView5"

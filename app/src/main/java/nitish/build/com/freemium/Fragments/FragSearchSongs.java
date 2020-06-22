@@ -1,4 +1,16 @@
-package nitish.build.com.saavntest1;
+package nitish.build.com.freemium.Fragments;
+
+//                           ____        _   _ _ _   _     _
+//     /\                   |  _ \      | \ | (_) | (_)   | |
+//    /  \   _ __  _ __  ___| |_) |_   _|  \| |_| |_ _ ___| |__
+//   / /\ \ | '_ \| '_ \/ __|  _ <| | | | . ` | | __| / __| '_ \
+//  / ____ \| |_) | |_) \__ \ |_) | |_| | |\  | | |_| \__ \ | | |
+// /_/    \_\ .__/| .__/|___/____/ \__, |_| \_|_|\__|_|___/_| |_|
+//          | |   | |               __/ |
+//          |_|   |_|              |___/
+//
+//                 Freemium Music
+//   Developed and Maintained by Nitish Gadangi
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -27,7 +39,11 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
 
-public class FragSearchPlaylists extends Fragment {
+import nitish.build.com.freemium.Activities.Album_Song_List;
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
+
+public class FragSearchSongs extends Fragment {
     TextView info2,info3;
     ImageView info1;
     ProgressDialog progressDialog;
@@ -54,8 +70,7 @@ public class FragSearchPlaylists extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView=inflater.inflate(R.layout.frag_search_playlists,container,false);
-
+        View rootView=inflater.inflate(R.layout.frag_search_songs,container,false);
         info1 = rootView.findViewById(R.id.fs_info1);
         info2 = rootView.findViewById(R.id.fs_info2);
         info3 = rootView.findViewById(R.id.fs_info3);
@@ -69,23 +84,26 @@ public class FragSearchPlaylists extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.dismiss();
 
-        rv_fragAlbum = rootView.findViewById(R.id.rv_fragplaylists);
+        rv_fragAlbum = rootView.findViewById(R.id.rv_fragsongs);
         layoutManager = new LinearLayoutManager(getContext());
         rv_fragAlbum.setLayoutManager(layoutManager);
 
         res_out =  new ArrayList<>();
 
+        recViewSetup = new RecViewSetup();
+
         query=et_SearchBox.getText().toString();
         query=query.replace(" ", "%20");
-        recViewSetup = new RecViewSetup();
-        if(query.length()>0)
+        if(query.length()>0){
             recViewSetup.execute(query);
+        }
+
+
+
 
         return rootView;
-
     }
-
-    class RecViewSetup extends AsyncTask<String,Void,String> {
+    class RecViewSetup extends AsyncTask<String,Void,String>{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -104,7 +122,7 @@ public class FragSearchPlaylists extends Fragment {
                 listSize=0;
                 info1.setImageResource(R.drawable.ic_err_flag);
                 info1.setVisibility(View.VISIBLE);
-                info2.setText("No playlists found for '"+query.replace("%20"," ")+"'");
+                info2.setText("No songsfound for '"+query.replace("%20"," ")+"'");
                 info2.setVisibility(View.VISIBLE);
                 info3.setText("Please check you have the right spelling, or try different keywords.");
                 info3.setVisibility(View.VISIBLE);
@@ -127,7 +145,7 @@ public class FragSearchPlaylists extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try {
-                res_out = DataHandlers.playlistExtractor(strings[0]);
+                res_out = DataHandlers.songExtractor(strings[0]);
             }catch (Exception e){
                 return "FAILED";
             }
@@ -159,11 +177,12 @@ public class FragSearchPlaylists extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if(!s.equals("FAILED")){
-                Intent toSongList=new Intent(getActivity().getApplicationContext(),Album_Song_List.class);
-                toSongList.putExtra("TYPE","PLAYLIST");
+                Intent toSongList=new Intent(getActivity().getApplicationContext(), Album_Song_List.class);
+                toSongList.putExtra("TYPE","ALBUM");
                 toSongList.putExtra("TYPE_ID",s);
                 toSongList.putExtra("PREV_ACT","SEARCH_ACT");
                 progressDialog.dismiss();
+
                 startActivity(toSongList);
                 getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
@@ -190,17 +209,17 @@ public class FragSearchPlaylists extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-            Glide.with(getContext()).asBitmap().load(res_out.get((listSize*3)+position)).into(holder.img_art);
-            holder.tv_head.setText(StringEscapeUtils.unescapeXml(res_out.get(position*3)));
-            holder.tv_subhead.setText(res_out.get(position*3+1));
+            int temp = listSize*2;
+            Glide.with(getContext()).asBitmap().load(res_out.get(position*2+1)).into(holder.img_art);
+            holder.tv_head.setText(StringEscapeUtils.unescapeXml(res_out.get(position*2)));
+            holder.tv_subhead.setText(res_out.get(temp+position*2));
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
                     animation1.setDuration(1000);
                     v.startAnimation(animation1);
-                    new ShowAlbumPage().execute(res_out.get(position*3+2));
+                    new ShowAlbumPage().execute(res_out.get(temp+position*2+1));
 
                 }
             });
@@ -227,4 +246,6 @@ public class FragSearchPlaylists extends Fragment {
         }
 
     }
+
+
 }

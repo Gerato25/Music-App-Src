@@ -1,4 +1,4 @@
-package nitish.build.com.freemium;
+package nitish.build.com.freemium.Utils;
 
 //                           ____        _   _ _ _   _     _
 //     /\                   |  _ \      | \ | (_) | (_)   | |

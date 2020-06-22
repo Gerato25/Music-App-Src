@@ -1,4 +1,4 @@
-package nitish.build.com.freemium;
+package nitish.build.com.freemium.Fragments;
 
 //                           ____        _   _ _ _   _     _
 //     /\                   |  _ \      | \ | (_) | (_)   | |
@@ -38,6 +38,10 @@ import com.bumptech.glide.Glide;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
+
+import nitish.build.com.freemium.Activities.Album_Song_List;
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
 
 public class FragSearchAlbums extends Fragment {
     RecyclerView rv_fragAlbum;
@@ -183,7 +187,7 @@ public class FragSearchAlbums extends Fragment {
                     animation1.setDuration(1000);
                     v.startAnimation(animation1);
 
-                    Intent toSongList=new Intent(getActivity().getApplicationContext(),Album_Song_List.class);
+                    Intent toSongList=new Intent(getActivity().getApplicationContext(), Album_Song_List.class);
                     toSongList.putExtra("TYPE","ALBUM");
                     toSongList.putExtra("TYPE_ID",songIds.get(position*3+2));
                     toSongList.putExtra("PREV_ACT","SEARCH_ACT");

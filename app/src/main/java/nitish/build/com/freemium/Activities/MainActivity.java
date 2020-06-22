@@ -1,27 +1,39 @@
-package nitish.build.com.saavntest1;
+package nitish.build.com.freemium.Activities;
+
+//                           ____        _   _ _ _   _     _
+//     /\                   |  _ \      | \ | (_) | (_)   | |
+//    /  \   _ __  _ __  ___| |_) |_   _|  \| |_| |_ _ ___| |__
+//   / /\ \ | '_ \| '_ \/ __|  _ <| | | | . ` | | __| / __| '_ \
+//  / ____ \| |_) | |_) \__ \ |_) | |_| | |\  | | |_| \__ \ | | |
+// /_/    \_\ .__/| .__/|___/____/ \__, |_| \_|_|\__|_|___/_| |_|
+//          | |   | |               __/ |
+//          |_|   |_|              |___/
+//
+//                 Freemium Music
+//   Developed and Maintained by Nitish Gadangi
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import androidx.core.app.ActivityCompat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
             String thopulu = DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=10Tj7i5utEXaBoJpo74eYdc2sH1jtGoEx-bBiVNwcpAo&sheet=Sheet1");
 //            Log.i("Thop_Stuff","1:"+thopulu);
 
-           //String serverID="1FZQ5RujUUWoPvU7byPsq-oCrLsUE_bghZa6vYBKzbS0"; //production
-            String serverID="1f-u1MlaVpJKKL1JFIV-g6unzs5YyvBIGA1fpiph3umU"; //Staging
+           String serverID="1FZQ5RujUUWoPvU7byPsq-oCrLsUE_bghZa6vYBKzbS0"; //production
+//            String serverID="1f-u1MlaVpJKKL1JFIV-g6unzs5YyvBIGA1fpiph3umU"; //Staging
 
             String serverValues = DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id="+serverID+"&sheet=Sheet1");
 //            Log.i("Thop_Stuff","2:"+serverValues);
@@ -154,12 +166,6 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
         }, 700);
-
-
-
-
-
-
 
     }
 

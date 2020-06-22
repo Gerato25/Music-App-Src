@@ -1,4 +1,4 @@
-package nitish.build.com.freemium;
+package nitish.build.com.freemium.Activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +23,9 @@ import com.android.billingclient.api.SkuDetailsResponseListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
 
 public class Select_Payment extends AppCompatActivity {
 

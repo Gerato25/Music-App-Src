@@ -1,11 +1,22 @@
-package nitish.build.com.saavntest1;
+package nitish.build.com.freemium.Activities;
+
+//                           ____        _   _ _ _   _     _
+//     /\                   |  _ \      | \ | (_) | (_)   | |
+//    /  \   _ __  _ __  ___| |_) |_   _|  \| |_| |_ _ ___| |__
+//   / /\ \ | '_ \| '_ \/ __|  _ <| | | | . ` | | __| / __| '_ \
+//  / ____ \| |_) | |_) \__ \ |_) | |_| | |\  | | |_| \__ \ | | |
+// /_/    \_\ .__/| .__/|___/____/ \__, |_| \_|_|\__|_|___/_| |_|
+//          | |   | |               __/ |
+//          |_|   |_|              |___/
+//
+//                 Freemium Music
+//   Developed and Maintained by Nitish Gadangi
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -25,14 +36,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
 
 public class SaavnWebView extends AppCompatActivity {
     WebView webView;
@@ -47,6 +59,8 @@ public class SaavnWebView extends AppCompatActivity {
     AdView mAdView;
 
     String banner5;
+
+    Boolean thopu;
 
     //------------------------   Double tap to Exit   ----------------------------//
 
@@ -140,6 +154,8 @@ public class SaavnWebView extends AppCompatActivity {
 
         }
 
+        //------------------- ADVIEW --------------------------------------------//
+
 //        mAdView = findViewById(R.id.adView_Browse);
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
@@ -148,7 +164,12 @@ public class SaavnWebView extends AppCompatActivity {
         mAdView = findViewById(R.id.adView_Browse);
         showAds(true,banner5);
 
+        thopu = sc_pref.getBoolean(getResources().getString(R.string.sc_thope),false);
+        thopu=true;
+
         Button btn_quotes = findViewById(R.id.btn_quotes);
+        if (thopu)
+            btn_quotes.setText("Enjoy HQ MUSIC");
         btn_quotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,8 +181,6 @@ public class SaavnWebView extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),MorePage.class));
             }
         });
-
-
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -175,6 +194,7 @@ public class SaavnWebView extends AppCompatActivity {
                 btn_quotes.setVisibility(View.VISIBLE);
             }
         });
+        //------------------- ADVIEW --------------------------------------------//
 
 
         startWebView("https://www.jiosaavn.com/");
@@ -342,9 +362,6 @@ public class SaavnWebView extends AppCompatActivity {
                 btn_Download.setVisibility(View.VISIBLE);
                 tv_found.setText("");
             }
-
-
-
         }
     }
 
@@ -414,7 +431,6 @@ public class SaavnWebView extends AppCompatActivity {
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 Toast.makeText(getApplicationContext(), "Error:" + description, Toast.LENGTH_SHORT).show();
-
             }
         });
         webView.loadUrl(url);

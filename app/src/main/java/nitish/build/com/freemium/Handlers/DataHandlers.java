@@ -1,4 +1,4 @@
-package nitish.build.com.freemium;
+package nitish.build.com.freemium.Handlers;
 
 //                           ____        _   _ _ _   _     _
 //     /\                   |  _ \      | \ | (_) | (_)   | |
@@ -55,7 +55,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 
 public class DataHandlers {
-    static String albumApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=content.getAlbumDetails&albumid=",
+    public static String albumApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=content.getAlbumDetails&albumid=",
                     searchApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=autocomplete.get&query=",
                     playlistApiLink="https://www.jiosaavn.com/api.php?_format=json&__call=playlist.getDetails&listid=",
                     artistApiLink="",
@@ -65,7 +65,7 @@ public class DataHandlers {
                     playlists_searchLink="https://www.jiosaavn.com/search/playlist/",
                     dot=" • ";
 
-    static String getContent(String finUrl){
+    public static String getContent(String finUrl){
         finUrl=finUrl.replace("â\u0080\u009C","”").replace("â\u0080\u009D","”");
 
         String finString="FAILED";
@@ -97,12 +97,12 @@ public class DataHandlers {
         return finString;
     }
 
-    static void genCheckSum(String finUrl){
+    public static void genCheckSum(String finUrl){
 
 
     }
 
-    static String getAlbumJson(String albumID){
+    public static String getAlbumJson(String albumID){
         String finJson ="FAILED";
         String finUrl= albumApiLink+albumID;
         String jsonData=getContent(finUrl);
@@ -112,7 +112,7 @@ public class DataHandlers {
         return finJson;
     }
 
-    static String getPlaylistJson(String playlistID){
+    public static String getPlaylistJson(String playlistID){
         String finJson ="FAILED";
         String finUrl= playlistApiLink+playlistID;
         String jsonData=getContent(finUrl);
@@ -122,7 +122,7 @@ public class DataHandlers {
         return finJson;
     }
 
-    static String getAlbumID(String url){
+    public static String getAlbumID(String url){
         String resID="FAILED";
 
 
@@ -141,23 +141,12 @@ public class DataHandlers {
             resID="FAILED";
         }
 
-//        String str_ptrn = "\\[\'albumid\',\'"+"(.*?)"+"\'\\]";
-//
-//        Pattern ptrn_albumId= Pattern.compile(str_ptrn);
-//        Matcher mat_albId = ptrn_albumId.matcher(element.toString());
-//        Pattern ptrn_albumName= Pattern.compile(str_NamePtrn);
-//        Matcher mat_albName = ptrn_albumName.matcher(element.toString());
-
-//        while (mat_albId.find())
-//            resID = mat_albId.group(1);
-//        while (mat_albName.find())
-//            resName = mat_albName.group(1);
         resID=resID.replace(" ","");
 
         return resID;
     }
 
-    static String getPlaylistID(String url){
+    public static String getPlaylistID(String url){
         String resID="FAILED";
         String data=getContent(url);
         Document doc = Jsoup.parse(data);
@@ -182,13 +171,13 @@ public class DataHandlers {
 
     }
 
-    static String getSongID(String url){
+    public static String getSongID(String url){
 
         String resID =getSongAlbumID(url);
         return resID;
     }
 
-    static String getDirectID(String url){
+    public static String getDirectID(String url){
         String linkType=getLinkType(url);
 
         if (linkType.equals("FAILED"))
@@ -202,7 +191,7 @@ public class DataHandlers {
         return "FAILED";
     }
 
-    static String getDownloadLink(JSONObject songJsn,String kbps)  {
+    public static String getDownloadLink(JSONObject songJsn,String kbps)  {
         String downUrl="FAILED";
         try {
             downUrl = songJsn.getString("media_preview_url");
@@ -229,7 +218,7 @@ public class DataHandlers {
         return downUrl;
     }
 
-    static String advancedDownloadLinkDecrypt(String encData)
+    public static String advancedDownloadLinkDecrypt(String encData)
             throws NoSuchAlgorithmException, NoSuchPaddingException,
             InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         String key = "38346591";
@@ -243,13 +232,13 @@ public class DataHandlers {
         return new String(original).trim();
     }
 
-    static String getAlbumName(JSONObject songJsn) throws JSONException {
+    public static String getAlbumName(JSONObject songJsn) throws JSONException {
         return songJsn.getString("album")+"-"+songJsn.getString("year");
     }
 
 
 
-    static String getSearchResult(String query) throws JSONException {
+    public static String getSearchResult(String query) throws JSONException {
 
         String jsonData=getContent(searchApiLink+query);
         jsonData=jsonData.substring(jsonData.indexOf("{"));
@@ -297,7 +286,7 @@ public class DataHandlers {
 
 
 
-    static ArrayList<String> songExtractor(String query){
+    public static ArrayList<String> songExtractor(String query){
         String web_content=getContent(songs_searchLink+query);
         Document doc = Jsoup.parse(web_content);
         ArrayList<String> res_output = new ArrayList<>();
@@ -326,7 +315,7 @@ public class DataHandlers {
         return res_output;
     }
 
-    static ArrayList<String> albumExtractor(String query){
+    public static ArrayList<String> albumExtractor(String query){
         String web_content=getContent(albums_searchLink+query);
         Document doc = Jsoup.parse(web_content);
         ArrayList<String> res_output = new ArrayList<>();
@@ -351,7 +340,7 @@ public class DataHandlers {
         return res_output;
     }
 
-    static ArrayList<String> playlistExtractor(String query){
+    public static ArrayList<String> playlistExtractor(String query){
         String web_content=getContent(playlists_searchLink+query);
         Document doc = Jsoup.parse(web_content);
         ArrayList<String> res_output = new ArrayList<>();
@@ -385,7 +374,7 @@ public class DataHandlers {
 
 
 
-    static String getSongDuration(JSONObject songJson) throws JSONException {
+    public static String getSongDuration(JSONObject songJson) throws JSONException {
         String durStr =songJson.getString("duration");
         int dur = Integer.parseInt(durStr);
         int min = dur/60;
@@ -397,7 +386,7 @@ public class DataHandlers {
 
     }
 
-    static String getLinkType(String url){
+    public static String getLinkType(String url){
         if(url.length()<=40)
             return "FAILED";
         String temp=url.substring(0,40);
@@ -412,7 +401,7 @@ public class DataHandlers {
         return "FAILED";
     }
 
-    static int generateNotificationID(String songId){
+    public static int generateNotificationID(String songId){
         int chrAscii=0;
         String resID="";
         for(int i=0;i<songId.length();i++){
@@ -427,7 +416,7 @@ public class DataHandlers {
         }
     }
 
-    static String getSongAlbumID(String songUrl){
+    public static String getSongAlbumID(String songUrl){
         String resID = "FAILED";
         String data=getContent(songUrl);
         String selector ="<meta property=\"music:album\" content=\"";
@@ -441,7 +430,7 @@ public class DataHandlers {
         return resID;
     }
 
-    static void setTags2(String absPath,String tempJson,String albumArt_fName) throws Exception {
+    public static void setTags2(String absPath,String tempJson,String albumArt_fName) throws Exception {
         String format = absPath.substring(absPath.lastIndexOf(".")+1);
         if (format.equals("mp3")){
             File prev = new File(absPath);
@@ -473,7 +462,6 @@ public class DataHandlers {
             mp4tag.setField(Mp4FieldKey.COPYRIGHT, COPYR);
             audioFile.commit();
 
-//            url_img=url_img.replace("150x150.jpg","500x500.jpg");
             File img_art = new File(absPath.substring(0,absPath.lastIndexOf("/"))+ "/" + albumArt_fName);
             Log.i("STAGS_2",img_art.getPath());
 
@@ -496,7 +484,7 @@ public class DataHandlers {
         }
     }
 
-    static String getFileName(String songName,String albumName,String kbps,String format,String d_FN_code){
+    public static String getFileName(String songName,String albumName,String kbps,String format,String d_FN_code){
 
         String res="FAILED";
 
@@ -517,7 +505,7 @@ public class DataHandlers {
         return res;
     }
 
-    static String makeDir(String folderName){
+    public static String makeDir(String folderName){
         File albdirectory = new File(Environment.getExternalStorageDirectory()+ "/FREEMIUM_DOWNLOADS/"+folderName+"/");
         if (!albdirectory.exists())
             if(albdirectory.mkdirs())
@@ -527,7 +515,7 @@ public class DataHandlers {
         return albdirectory.getPath();
     }
 
-    static String makeDir2(String d_dir,String folderName,Boolean isSfEnabled){
+    public static String makeDir2(String d_dir,String folderName,Boolean isSfEnabled){
         String res = "FAILED";
         try {
             File albdirectory = new File(d_dir);
@@ -548,7 +536,7 @@ public class DataHandlers {
         return res;
     }
 
-    static String getFullDirectory(String srcPath){
+    public static String getFullDirectory(String srcPath){
         String res="FAILED";
         try {
             File directory = new File(srcPath);

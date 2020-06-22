@@ -1,4 +1,4 @@
-package nitish.build.com.freemium;
+package nitish.build.com.freemium.Activities;
 
 //                           ____        _   _ _ _   _     _
 //     /\                   |  _ \      | \ | (_) | (_)   | |
@@ -89,6 +89,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import nitish.build.com.freemium.Handlers.DataHandlers;
+import nitish.build.com.freemium.R;
+
 public class Album_Song_List extends AppCompatActivity {
     String albumID,jsonData,finUrl,downUrl="FAILED",downpath,fName,folderName="RandomAlbum",albumArtUrl="",
             chanelId="test1",dataType,dot=" • ",url_img="FAILED",prevAct="",tempSJson="",tempID,format="m4a",
@@ -150,7 +153,7 @@ public class Album_Song_List extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             if (dataType.equals("ALBUM"))
-                jsonData=DataHandlers.getAlbumJson(albumID);
+                jsonData= DataHandlers.getAlbumJson(albumID);
             else if (dataType.equals("PLAYLIST"))
                 jsonData=DataHandlers.getPlaylistJson(albumID);
             return null;
