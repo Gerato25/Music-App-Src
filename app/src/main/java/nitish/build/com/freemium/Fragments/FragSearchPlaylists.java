@@ -216,7 +216,14 @@ public class FragSearchPlaylists extends Fragment {
                     Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
                     animation1.setDuration(1000);
                     v.startAnimation(animation1);
-                    new ShowAlbumPage().execute(res_out.get(position*3+2));
+//                    new ShowAlbumPage().execute(res_out.get(position*3+2));
+
+                    Intent toSongList=new Intent(getActivity().getApplicationContext(), Album_Song_List.class);
+                    toSongList.putExtra("TYPE","PLAYLIST");
+                    toSongList.putExtra("TYPE_ID",res_out.get(position*3+2));
+                    toSongList.putExtra("PREV_ACT","SEARCH_ACT");
+                    startActivity(toSongList);
+                    getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
                 }
             });

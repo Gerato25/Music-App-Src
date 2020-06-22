@@ -63,6 +63,9 @@ public class DataHandlers {
                     songs_searchLink="https://www.jiosaavn.com/search/",
                     albums_searchLink="https://www.jiosaavn.com/search/album/",
                     playlists_searchLink="https://www.jiosaavn.com/search/playlist/",
+                    song_search_api="https://www.jiosaavn.com/api.php?p=1&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&__call=search.getResults&q=",
+                    albums_search_api="https://www.jiosaavn.com/api.php?p=1&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&__call=search.getAlbumResults&q=",
+                    playlists_search_api="https://www.jiosaavn.com/api.php?p=1&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&__call=search.getPlaylistResults&q=",
                     dot=" • ";
 
     public static String getContent(String finUrl){
@@ -127,16 +130,17 @@ public class DataHandlers {
 
 
         String data =getContent(url);
-        Document doc = Jsoup.parse(data);
+//        Document doc = Jsoup.parse(data);
 
-        Elements element = doc.select(".play");
+//        Elements element = doc.select(".play");
 
         try {
-            String tempData = element.toString();
-            tempData = tempData.substring(tempData.indexOf("['albumid','"),tempData.indexOf("'])"));
-            tempData=tempData.replace("['albumid','","");
+//            String tempData = element.toString();
+//            tempData = tempData.substring(tempData.indexOf("['albumid','"),tempData.indexOf("'])"));
+//            tempData=tempData.replace("['albumid','","");
 
-            resID=tempData;
+            resID=data.substring(data.indexOf("\"album\",\"id\":\"")).replace("\"album\",\"id\":\"","");
+            resID=resID.substring(0,resID.indexOf("\","));
         }catch (Exception e){
             resID="FAILED";
         }
@@ -149,19 +153,22 @@ public class DataHandlers {
     public static String getPlaylistID(String url){
         String resID="FAILED";
         String data=getContent(url);
-        Document doc = Jsoup.parse(data);
-
-        Elements element = doc.select(".flip-layout");
-        data=element.toString();
+//        Document doc = Jsoup.parse(data);
+//
+//        Elements element = doc.select(".flip-layout");
+//        data=element.toString();
 
         try {
-            data=data.substring(data.indexOf("<"),data.indexOf(">")+1);
-            data=data.substring(data.indexOf("data-listid=\""),data.indexOf("\">")+1);
-            data=data.replace("data-listid=\"","");
-            data=data.replace("\"","");
+//            data=data.substring(data.indexOf("<"),data.indexOf(">")+1);
+//            data=data.substring(data.indexOf("data-listid=\""),data.indexOf("\">")+1);
+//            data=data.replace("data-listid=\"","");
+//            data=data.replace("\"","");
+//            resID=data;
+//            resID=resID.replace(" ","");
 
-            resID=data;
-            resID=resID.replace(" ","");
+            resID=data.substring(data.indexOf("\"playlist\",\"id\":\"")).replace("\"playlist\",\"id\":\"","");
+            resID=resID.substring(0,resID.indexOf("\","));
+
             if (resID.equals(""))
                 return "FAILED";
             return resID;
@@ -285,8 +292,71 @@ public class DataHandlers {
     }
 
 
-
     public static ArrayList<String> songExtractor(String query){
+        ArrayList<String> res_output = new ArrayList<>();
+        String web_content=getContent(song_search_api+query);
+        try {
+            JSONObject mainObj = new JSONObject(web_content);
+            JSONArray songList = mainObj.getJSONArray("results");
+            for(int i=0;i<songList.length();i++){
+                JSONObject obj=songList.getJSONObject(i);
+                res_output.add(obj.getString("title"));
+                res_output.add(obj.getString("image"));
+            }
+            for(int i=0;i<songList.length();i++){
+                JSONObject obj=songList.getJSONObject(i);
+                res_output.add(obj.getString("subtitle"));
+                obj=obj.getJSONObject("more_info");
+                res_output.add(obj.getString("album_id"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return res_output;
+    }
+
+    public static ArrayList<String> albumExtractor(String query){
+        ArrayList<String> res_output = new ArrayList<>();
+        String web_content=getContent(albums_search_api+query);
+        try {
+            JSONObject mainObj = new JSONObject(web_content);
+            JSONArray songList = mainObj.getJSONArray("results");
+            for(int i=0;i<songList.length();i++){
+                JSONObject obj=songList.getJSONObject(i);
+                res_output.add(obj.getString("title"));
+                res_output.add(obj.getString("image"));
+                res_output.add(obj.getString("id"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return res_output;
+    }
+
+    public static ArrayList<String> playlistExtractor(String query){
+        ArrayList<String> res_output = new ArrayList<>();
+        String web_content=getContent(playlists_search_api+query);
+        try {
+            JSONObject mainObj = new JSONObject(web_content);
+            JSONArray songList = mainObj.getJSONArray("results");
+            for(int i=0;i<songList.length();i++){
+                JSONObject obj=songList.getJSONObject(i);
+                res_output.add(obj.getString("title"));
+                res_output.add(obj.getString("subtitle"));
+                res_output.add(obj.getString("id"));
+            }
+            for(int i=0;i<songList.length();i++){
+                JSONObject obj=songList.getJSONObject(i);
+                res_output.add(obj.getString("image"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return res_output;
+    }
+
+
+    public static ArrayList<String> songExtractor_old(String query){
         String web_content=getContent(songs_searchLink+query);
         Document doc = Jsoup.parse(web_content);
         ArrayList<String> res_output = new ArrayList<>();
@@ -312,10 +382,14 @@ public class DataHandlers {
             return res_output;
         res_output.clear();
         res_output.add("FAILED");
+
+
+
+
         return res_output;
     }
 
-    public static ArrayList<String> albumExtractor(String query){
+    public static ArrayList<String> albumExtractor_old(String query){
         String web_content=getContent(albums_searchLink+query);
         Document doc = Jsoup.parse(web_content);
         ArrayList<String> res_output = new ArrayList<>();
@@ -340,7 +414,7 @@ public class DataHandlers {
         return res_output;
     }
 
-    public static ArrayList<String> playlistExtractor(String query){
+    public static ArrayList<String> playlistExtractor_old(String query){
         String web_content=getContent(playlists_searchLink+query);
         Document doc = Jsoup.parse(web_content);
         ArrayList<String> res_output = new ArrayList<>();
