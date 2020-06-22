@@ -66,6 +66,7 @@ public class DataHandlers {
                     song_search_api="https://www.jiosaavn.com/api.php?p=1&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&__call=search.getResults&q=",
                     albums_search_api="https://www.jiosaavn.com/api.php?p=1&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&__call=search.getAlbumResults&q=",
                     playlists_search_api="https://www.jiosaavn.com/api.php?p=1&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&__call=search.getPlaylistResults&q=",
+                    lyrics_api="https://www.jiosaavn.com/api.php?__call=lyrics.getLyrics&ctx=web6dot0&api_version=4&_format=json&_marker=0&lyrics_id=",
                     dot=" • ";
 
     public static String getContent(String finUrl){

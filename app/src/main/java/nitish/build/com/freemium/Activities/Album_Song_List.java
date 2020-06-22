@@ -783,6 +783,60 @@ public class Album_Song_List extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.album_bottom_sheet,container,false);
 
 
+            rootView.findViewById(R.id.btn_view_lyrics).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //------Animation-----------//
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(1000);
+                    v.startAnimation(animation1);
+                    //-------------------------//
+
+
+
+                    JSONObject songJsn = null;
+                    tempID = null;
+                    String kbps = getActivity().findViewById(kbpsGroup).getTag().toString();
+
+                    try {
+                        songJsn = songArr.getJSONObject(position);
+                        tempSJson = songJsn.toString();
+
+                        tempID = songJsn.getString("id");
+
+                        String hasLyrics=songJsn.getString("has_lyrics");
+
+                        folderName = StringEscapeUtils.unescapeXml(DataHandlers.getAlbumName(songJsn));
+                        fName = StringEscapeUtils.unescapeXml(songJsn.getString("song"))+".lrc";
+                        if (fName.equals("FAILED"))
+                            fName = StringEscapeUtils.unescapeXml(songJsn.getString("song")) + ".txt";
+
+                        downpath = DataHandlers.makeDir2(d_dir,folderName,d_subFolders);
+                        if (downpath.equals("FAILED"))
+                            downpath = DataHandlers.makeDir(folderName);
+
+                        if (hasLyrics.equals("true")){
+                            Intent intent = new Intent(getContext(), ViewLyrics.class);
+                            intent.putExtra("ID",tempID);
+                            intent.putExtra("FNAME",fName);
+                            intent.putExtra("DIR",downpath);
+                            intent.putExtra("SNAME",StringEscapeUtils.unescapeXml(songJsn.getString("song")));
+                            startActivity(intent);
+                            bottomSheetLO.dismiss();
+                        }else{
+                            ((TextView) v).setText("No Lyrics Available");
+                        }
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            });
+
 
             rootView.findViewById(R.id.btn_sht_down).setOnClickListener(new View.OnClickListener() {
                 @Override

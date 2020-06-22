@@ -147,7 +147,7 @@ public class MorePage extends AppCompatActivity {
 //                        Toast.makeText(MorePage.this, "enter correct mobile number", Toast.LENGTH_SHORT).show();
 //                    }
 
-                    String url = "https://p-y.tm/W8-4mek";
+                    String url = "https://nitishgadangi.github.io/?buy_me_coffee";
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     startActivity(i);
@@ -168,7 +168,7 @@ public class MorePage extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("plain/text");
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "appsbynitish@gmail.com" });
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.1] Stable")
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.5] Stable")
                             .putExtra(Intent.EXTRA_TEXT, "PaymentHash:"+unique_id+"\n\nRequired info:-\nPlease Enter the Mobile number used for payment:");
                     startActivity(Intent.createChooser(intent, "select Gmail"));
                 }
@@ -294,7 +294,7 @@ public class MorePage extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("plain/text");
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "appsbynitish@gmail.com" });
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.1] Stable")
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.5] Stable")
                             .putExtra(Intent.EXTRA_TEXT, "PaymentHash:"+unique_id+"\n\nRequired info:-\nPlease Enter the Mobile number used for payment:");
                     startActivity(Intent.createChooser(intent, "select Gmail"));
                 }
@@ -501,8 +501,10 @@ public class MorePage extends AppCompatActivity {
                 SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
                 Boolean thopu = pref_main.getBoolean(getResources().getString(R.string.sc_thope),false);
                 if (thopu){
-                    ThanksDialog thanksDialog = new ThanksDialog();
-                    thanksDialog.showDialog(MorePage.this);
+//                    ThanksDialog thanksDialog = new ThanksDialog();
+//                    thanksDialog.showDialog(MorePage.this);
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(MorePage.this);
                 }else{
                     ViewDialog alert = new ViewDialog();
                     alert.showDialog(MorePage.this);
@@ -632,7 +634,7 @@ public class MorePage extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "appsbynitish@gmail.com" });
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.1] Stable")
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Freemium Music App [v1.5] Stable")
                 .putExtra(Intent.EXTRA_TEXT, "Android OS version:"+os_version+"\nDevice Name:"+device_name+"\nIssue Description:\n");
                 startActivity(Intent.createChooser(intent, "select Gmail"));
             }

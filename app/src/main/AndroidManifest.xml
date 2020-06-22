@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:usesCleartextTraffic,android:allowBackup">
-        <activity android:name=".Utils.WebPay"></activity>
+        <activity android:name=".Activities.ViewLyrics"></activity>
+        <activity android:name=".Utils.WebPay" />
         <activity android:name=".Utils.PaytmGoogleInapp" />
         <activity android:name=".Activities.Select_Payment" />
 

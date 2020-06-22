@@ -30,7 +30,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 8
-        versionName "1.2.1"
+        versionName "1.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     useLibrary 'org.apache.http.legacy'
@@ -68,9 +68,10 @@ dependencies {
     implementation 'com.daimajia.easing:library:2.0@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
     implementation 'com.github.codekidX:storage-chooser:2.0.4.4'
+
     implementation 'io.noties.markwon:core:4.0.2'
 
-
+    implementation 'com.github.medyo:fancybuttons:1.9.1'
     implementation 'com.android.volley:volley:1.1.1'
 
     implementation 'com.android.billingclient:billing:2.0.3'
