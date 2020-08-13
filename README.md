@@ -4,8 +4,8 @@
 ![](https://img.shields.io/badge/Build-Stable-blue.svg)
 ![](https://img.shields.io/badge/Version-1.0-green.svg)
 ![](https://img.shields.io/badge/Required-Android%206.0%2B-brightgreen.svg)
-![](https://img.shields.io/badge/Last%20Update-25%20Aug%202019-red.svg)
-![](https://img.shields.io/badge/Downloads-42,200%2B-orange.svg)
+![](https://img.shields.io/badge/Last%20Update-25%20Jul%202020-red.svg)
+![](https://img.shields.io/badge/Downloads-52,200%2B-orange.svg)
 
 **This repository contains only the source code and some Nerd Stuff of Freemium App**
 
@@ -51,7 +51,7 @@ Remove the hurdles of streaming low-quality content and enjoy your favorite musi
 -	Enabled ID3 Tagging	(*only for Android Oreo and Above)
 -	So,Every music file is embedded with AlbumArt and Audio Info
 -	With several other settings to manage downloads as per your preference
--	You can also download lyrics for the song(Coming Soon...)
+-	You can also download lyrics for the song.
 
 **Access all the previous releases from [Releases tab](https://github.com/NitishGadangi/Freemium-App/releases).**
 
