@@ -64,7 +64,7 @@ Remove the hurdles of streaming low-quality content and enjoy your favorite musi
 
 
 ### Like my work?
-[![Buy me a coffee](https://github.com/NitishGadangi/Freemium-App/blob/master/ic_buy_me_cofee.png?raw=true)](https://github.com/NitishGadangi/Freemium-App/blob/master/buy_me_coffee.md)
+[![Buy me a coffee](https://github.com/NitishGadangi/Freemium-App/blob/master/ic_buy_me_cofee.png?raw=true)](https://nitishgadangi.github.io/?buy_me_coffee)
 
 ## License
  ```
