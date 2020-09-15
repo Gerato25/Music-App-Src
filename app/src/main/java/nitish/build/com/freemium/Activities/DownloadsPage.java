@@ -58,38 +58,31 @@ import java.util.ArrayList;
 import nitish.build.com.freemium.Handlers.DataHandlers;
 import nitish.build.com.freemium.R;
 
-public class Downloads_Page extends AppCompatActivity {
-     ListView lv_queueList;
-     ArrayAdapter<String> arrayAdapter;
-    static ProgressBar pb_downPage;
-    static TextView tv_info,tv_DownSong,tv_prog;
-    static ArrayList<String> songList;
-    AdView mAdView;
-    ImageView btn_set_dp,btn_bak_dp;
-    Button btn_folder_dp;
-    static FetchListener fetchListener1;
-    StorageChooser chooser;
-    SharedPreferences settings_pref;
-    String def_down_dir;
-    TextView tv_head_dir;
-    int listSize;
-    RecyclerView rv_showfiles;
-    RecyclerView.LayoutManager layoutManager;
-    String cur_down_path;
-    Button btn_back_files;
+public class DownloadsPage extends AppCompatActivity {
+    private ListView lv_queueList;
+    private AdView mAdView;
+    private ImageView btn_set_dp,btn_bak_dp;
+    private Button btn_folder_dp;
+    private SharedPreferences settings_pref;
+    private String def_down_dir;
+    private TextView tv_head_dir;
+    private int listSize;
+    private RecyclerView rv_showfiles;
+    private RecyclerView.LayoutManager layoutManager;
+    private String cur_down_path;
+    private Button btn_back_files;
 
-    String banner3;
+    private String banner3;
 
 
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+        startActivity(new Intent(getApplicationContext(), SearchSongs.class));
         overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
     }
 
     void showAds(Boolean show,String AD_UNIT_ID){
-//        mAdView = findViewById(R.id.adView_search);
         mAdView = new AdView(this);
         if (show){
             mAdView.setAdSize(AdSize.BANNER);
@@ -119,10 +112,7 @@ public class Downloads_Page extends AppCompatActivity {
         rv_showfiles= findViewById(R.id.rv_showfiles);
         layoutManager = new LinearLayoutManager(getApplicationContext());
         rv_showfiles.setLayoutManager(layoutManager);
-
-//        mAdView = findViewById(R.id.adView_Downloads);
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        mAdView.loadAd(adRequest);
+        
         SharedPreferences sc_pref = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants), Context.MODE_PRIVATE);
         banner3 =sc_pref.getString(getResources().getString(R.string.sc_banner3),getResources().getString(R.string.banner3));
         Boolean thopu = sc_pref.getBoolean(getResources().getString(R.string.sc_thope),false);
@@ -133,13 +123,8 @@ public class Downloads_Page extends AppCompatActivity {
         btn_set_dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //------Animation-----------//
-                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-                animation1.setDuration(500);
-                v.startAnimation(animation1);
-                //-------------------------//
-
-                startActivity(new Intent(getApplicationContext(),Settings_Alb.class));
+                animateView(v, 500);
+                startActivity(new Intent(getApplicationContext(), SettingsAlbum.class));
                 overridePendingTransition(R.anim.slide_in_down,  R.anim.slide_out_down);
             }
         });
@@ -147,12 +132,7 @@ public class Downloads_Page extends AppCompatActivity {
         btn_bak_dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //------Animation-----------//
-                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-                animation1.setDuration(500);
-                v.startAnimation(animation1);
-                //-------------------------//
-
+                animateView(v, 500);
                 btn_back_files.callOnClick();
             }
         });
@@ -167,17 +147,7 @@ public class Downloads_Page extends AppCompatActivity {
         btn_folder_dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //------Animation-----------//
-                Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-                animation1.setDuration(500);
-                v.startAnimation(animation1);
-                //-------------------------//
-
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                Uri uri = Uri.parse("file://"+Environment.getExternalStorageDirectory() + "/FREEMIUM_DOWNLOADS/"); //  directory path
-//                intent.setDataAndType(uri, "*/*");
-//                startActivity(Intent.createChooser(intent, "Open folder"));
-
+                animateView(v, 500);
 
                 Uri selectedUri = Uri.parse(def_down_dir);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -190,7 +160,6 @@ public class Downloads_Page extends AppCompatActivity {
                 else
                 {
                     Snackbar.make(findViewById(android.R.id.content),"Please install ant third-party file browser",Snackbar.LENGTH_LONG).show();
-//                    Toast.makeText(getApplicationContext(), "Please Install a File Manager.", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -217,8 +186,6 @@ public class Downloads_Page extends AppCompatActivity {
                 animation1.setDuration(1000);
                 v.startAnimation(animation1);
 
-//                cur_down_path=cur_down_path.substring(0,cur_down_path.lastIndexOf("/")+1);
-
                 if (!cur_down_path.equals(def_down_dir)){
                     String newpath = cur_down_path.substring(0,cur_down_path.lastIndexOf("/"));
                     String mainJsonArr =DataHandlers.getFullDirectory(newpath);
@@ -233,7 +200,7 @@ public class Downloads_Page extends AppCompatActivity {
                         }
                     }
                 }else
-                    Toast.makeText(Downloads_Page.this, "You are already in home directory..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DownloadsPage.this, "You are already in home directory..", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -243,9 +210,7 @@ public class Downloads_Page extends AppCompatActivity {
                 Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
                 animation1.setDuration(1000);
                 v.startAnimation(animation1);
-
-//                cur_down_path=cur_down_path.substring(0,cur_down_path.lastIndexOf("/")+1);
-
+                
                 if (!cur_down_path.equals(def_down_dir)) {
                     String mainJsonArr = DataHandlers.getFullDirectory(def_down_dir);
                     if (!mainJsonArr.equals("FAILED")) {
@@ -259,12 +224,17 @@ public class Downloads_Page extends AppCompatActivity {
                         }
                     }
                 }else
-                    Toast.makeText(Downloads_Page.this, "You are already in home directory..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DownloadsPage.this, "You are already in home directory..", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
+    private void animateView(View view, int duration) {
+        Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+        animation1.setDuration(duration);
+        view.startAnimation(animation1);
+    }
 
 
     class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
@@ -336,7 +306,6 @@ public class Downloads_Page extends AppCompatActivity {
                         }else {
                             Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                             File file = new File(absPath);
-//                            viewIntent.setDataAndType(Uri.fromFile(file), "audio/*");
                             Uri uri = FileProvider.getUriForFile(getApplicationContext(), "nitish.build.com.freemium.fileprovider", file);
                             viewIntent.setDataAndType(uri,"audio/*");
                             viewIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -357,12 +326,10 @@ public class Downloads_Page extends AppCompatActivity {
             return rvSize;
         }
 
-
         class ViewHolder extends RecyclerView.ViewHolder{
             TextView tv_head,tv_subhead,useless;
             ImageView img_art;
             ConstraintLayout parentLayout;
-
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tv_head = itemView.findViewById(R.id.cus_songName_frag);
@@ -378,37 +345,27 @@ public class Downloads_Page extends AppCompatActivity {
 
 
     public void btmSrch(View v){
-        //------Animation-----------//
+        
         Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
         animation1.setDuration(1000);
         v.startAnimation(animation1);
-        //-------------------------//
-        startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+        
+        startActivity(new Intent(getApplicationContext(), SearchSongs.class));
         overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
     }
     public void btmBrws(View v){
-        //------Animation-----------//
-        Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-        animation1.setDuration(1000);
-        v.startAnimation(animation1);
-        //-------------------------//
+
+        animateView(v, 1000);
+        
         startActivity(new Intent(getApplicationContext(),SaavnWebView.class));
         overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
     }
     public void btmDown(View v){
-        //------Animation-----------//
-        Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-        animation1.setDuration(1000);
-        v.startAnimation(animation1);
-        //-------------------------//
-//        startActivity(new Intent(getApplicationContext(),Downloads_Page.class));
+        animateView(v, 1000);
     }
     public void btmMore(View v){
-        //------Animation-----------//
-        Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-        animation1.setDuration(1000);
-        v.startAnimation(animation1);
-        //-------------------------//
+        animateView(v, 1000);
+        
         startActivity(new Intent(getApplicationContext(),MorePage.class));
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

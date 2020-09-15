@@ -39,7 +39,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
 
-import nitish.build.com.freemium.Activities.Album_Song_List;
+import nitish.build.com.freemium.Activities.AlbumSongList;
 import nitish.build.com.freemium.Handlers.DataHandlers;
 import nitish.build.com.freemium.R;
 
@@ -177,7 +177,7 @@ public class FragSearchSongs extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if(!s.equals("FAILED")){
-                Intent toSongList=new Intent(getActivity().getApplicationContext(), Album_Song_List.class);
+                Intent toSongList=new Intent(getActivity().getApplicationContext(), AlbumSongList.class);
                 toSongList.putExtra("TYPE","ALBUM");
                 toSongList.putExtra("TYPE_ID",s);
                 toSongList.putExtra("PREV_ACT","SEARCH_ACT");
@@ -220,7 +220,7 @@ public class FragSearchSongs extends Fragment {
                     animation1.setDuration(1000);
                     v.startAnimation(animation1);
 //                    new ShowAlbumPage().execute(res_out.get(temp+position*2+1));
-                    Intent toSongList=new Intent(getActivity().getApplicationContext(), Album_Song_List.class);
+                    Intent toSongList=new Intent(getActivity().getApplicationContext(), AlbumSongList.class);
                     toSongList.putExtra("TYPE","ALBUM");
                     toSongList.putExtra("TYPE_ID",res_out.get(temp+position*2+1));
                     toSongList.putExtra("PREV_ACT","SEARCH_ACT");

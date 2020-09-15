@@ -59,7 +59,7 @@ public class MorePage extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+        startActivity(new Intent(getApplicationContext(), SearchSongs.class));
         overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
     }
 
@@ -139,7 +139,7 @@ public class MorePage extends AppCompatActivity {
 //                    dialog.dismiss();
 //                    startActivity(intent);
 //
-////                        Intent intent2 = new Intent(getApplicationContext(),Select_Payment.class);
+////                        Intent intent2 = new Intent(getApplicationContext(),SelectPayment.class);
 ////                        intent2.putExtra("android_id",unique_id);
 ////                        intent2.putExtra("mobile",num+"");
 ////                        startActivity(intent2);
@@ -613,7 +613,7 @@ public class MorePage extends AppCompatActivity {
                 v.startAnimation(animation1);
                 //-------------------------//
 
-                startActivity(new Intent(getApplicationContext(),Settings_Alb.class));
+                startActivity(new Intent(getApplicationContext(), SettingsAlbum.class));
                 overridePendingTransition(R.anim.slide_in_down,  R.anim.slide_out_down);
             }
         });
@@ -677,7 +677,7 @@ public class MorePage extends AppCompatActivity {
         animation1.setDuration(1000);
         v.startAnimation(animation1);
         //-------------------------//
-        startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+        startActivity(new Intent(getApplicationContext(), SearchSongs.class));
         overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
     }
     public void btmBrws(View v){
@@ -695,7 +695,7 @@ public class MorePage extends AppCompatActivity {
         animation1.setDuration(1000);
         v.startAnimation(animation1);
         //-------------------------//
-        startActivity(new Intent(getApplicationContext(),Downloads_Page.class));
+        startActivity(new Intent(getApplicationContext(), DownloadsPage.class));
         overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
     }
     public void btmMore(View v){

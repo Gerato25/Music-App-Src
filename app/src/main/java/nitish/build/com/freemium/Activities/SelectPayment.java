@@ -27,7 +27,7 @@ import java.util.List;
 import nitish.build.com.freemium.Handlers.DataHandlers;
 import nitish.build.com.freemium.R;
 
-public class Select_Payment extends AppCompatActivity {
+public class SelectPayment extends AppCompatActivity {
 
     private BillingClient billingClient;
 
@@ -102,7 +102,7 @@ public class Select_Payment extends AppCompatActivity {
                                                 BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                                                         .setSkuDetails(skuDetails)
                                                         .build();
-                                                billingClient.launchBillingFlow(Select_Payment.this,flowParams);
+                                                billingClient.launchBillingFlow(SelectPayment.this,flowParams);
 
                                             }
                                         }

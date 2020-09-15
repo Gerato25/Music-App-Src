@@ -92,7 +92,7 @@ import java.util.Map;
 import nitish.build.com.freemium.Handlers.DataHandlers;
 import nitish.build.com.freemium.R;
 
-public class Album_Song_List extends AppCompatActivity {
+public class AlbumSongList extends AppCompatActivity {
     String albumID,jsonData,finUrl,downUrl="FAILED",downpath,fName,folderName="RandomAlbum",albumArtUrl="",
             chanelId="test1",dataType,dot=" • ",url_img="FAILED",prevAct="",tempSJson="",tempID,format="m4a",
             albumArt_fname="albumArt.jpg";
@@ -134,7 +134,7 @@ public class Album_Song_List extends AppCompatActivity {
 //        if (prevAct.equals("WEB_ACT"))
 //            startActivity(new Intent(getApplicationContext(),SaavnWebView.class));
 //        else if (prevAct.equals("SEARCH_ACT"))
-//            startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+//            startActivity(new Intent(getApplicationContext(),SearchSongs.class));
 //        else
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
@@ -188,7 +188,7 @@ public class Album_Song_List extends AppCompatActivity {
 
             tv_TypeTot.setText(dataType+dot+listSize+" Songs");
 
-            Glide.with(Album_Song_List.this).load(url_img).into(img_album);
+            Glide.with(AlbumSongList.this).load(url_img).into(img_album);
 
 
             CustomAdapter song_list_Adapter = new CustomAdapter();
@@ -250,7 +250,7 @@ public class Album_Song_List extends AppCompatActivity {
         d_subFolders = pref_set.getBoolean(getResources().getString(R.string.set_subFolders),true);
         d_FN_code = pref_set.getString(getResources().getString(R.string.set_defFN_code),"SAK");
 
-        progressDialog = new ProgressDialog(Album_Song_List.this);
+        progressDialog = new ProgressDialog(AlbumSongList.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         progressDialog.dismiss();
@@ -317,7 +317,7 @@ public class Album_Song_List extends AppCompatActivity {
                 animation1.setDuration(500);
                 v.startAnimation(animation1);
                 //-------------------------//
-                Intent in_toSet = new Intent(getApplicationContext(),Settings_Alb.class);
+                Intent in_toSet = new Intent(getApplicationContext(), SettingsAlbum.class);
                         in_toSet.putExtra("fromAlb",true);
                 startActivity(in_toSet);
                 overridePendingTransition(R.anim.slide_in_down,  R.anim.slide_out_down);
@@ -330,7 +330,7 @@ public class Album_Song_List extends AppCompatActivity {
 
 
         if (dataType.equals("FAILED")){
-            new AlertDialog.Builder(Album_Song_List.this)
+            new AlertDialog.Builder(AlbumSongList.this)
                     .setTitle("No Album or Playlist Found")
                     .setMessage("Please use another way to find the Song you want to downoad..!")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -413,7 +413,7 @@ public class Album_Song_List extends AppCompatActivity {
                     @NotNull
                     @Override
                     public NotificationCompat.Builder getNotificationBuilder(int notificationId, int groupId) {
-                        Intent onClIntent = new Intent(getApplicationContext(),Downloads_Page.class);
+                        Intent onClIntent = new Intent(getApplicationContext(), DownloadsPage.class);
                         PendingIntent pOnclick = PendingIntent.getActivity(getApplicationContext(),1,onClIntent,0);
                         return super.getNotificationBuilder(notificationId, groupId)
                                 .setOnlyAlertOnce(true)
@@ -438,7 +438,7 @@ public class Album_Song_List extends AppCompatActivity {
 //        toCancel.putExtra("action","cancel");
 //        toCancel.putExtra("notifID",download.getId());
 //        cIntent = PendingIntent.getBroadcast(getApplicationContext(),1,toCancel,PendingIntent.FLAG_CANCEL_CURRENT);
-//        Intent onClIntent = new Intent(getApplicationContext(),Downloads_Page.class);
+//        Intent onClIntent = new Intent(getApplicationContext(),DownloadsPage.class);
 //        PendingIntent pOnclick = PendingIntent.getActivity(getApplicationContext(),1,onClIntent,0);
         createNotificationChannel();
         mBuilder = new NotificationCompat.Builder(getApplicationContext(),chanelId)
@@ -523,7 +523,7 @@ public class Album_Song_List extends AppCompatActivity {
 //                }
 //
 //                if ((new File(downpath + "/" + fName)).exists()) {
-//                    new AlertDialog.Builder(Album_Song_List.this)
+//                    new AlertDialog.Builder(AlbumSongList.this)
 //                            .setTitle("Already Downloaded.!")
 //                            .setMessage("Do you want to download \"" + fName.replace(".m4a", "") + "\" again..")
 //                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

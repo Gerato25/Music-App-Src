@@ -44,7 +44,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import nitish.build.com.freemium.Activities.Album_Song_List;
+import nitish.build.com.freemium.Activities.AlbumSongList;
 import nitish.build.com.freemium.Handlers.DataHandlers;
 import nitish.build.com.freemium.R;
 
@@ -145,7 +145,7 @@ public class FragSearchTop extends Fragment {
                     }
                     else
                         dataID = songJson.getString("id");
-                    Intent toSongList=new Intent(getActivity().getApplicationContext(), Album_Song_List.class);
+                    Intent toSongList=new Intent(getActivity().getApplicationContext(), AlbumSongList.class);
                     toSongList.putExtra("TYPE",dataType);
                     toSongList.putExtra("TYPE_ID",dataID);
                     toSongList.putExtra("PREV_ACT","SEARCH_ACT");

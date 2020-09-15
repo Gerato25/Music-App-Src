@@ -88,7 +88,7 @@ public class SaavnWebView extends AppCompatActivity {
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             exitToast.cancel();
-            startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+            startActivity(new Intent(getApplicationContext(), SearchSongs.class));
             overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
             return;
         }
@@ -236,7 +236,7 @@ public class SaavnWebView extends AppCompatActivity {
                 v.startAnimation(animation1);
                 //-------------------------//
 
-                startActivity(new Intent(getApplicationContext(),Settings_Alb.class));
+                startActivity(new Intent(getApplicationContext(), SettingsAlbum.class));
                 overridePendingTransition(R.anim.slide_in_down,  R.anim.slide_out_down);
 
             }
@@ -386,7 +386,7 @@ public class SaavnWebView extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Intent toDownloadList = new Intent(getApplicationContext(),Album_Song_List.class);
+            Intent toDownloadList = new Intent(getApplicationContext(), AlbumSongList.class);
             toDownloadList.putExtra("TYPE_ID",s);
             toDownloadList.putExtra("TYPE",songType);
             toDownloadList.putExtra("PREV_ACT","WEB_ACT");
@@ -442,7 +442,7 @@ public class SaavnWebView extends AppCompatActivity {
         animation1.setDuration(1000);
         v.startAnimation(animation1);
         //-------------------------//
-        startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+        startActivity(new Intent(getApplicationContext(), SearchSongs.class));
         overridePendingTransition(R.anim.slide_in_left , R.anim.slide_out_right);
     }
     public void wBtmBrws(View v){
@@ -459,7 +459,7 @@ public class SaavnWebView extends AppCompatActivity {
         animation1.setDuration(1000);
         v.startAnimation(animation1);
         //-------------------------//
-        startActivity(new Intent(getApplicationContext(),Downloads_Page.class));
+        startActivity(new Intent(getApplicationContext(), DownloadsPage.class));
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
     public void wBtmMore(View v){

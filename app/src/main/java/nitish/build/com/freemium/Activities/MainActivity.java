@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -37,35 +38,116 @@ import nitish.build.com.freemium.R;
 
 
 public class MainActivity extends AppCompatActivity {
-    String finUrl,resName,resID,str_ptrn,str_NamePtrn,chanelId="test_chnl";
-    TextView tv_Album_ID,tv_Album_Name;
-    EditText et_url;
-    int notificationID = 100;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
+        clearPersistentData();
+        setStatusBarColor();
+        fetNewData();
+        showSplashScreen(700);
+        goToHomePage();
 
-//    String finString="failed";
+    }
 
-    //https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=10Tj7i5utEXaBoJpo74eYdc2sH1jtGoEx-bBiVNwcpAo&sheet=Sheet1
-    //https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1f-u1MlaVpJKKL1JFIV-g6unzs5YyvBIGA1fpiph3umU&sheet=Sheet1
+    private void clearPersistentData() {
+        SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref_main.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    private void fetNewData() {
+        new InfoUpdate().execute();
+    }
+
+    private void showSplashScreen(int duration) {
+        ImageView splash = findViewById(R.id.ic_splash);
+        YoYo.with(Techniques.FadeIn)
+                .duration(duration)
+                .playOn(splash);
+    }
+
+    private void setStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkAccent));
+        }
+    }
+
+    private void goToHomePage() {
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                /* Create an Intent that will start the Menu-Activity. */
+                Intent mainIntent = new Intent(MainActivity.this, SearchSongs.class);
+                MainActivity.this.startActivity(mainIntent);
+                MainActivity.this.finish();
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            }
+        }, 700);
+    }
 
     class InfoUpdate extends AsyncTask<Void,Void,String[]>{
         @Override
         protected String[] doInBackground(Void... voids) {
             Log.i("Thop_Stuff","1:started");
-            String thopulu = DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=10Tj7i5utEXaBoJpo74eYdc2sH1jtGoEx-bBiVNwcpAo&sheet=Sheet1");
-//            Log.i("Thop_Stuff","1:"+thopulu);
+            String userContent = getUserContent();
+            String serverValues = getServervalues();
+            String deviceID = getDeviceID();
+            String[] values = getRefactoredValues(userContent, serverValues, deviceID);
+            return values;
+        }
 
-           String serverID="1FZQ5RujUUWoPvU7byPsq-oCrLsUE_bghZa6vYBKzbS0"; //production
+        @Override
+        protected void onPostExecute(String[] strings) {
+            super.onPostExecute(strings);
+            if (!strings[0].equals("FAILED")){
+                persistValuesToSharedPref(strings);
+            }
+        }
+
+        private String getDeviceID() {
+            return android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+        }
+
+        private String getServervalues() {
+            String serverID="1FZQ5RujUUWoPvU7byPsq-oCrLsUE_bghZa6vYBKzbS0"; //production
 //            String serverID="1f-u1MlaVpJKKL1JFIV-g6unzs5YyvBIGA1fpiph3umU"; //Staging
+            return DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id="+serverID+"&sheet=Sheet1");
+        }
 
-            String serverValues = DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id="+serverID+"&sheet=Sheet1");
-//            Log.i("Thop_Stuff","2:"+serverValues);
+        private String getUserContent() {
+            return DataHandlers.getContent("https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=10Tj7i5utEXaBoJpo74eYdc2sH1jtGoEx-bBiVNwcpAo&sheet=Sheet1");
+        }
 
-            String unique_id = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+        private void persistValuesToSharedPref(String[] strings) {
+            SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
+            SharedPreferences.Editor editor=pref_main.edit();
+            if (strings[0].equals("true"))
+                editor.putBoolean(getResources().getString(R.string.sc_thope),true).apply();
+            else
+                editor.putBoolean(getResources().getString(R.string.sc_thope),false).apply();
+            editor.putString(getResources().getString(R.string.sc_app_id),strings[1]).apply();
+            editor.putString(getResources().getString(R.string.sc_banner1),strings[2]).apply();
+            editor.putString(getResources().getString(R.string.sc_inter1),strings[3]).apply();
+            editor.putString(getResources().getString(R.string.sc_amount),strings[4].replace("i","")).apply();
+            editor.putString(getResources().getString(R.string.sc_pay_link),strings[5]).apply();
+            editor.putString(getResources().getString(R.string.sc_inter2),strings[6]).apply();
+            editor.putString(getResources().getString(R.string.sc_banner2),strings[7]).apply();
+            editor.putString(getResources().getString(R.string.sc_banner3),strings[8]).apply();
+            editor.putString(getResources().getString(R.string.sc_banner4),strings[9]).apply();
+            editor.putString(getResources().getString(R.string.sc_banner5),strings[10]).apply();
+            editor.putString(getResources().getString(R.string.sc_banner6),strings[11]).apply();
+        }
+
+        @NotNull
+        private String[] getRefactoredValues(String userContent, String serverValues, String deviceID) {
             String[] values = new String[12];
             values[0]="FAILED";
-            if (thopulu.contains(unique_id)){
+            if (userContent.contains(deviceID)){
                 values[0] = "true";
             }else
                 values[0]= "false";
@@ -88,89 +170,9 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
                 values[0]="FAILED";
             }
-
             return values;
         }
-
-        @Override
-        protected void onPostExecute(String[] strings) {
-            super.onPostExecute(strings);
-            if (!strings[0].equals("FAILED")){
-                SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.server_constants),MODE_PRIVATE);
-                SharedPreferences.Editor editor=pref_main.edit();
-                if (strings[0].equals("true"))
-                    editor.putBoolean(getResources().getString(R.string.sc_thope),true).apply();
-                else
-                    editor.putBoolean(getResources().getString(R.string.sc_thope),false).apply();
-                editor.putString(getResources().getString(R.string.sc_app_id),strings[1]).apply();
-                editor.putString(getResources().getString(R.string.sc_banner1),strings[2]).apply();
-                editor.putString(getResources().getString(R.string.sc_inter1),strings[3]).apply();
-                editor.putString(getResources().getString(R.string.sc_amount),strings[4].replace("i","")).apply();
-                editor.putString(getResources().getString(R.string.sc_pay_link),strings[5]).apply();
-                editor.putString(getResources().getString(R.string.sc_inter2),strings[6]).apply();
-                editor.putString(getResources().getString(R.string.sc_banner2),strings[7]).apply();
-                editor.putString(getResources().getString(R.string.sc_banner3),strings[8]).apply();
-                editor.putString(getResources().getString(R.string.sc_banner4),strings[9]).apply();
-                editor.putString(getResources().getString(R.string.sc_banner5),strings[10]).apply();
-                editor.putString(getResources().getString(R.string.sc_banner6),strings[11]).apply();
-//                Log.i("Thop_Stuff","2:"+strings[0]+strings[1]+strings[2]+strings[3]+strings[4]+strings[5]);
-            }
-        }
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),MODE_PRIVATE);
-        SharedPreferences.Editor editor=pref_main.edit();
-        editor.clear();
-
-        editor.commit();
-//        Toast.makeText(getApplicationContext(), "Beta Release", Toast.LENGTH_SHORT).show();
-//        //-----------Permission part------------------//
-//        String permission1 = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-//        String permission2 = android.Manifest.permission.READ_EXTERNAL_STORAGE;
-//        if (getApplicationContext().checkCallingOrSelfPermission(permission1)== PackageManager.PERMISSION_DENIED){
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-//                1);
-//        }
-//        if (getApplicationContext().checkCallingOrSelfPermission(permission2)== PackageManager.PERMISSION_DENIED) {
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                    1);
-//        }
-//        //---------------Done Permission--------------//
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkAccent));
-        }
-
-        new InfoUpdate().execute();
-
-        ImageView splash = findViewById(R.id.ic_splash);
-        YoYo.with(Techniques.FadeIn)
-                .duration(700)
-                .playOn(splash);
-
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(MainActivity.this,Search_Songs.class);
-                MainActivity.this.startActivity(mainIntent);
-                MainActivity.this.finish();
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-            }
-        }, 700);
-
-    }
-
-
-
 
 
 }

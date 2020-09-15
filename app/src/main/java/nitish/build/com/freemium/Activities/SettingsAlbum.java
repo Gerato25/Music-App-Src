@@ -47,7 +47,7 @@ import java.io.File;
 import nitish.build.com.freemium.R;
 
 
-public class Settings_Alb extends AppCompatActivity {
+public class SettingsAlbum extends AppCompatActivity {
     RadioGroup rg_kbps,rg_format;
     TextView tv_path,set_down_path,tv_cur_fn_format,set_change_dir;
     Button btn_save,btn_cancel;
@@ -76,7 +76,7 @@ public class Settings_Alb extends AppCompatActivity {
 //            Snackbar.make(findViewById(android.R.id.content),"Your settings wont be saved.",Snackbar.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "Your settings wont be saved.", Toast.LENGTH_SHORT).show();
         if (is_fromAlb){
-            Intent to_init = new Intent(getApplicationContext(),Search_Songs.class);
+            Intent to_init = new Intent(getApplicationContext(), SearchSongs.class);
             to_init.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(to_init);
             overridePendingTransition(R.anim.slide_in_up  ,  R.anim.slide_out_up);
@@ -105,7 +105,7 @@ public class Settings_Alb extends AppCompatActivity {
                     set_down_path.setText("/" + filePath + "/FREEMIUM_DOWNLOADS/");
                 }catch (Exception e){
                     e.printStackTrace();
-                    new AlertDialog.Builder(Settings_Alb.this)
+                    new AlertDialog.Builder(SettingsAlbum.this)
                             .setTitle("Try again \uD83D\uDE14 !")
                             .setMessage("If this happens again.This feature might not be working in your device. Please report the bug to resolve the error.")
                             .setPositiveButton("Ok", null)
@@ -242,10 +242,10 @@ public class Settings_Alb extends AppCompatActivity {
         else
             rb_m4a.setChecked(true);
 
-        StorageChooser.Theme theme = new StorageChooser.Theme(Settings_Alb.this);
+        StorageChooser.Theme theme = new StorageChooser.Theme(SettingsAlbum.this);
         theme.setScheme(theme.getDefaultDarkScheme());
         chooser = new StorageChooser.Builder()
-                .withActivity(Settings_Alb.this)
+                .withActivity(SettingsAlbum.this)
                 .withFragmentManager(getFragmentManager())
                 .withMemoryBar(true).allowAddFolder(true).disableMultiSelect()
                 .allowCustomPath(true).setTheme(theme)
@@ -317,7 +317,7 @@ public class Settings_Alb extends AppCompatActivity {
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
                     cb_hide_albumArt.setChecked(false);
-                    new AlertDialog.Builder(Settings_Alb.this)
+                    new AlertDialog.Builder(SettingsAlbum.this)
                             .setTitle("Sorry \uD83D\uDE14 !")
                             .setMessage("This feature is currently enabled only for devices with Android Oreo and Above.")
                             .setPositiveButton("Ok", null)

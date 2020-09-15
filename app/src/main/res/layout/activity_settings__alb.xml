@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkAccent"
-    tools:context=".Activities.Settings_Alb">
+    tools:context=".Activities.SettingsAlbum">
 
     <TextView
         android:id="@+id/textView23"

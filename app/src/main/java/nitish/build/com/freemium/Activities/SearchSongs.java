@@ -73,7 +73,7 @@ import nitish.build.com.freemium.Fragments.FragSearchTop;
 import nitish.build.com.freemium.Handlers.DataHandlers;
 import nitish.build.com.freemium.R;
 
-public class Search_Songs extends AppCompatActivity {
+public class SearchSongs extends AppCompatActivity {
     String query=" ",searchRes;
     int listSize=0;
     JSONArray searchList;
@@ -195,7 +195,7 @@ public class Search_Songs extends AppCompatActivity {
 
 
         if (!isNetworkAvailable()){
-            new AlertDialog.Builder(Search_Songs.this)
+            new AlertDialog.Builder(SearchSongs.this)
                     .setTitle("Not Connected to internet?")
                     .setMessage("This app requires active internet connetion otherwise there is a fair chance for app crash.")
                     .setPositiveButton("Ok",null)
@@ -248,12 +248,12 @@ public class Search_Songs extends AppCompatActivity {
         String permission1 = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
         String permission2 = android.Manifest.permission.READ_EXTERNAL_STORAGE;
         if (getApplicationContext().checkCallingOrSelfPermission(permission1)== PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(Search_Songs.this,
+            ActivityCompat.requestPermissions(SearchSongs.this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     1);
         }
         if (getApplicationContext().checkCallingOrSelfPermission(permission2)== PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(Search_Songs.this,
+            ActivityCompat.requestPermissions(SearchSongs.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     1);
         }
@@ -404,7 +404,7 @@ public class Search_Songs extends AppCompatActivity {
                     String date = mainObj.getString("Date");
 
                     ViewDialog viewDialog=new ViewDialog(version+"   "+date,description,url);
-                    viewDialog.showDialog(Search_Songs.this);
+                    viewDialog.showDialog(SearchSongs.this);
                     SharedPreferences pref_main = getApplicationContext().getSharedPreferences(getResources().getString(R.string.pref_main),Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref_main.edit();
                     editor.putBoolean(getResources().getString(R.string.pref_update),true).apply();
@@ -525,7 +525,7 @@ public class Search_Songs extends AppCompatActivity {
         animation1.setDuration(1000);
         v.startAnimation(animation1);
         //-------------------------//
-//        startActivity(new Intent(getApplicationContext(),Search_Songs.class));
+//        startActivity(new Intent(getApplicationContext(),SearchSongs.class));
     }
     public void sBtmBrws(View v){
         //------Animation-----------//
@@ -542,7 +542,7 @@ public class Search_Songs extends AppCompatActivity {
         animation1.setDuration(1000);
         v.startAnimation(animation1);
         //-------------------------//
-        startActivity(new Intent(getApplicationContext(),Downloads_Page.class));
+        startActivity(new Intent(getApplicationContext(), DownloadsPage.class));
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
     public void sBtmMore(View v){
